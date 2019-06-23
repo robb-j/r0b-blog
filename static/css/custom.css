@@ -1,0 +1,13 @@
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+body > #content {
+  flex: 1;
+}
+
+footer.page-footer {
+  border-bottom-color: #93374e;
+}

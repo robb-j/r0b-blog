@@ -1,0 +1,5 @@
+baseURL = "http://blog.r0b.io/"
+languageCode = "en-gb"
+title = "Rob's Ramblings"
+theme = "r0b-blog"
+disableKinds = ["taxonomy", "taxonomyTerm"]
