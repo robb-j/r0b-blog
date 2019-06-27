@@ -12,7 +12,7 @@ module.exports = function(config) {
   })
   
   // Group posts into collections without tags
-  config.addCollection("posts", function(collection) {
+  config.addCollection("post", function(collection) {
     return collection.getFilteredByGlob("post/*.md");
   });
   
