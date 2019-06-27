@@ -1,6 +1,9 @@
 ---
 title: r0b's random ramblings
+layout: layouts/home.njk
 ---
+
+# r0b's random ramblings
 
 Yeah, but your scientists were so preoccupied with whether or not they could, they didn't stop to think if they should. I gave it a cold? I gave it a virus. A computer virus. Just my luck, no ice. Life finds a way. God help us, we're in the hands of engineers.
 

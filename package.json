@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "@robb_j/r0b-design": "^0.2.1"
+    "@11ty/eleventy": "^0.8.3",
+    "@robb_j/r0b-design": "^0.2.4"
   },
   "devDependencies": {},
   "scripts": {
