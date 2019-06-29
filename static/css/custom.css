@@ -16,7 +16,6 @@ footer.page-footer {
   background: #93374e;
 }
 
-
 .a4-page.is-post-it {
   max-width: 680px;
   margin: auto;
@@ -39,7 +38,7 @@ footer.page-footer {
 }
 
 .post-summary {
-  margin-bottom: 5rem
+  margin-bottom: 5rem;
 }
 
 .post-summary a {
