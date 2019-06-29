@@ -62,6 +62,10 @@ module.exports = function(config) {
     value => DateTime.fromJSDate(value).toFormat('cccc, d LLLL yyyy')
   )
   
+  config.addFilter('jsonDate',
+    value => value.toISOString()
+  )
+  
   // Group posts into collections without tags
   config.addCollection("posts", function(collection) {
     return collection.getFilteredByGlob("post/*.md");
