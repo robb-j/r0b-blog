@@ -4,10 +4,75 @@ body {
   flex-direction: column;
 }
 
-body > #content {
+body > main {
   flex: 1;
 }
 
 footer.page-footer {
   border-bottom-color: #93374e;
+}
+
+.navbar {
+  background: #93374e;
+}
+
+
+.a4-page.is-post-it {
+  max-width: 680px;
+  margin: auto;
+}
+
+.post-section {
+  max-width: 1020px;
+  margin: auto;
+  position: relative;
+}
+
+.post-section .buttons {
+  position: absolute;
+  top: -0.5em;
+  right: 1.5rem;
+}
+
+.post-section .buttons .button {
+  font-size: 1em;
+}
+
+.post-summary {
+  margin-bottom: 5rem
+}
+
+.post-summary a {
+  color: #4a4a4a;
+}
+
+.post-summary a::after {
+  font-weight: 600;
+  content: ' →';
+  color: #aaa;
+}
+
+.post-summary a:hover {
+  color: #392b58;
+  text-decoration: underline;
+  text-decoration-color: #aaa;
+}
+
+.button.is-rss {
+  background-color: #f89939;
+  border-color: transparent;
+  color: white;
+}
+
+.post-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.post-info p {
+  color: inherit;
+}
+
+.breadcrumbs {
+  /* margin-bottom: 0.8em */
 }

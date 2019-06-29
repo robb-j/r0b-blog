@@ -1,11 +1,30 @@
 {
-  "name": "blog",
+  "name": "@robb_j/r0b-blog",
+  "private": "true",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "dependencies": {
     "@11ty/eleventy": "^0.8.3",
-    "@robb_j/r0b-design": "^0.2.4"
+    "@11ty/eleventy-plugin-rss": "^1.0.6",
+    "@robb_j/r0b-design": "^0.2.5",
+    "eleventy-plugin-excerpt": "^1.1.1",
+    "eleventy-plugin-reading-time": "0.0.1",
+    "luxon": "^1.16.0",
+    "remark-parse": "^6.0.3",
+    "remark-retext": "^3.1.3",
+    "remark-stringify": "^6.0.4",
+    "retext-assuming": "^1.0.0",
+    "retext-contractions": "^3.0.0",
+    "retext-diacritics": "^2.0.0",
+    "retext-english": "^3.0.3",
+    "retext-equality": "^4.0.0",
+    "retext-indefinite-article": "^1.1.7",
+    "retext-overuse": "^1.1.1",
+    "retext-passive": "^2.0.0",
+    "retext-redundant-acronyms": "^2.0.0",
+    "retext-repeated-words": "^2.0.0",
+    "unified": "^8.0.0"
   },
   "devDependencies": {},
   "scripts": {

@@ -1,7 +1,46 @@
 ---
 layout: layouts/base.njk
 ---
+{% include 'navbar.njk' %}
 
-<div class="content">
-  {{ content | safe }}
-</div>
+<main>
+  
+  <div class="page-block is-magenta has-slope-after">
+    <section class="section">
+      <div class="container">
+        <div class="a4-page is-post-it">
+          <div class="buttons">
+            <a class="button is-text" href="{{ '/' | url }}">
+              <span class="icon">
+                {% include 'svg/left.svg' %}
+              </span>
+              <span>
+                Back
+              </span>
+            </a>
+          </div>
+          
+          <h1 class="title is-2"> {{ title }} </h1>
+          
+          <div class="subtitle is-4 post-info">
+            <p class="date"> {{ date | longDate }} </p>
+            <p class="readtime"> {{ content | readingTime }} read </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+  
+  <div class="page-block is-paper is-inbetween">
+    <section class="section">
+      <div class="container">
+        <div class="content is-size-4">
+          {{ content | safe }}
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+{% include 'footer.njk' %}

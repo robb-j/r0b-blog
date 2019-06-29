@@ -1,18 +1,69 @@
 const { join } = require('path')
+const pluginRss = require("@11ty/eleventy-plugin-rss")
+const { DateTime } = require('luxon')
+
+const unified = require('unified')
+const parseMarkdown = require('remark-parse')
+const stringify = require('remark-stringify')
+const remark2retext = require('remark-retext')
+
+const excerpt = require('eleventy-plugin-excerpt')
+const readingTime = require('eleventy-plugin-reading-time')
+
+// const english = require('retext-english')
+// const assuming = require('retext-assuming')
+// const contractions = require('retext-contractions')
+// const diacritics = require('retext-diacritics')
+// const equality = require('retext-equality')
+// const indefinteArticle = require('retext-indefinite-article')
+// const overuse = require('retext-overuse')
+// const passive = require('retext-passive')
+// const repeatedWords = require('retext-repeated-words')
+
+// const contentProcessor = unified()
+//   .use(parseMarkdown)
+//   .use(
+//     remark2retext,
+//     unified()
+//       .use(english)
+//       .use(assuming)
+//       .use(contractions)
+//       .use(diacritics)
+//       .use(equality)
+//       .use(indefinteArticle)
+//       .use(overuse)
+//       .use(passive)
+//       .use(repeatedWords)
+//   )
 
 module.exports = function(config) {
+  config.addPlugin(pluginRss)
+  config.addPlugin(excerpt)
+  config.addPlugin(readingTime)
+  
   config.addPassthroughCopy('node_modules/@robb_j/r0b-design/dist')
-  config.addPassthroughCopy('static/img')
-  config.addPassthroughCopy('static/css')
-  config.addPassthroughCopy('static/js')
+  config.addPassthroughCopy('static')
+  config.addPassthroughCopy('static')
+  config.addPassthroughCopy('static')
+  
+  // Generate exerpts for pages
+  // config.setFrontMatterParsingOptions({ excerpt: true });
   
   config.addFilter('r0bAsset', function(value) {
     if (!value) throw new Error('Invalid r0bAsset')
     return join('/node_modules/@robb_j/r0b-design/dist', value)
   })
   
+  config.addFilter('date', (value, format) => {
+    return DateTime.fromJSDate(value).toFormat(format)
+  })
+  
+  config.addFilter('longDate',
+    value => DateTime.fromJSDate(value).toFormat('cccc, d LLLL yyyy')
+  )
+  
   // Group posts into collections without tags
-  config.addCollection("post", function(collection) {
+  config.addCollection("posts", function(collection) {
     return collection.getFilteredByGlob("post/*.md");
   });
   
