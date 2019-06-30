@@ -9,7 +9,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint",
-    "prettier": "prettier --write '**/*.{js,json,css,md}'"
+    "prettier": "prettier --write '**/*.{js,json,css,md}'",
+    "deploy": "eleventy && rsync -azv --delete _site/* root@r0b.io:/srv/static/blog"
   },
   "keywords": [],
   "engines": {
