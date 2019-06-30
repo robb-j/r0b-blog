@@ -21,6 +21,10 @@ footer.page-footer {
   margin: auto;
 }
 
+.a4-page .buttons {
+  margin-bottom: 0;
+}
+
 .post-section {
   max-width: 1020px;
   margin: auto;
