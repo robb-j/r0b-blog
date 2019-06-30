@@ -19,7 +19,7 @@
   "dependencies": {
     "@11ty/eleventy": "^0.8.3",
     "@11ty/eleventy-plugin-rss": "^1.0.6",
-    "@robb_j/r0b-design": "^0.2.5",
+    "@robb_j/r0b-design": "^0.2.6",
     "eleventy-plugin-excerpt": "^1.1.1",
     "eleventy-plugin-reading-time": "0.0.1",
     "luxon": "^1.16.0",
