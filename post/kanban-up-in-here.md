@@ -87,14 +87,13 @@ The I have prioritised tasks for each day with satisfying check boxes.
 I realised then that I'd essentially created a backlog
 so I added that as a new section to my Kanban board, in between **Inbox** and **Doing**.
 
-## More refactors
+## Refactors, tweaks and changes
 
-I've been constantly tweaking and iterating this process, but
-
-- tagging
-- "Long term"
-- History mode
-- "Icebox"
+I've been using this system every day for about 2 years now.
+It's been adapted and tweaked a lot, but the format is mostly the same.
+I use tags to categorise work/personal tasks,
+I added an icebox for tasks that didn't get done
+and I keep completed tasks grouped by month.
 
 ---
 
