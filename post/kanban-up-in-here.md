@@ -2,6 +2,7 @@
 title: Kanbaning my life ... because why not
 layout: layouts/post
 date: 2019-09-30
+draft: true
 ---
 
 So yeah, I use a Kanban to organise ... like everything I do and yes I love it.

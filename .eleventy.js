@@ -62,6 +62,10 @@ module.exports = function(config) {
     DateTime.fromJSDate(value).toFormat('cccc, d LLLL yyyy')
   )
 
+  config.addFilter('isPublished', value =>
+    value.filter(v => v.data.draft !== true)
+  )
+
   config.addFilter('jsonDate', value => value.toISOString())
 
   config.addFilter('arrSlice', (value, begin, end) => value.slice(begin, end))
