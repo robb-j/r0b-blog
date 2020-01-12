@@ -251,7 +251,6 @@ const elements = (
 )
 ```
 
-It will now pass the string `'fragment'` to `createElement`
 It will now pass whatever you set `pragmaFrag` to to your pragma method,
 which you can handle however you want.
 In this case it simply returns the child elements.
