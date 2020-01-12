@@ -1,2 +1,4 @@
-_site
-node_modules
+**/_site
+**/node_modules
+**/dist
+.DS_Store

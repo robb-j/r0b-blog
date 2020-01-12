@@ -1,5 +1,6 @@
 const { join } = require('path')
 const pluginRss = require('@11ty/eleventy-plugin-rss')
+const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight')
 const { DateTime } = require('luxon')
 
 // const unified = require('unified')
@@ -40,6 +41,7 @@ module.exports = function(config) {
   config.addPlugin(pluginRss)
   config.addPlugin(excerpt)
   config.addPlugin(readingTime)
+  config.addPlugin(syntaxHighlight)
 
   config.addPassthroughCopy('node_modules/@robb_j/r0b-design/dist')
   config.addPassthroughCopy('static')

@@ -26,7 +26,7 @@ footer.page-footer {
 }
 
 .post-section {
-  max-width: 1020px;
+  max-width: 880px;
   margin: auto;
   position: relative;
 }
@@ -81,7 +81,7 @@ footer.page-footer {
 }
 
 .blog-post .container {
-  max-width: 1020px;
+  max-width: 880px;
 }
 
 .content h1,
@@ -90,5 +90,58 @@ footer.page-footer {
 .content h4,
 .content h5,
 .content h6 {
+  color: #4a4a4a;
   font-weight: 900;
+}
+
+/* 
+  Code highlighting
+*/
+pre,
+code {
+  font-size: 0.8em;
+}
+
+.token.comment {
+  color: #7a7f8c;
+}
+.token.function,
+.token.attr-name {
+  color: #00ed78;
+}
+.token.property {
+  color: #80e3f4;
+}
+.token.string,
+.token.attr-value {
+  color: #e5ef8c;
+}
+.token.builtin,
+.token.keyword {
+  color: #ff7dc7;
+}
+.token.boolean {
+  color: #c69af4;
+}
+.token.parameter {
+  color: #ffb55c;
+  font-style: italic;
+}
+.token.punctuation {
+  color: #d6ecfd;
+}
+
+.token.tag {
+  color: #ff7dc7;
+  align-items: inherit;
+  background-color: inherit;
+  border-radius: inherit;
+  display: inherit;
+  font-size: inherit;
+  height: inherit;
+  justify-content: inherit;
+  line-height: inherit;
+  padding-left: inherit;
+  padding-right: inherit;
+  white-space: inherit;
 }
