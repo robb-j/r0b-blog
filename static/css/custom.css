@@ -25,10 +25,8 @@ footer.page-footer {
   margin-bottom: 0;
 }
 
-.post-section {
+.post-section .container {
   max-width: 880px;
-  margin: auto;
-  position: relative;
 }
 
 .post-section .buttons {
