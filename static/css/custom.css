@@ -95,8 +95,7 @@ footer.page-footer {
 /* 
   Code highlighting
 */
-pre,
-code {
+pre {
   font-size: 0.8em;
 }
 
@@ -142,4 +141,22 @@ code {
   padding-left: inherit;
   padding-right: inherit;
   white-space: inherit;
+}
+
+.post .content {
+  font-size: 1.25em;
+}
+
+@media screen and (max-width: 768px) {
+  section.section {
+    padding: 3rem 1rem;
+  }
+  .content blockquote,
+  .content pre {
+    padding: 0.75rem 0.9rem;
+  }
+
+  .post .content {
+    font-size: 1.1em;
+  }
 }

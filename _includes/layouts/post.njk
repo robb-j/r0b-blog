@@ -1,10 +1,10 @@
 ---
 layout: layouts/base.njk
 ---
+
 {% include 'navbar.njk' %}
 
-<main>
-  
+<main class="post">
   <div class="page-block is-magenta has-slope-after">
     <section class="section">
       <div class="container">
@@ -19,24 +19,22 @@ layout: layouts/base.njk
               </span>
             </a>
           </div>
-          
-          <h1 class="title is-2 is-size-3-mobile"> {{ title }} </h1>
-          
+
+          <h1 class="title is-2 is-size-3-mobile">{{ title }}</h1>
+
           <div class="subtitle is-4 is-size-6-mobile post-info">
-            <p class="date"> {{ date | longDate }} </p>
-            <p class="readtime"> {{ content | readingTime }} read </p>
+            <p class="date">{{ date | longDate }}</p>
+            <p class="readtime">{{ content | readingTime }} read</p>
           </div>
         </div>
       </div>
     </section>
   </div>
-  
-  
+
   <div class="page-block is-paper is-inbetween">
     <section class="section blog-post">
       <div class="container">
-        <div class="content is-size-4">
-          <h1>{{ title }}</h1>
+        <div class="content">
           {{ content | safe }}
         </div>
       </div>

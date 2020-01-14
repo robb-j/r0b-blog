@@ -68,6 +68,10 @@ module.exports = function(config) {
     value.filter(v => v.data.draft !== true)
   )
 
+  config.addFilter('newestFirst', collection => {
+    return [...collection].sort((a, b) => b.date - a.date)
+  })
+
   config.addFilter('jsonDate', value => value.toISOString())
 
   config.addFilter('arrSlice', (value, begin, end) => value.slice(begin, end))

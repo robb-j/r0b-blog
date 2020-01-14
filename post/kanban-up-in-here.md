@@ -1,6 +1,5 @@
 ---
 title: Kanbaning my life ... because why not
-layout: layouts/post
 date: 2019-09-30
 draft: true
 ---

@@ -1,6 +1,7 @@
 ---
 layout: layouts/base.njk
 ---
+
 {% include 'navbar.njk' %}
 
 <main>
@@ -13,27 +14,41 @@ layout: layouts/base.njk
       </div>
     </section>
   </div>
-  
+
   <div class="page-block is-paper is-inbetween">
     <section class="section post-section">
       <div class="container">
         <p class="buttons is-right">
-          <a class="button is-circle is-twitter" href="https://twitter.com/Robbb_J">
+          <a
+            class="button is-circle is-twitter"
+            href="https://twitter.com/Robbb_J"
+          >
             <svg>
-              <use xlink:href="{{'fa/twitter-brands.svg' | r0bAsset | url}}#twitter"></use>
+              <use
+                xlink:href="{{
+                  'fa/twitter-brands.svg' | r0bAsset | url
+                }}#twitter"
+              ></use>
             </svg>
           </a>
-          <a class="button is-circle is-github" href="https://github.com/robb-j">
+          <a
+            class="button is-circle is-github"
+            href="https://github.com/robb-j"
+          >
             <svg>
-              <use xlink:href="{{'fa/github-brands.svg' | r0bAsset | url}}#github"></use>
+              <use
+                xlink:href="{{
+                  'fa/github-brands.svg' | r0bAsset | url
+                }}#github"
+              ></use>
             </svg>
           </a>
           <a class="button is-circle is-rss" href="{{ '/feed.xml' | url }}">
             {% include 'svg/rss.svg' %}
           </a>
         </p>
-          
-        {% for post in collections.posts | isPublished %}
+
+        {% for post in collections.posts | isPublished | newestFirst %}
         <article class="post-summary">
           <h2 class="title is-2">
             <a href="{{ post.url }}"> {{ post.data.title }}</a>
