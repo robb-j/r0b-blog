@@ -4,6 +4,8 @@ date: 2019-09-30
 draft: true
 ---
 
+> WIP
+
 So yeah, I use a Kanban to organise ... like everything I do and yes I love it.
 All my tasks become little cards and they jump and bounce around as they get done.
 I want to tell the story of my process, thinking about how it got to where it is
