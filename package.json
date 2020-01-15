@@ -11,7 +11,8 @@
     "lint": "eslint",
     "prettier": "prettier --write '**/*.{js,json,css,md}'",
     "serve": "eleventy --serve",
-    "deploy": "eleventy && rsync -azv --delete _site/* root@r0b.io:/srv/static/blog"
+    "deploy": "eleventy && rsync -azv --delete _site/* root@r0b.io:/srv/static/blog",
+    "build": "eleventy"
   },
   "keywords": [],
   "engines": {
