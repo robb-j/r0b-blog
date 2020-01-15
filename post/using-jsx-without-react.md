@@ -213,7 +213,7 @@ like the friend's mapping above:
 
 ## pragmaFrag
 
-There is another babel option which lets you handle
+There is another babel parameter which lets you handle
 [jsx short fragments](https://reactjs.org/docs/fragments.html#short-syntax).
 You can pass `pragmaFrag` in your `.babelrc` to tells babel how to handle fragments.
 
@@ -246,7 +246,7 @@ const elements = (
 )
 ```
 
-It will now pass whatever you set `pragmaFrag` to to your pragma method,
+It will now pass whatever you set `pragmaFrag` to your pragma method,
 which you can handle in any way you like.
 In this case `'fragment'` will get passed to `createElement`
 which the method handles by returning the child elements.
