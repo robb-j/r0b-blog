@@ -7,28 +7,42 @@ metadata:
     name: Rob Anderson
     email: rob@andrsn.uk
 ---
+
 <?xml version="1.0" encoding="utf-8"?>
-{% set absoluteFeedUrl %}{{ page.url | url | absoluteUrl(site.url) }}{% endset %}
+{% set absoluteFeedUrl %}{{ page.url | url | absoluteUrl(site.url) }}{% endset
+%}
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>{{ metadata.title }}</title>
   <subtitle>{{ metadata.subtitle }}</subtitle>
-  <link href="{{ absoluteFeedUrl }}" rel="self" type="application/atom+xml"/>
-  <link href="{{ site.url }}" rel="alternate" type="text/html"/>
+  <link href="{{ absoluteFeedUrl }}" rel="self" type="application/atom+xml" />
+  <link href="{{ site.url }}" rel="alternate" type="text/html" />
   <updated>{{ collections.posts | rssLastUpdatedDate }}</updated>
   <id>{{ absoluteFeedUrl }}</id>
   <author>
     <name>{{ metadata.author.name }}</name>
     <email>{{ metadata.author.email }}</email>
   </author>
-  <generator uri="https://www.11ty.io" version="{{ pkg.dependencies['@11ty/eleventy'].slice(1) }}">Eleventy</generator>
-  {%- for post in collections.posts %}
-  {% set absolutePostUrl %}{{ post.url | url | absoluteUrl(site.url) }}{% endset %}
+  <generator
+    uri="https://www.11ty.io"
+    version="{{ pkg.dependencies['@11ty/eleventy'].slice(1) }}"
+    >Eleventy</generator
+  >
+  {%- for post in collections.posts | isPublished | newestFirst %} {% set
+  absolutePostUrl %}{{ post.url | url | absoluteUrl(site.url) }}{% endset %}
   <entry>
     <title>{{ post.data.title }}</title>
-    <link href="{{ absolutePostUrl }}" rel="alternate" type="text/html" title="{{ post.data.title }}"/>
+    <link
+      href="{{ absolutePostUrl }}"
+      rel="alternate"
+      type="text/html"
+      title="{{ post.data.title }}"
+    />
     <updated>{{ post.date | rssDate }}</updated>
     <id>{{ absolutePostUrl }}</id>
-    <content type="html">{{ post.templateContent | htmlToAbsoluteUrls(absolutePostUrl) }}</content>
+    <content
+      type="html"
+      >{{ post.templateContent | htmlToAbsoluteUrls(absolutePostUrl) }}</content
+    >
   </entry>
   {%- endfor %}
 </feed>
