@@ -9,7 +9,7 @@ summary: >
 ---
 
 From my experience, jsx has always been synonomous with React.
-But jsx can in fact be used without React.
+But jsx can in fact be used without it.
 Jsx lets you write xml structures in javascript and apply your own meaning to them.
 You can see Facebook's [specification here](https://facebook.github.io/jsx/).
 
@@ -248,7 +248,8 @@ const elements = (
 
 It will now pass whatever you set `pragmaFrag` to to your pragma method,
 which you can handle however you want.
-In this case it simply returns the child elements.
+In this case `'fragment'` will get passed to `createElement`
+which the method handles by returning the child elements.
 This can be useful if you don't want to create too many extra dom elements.
 
 ---
