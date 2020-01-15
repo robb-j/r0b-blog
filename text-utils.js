@@ -88,7 +88,7 @@ async function textLinter(content, inputPath, outputPath) {
 
 function htmlTransformer(content, outputPath) {
   // Only run on html files
-  if (!outputPath.endsWith('.html')) return
+  if (!outputPath.endsWith('.html')) return content
 
   return htmlProcessor.process(content)
 }

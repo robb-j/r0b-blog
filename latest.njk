@@ -6,8 +6,8 @@ permalink: latest.json
   {
     "title": "{{ post.data.title }}",
     "link": "{{ post.url | url | absoluteUrl(site.url) }}",
-    "updated": "{{ post.date | jsonDate }}",
+    "date": "{{ post.date | jsonDate }}",
     "readingTime": "{{ post | readingTime }}",
-    "excerpt": "{% excerpt post %}"
+    "excerpt": "{{ post.data.summary | jsonString }}"
   }{% if not loop.last %},{% endif %}{% endfor %}
 ]

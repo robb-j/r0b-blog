@@ -35,6 +35,10 @@ module.exports = function(eleventyConfig) {
     DateTime.fromJSDate(value).toFormat('cccc, d LLLL yyyy')
   )
 
+  eleventyConfig.addFilter('jsonString', value =>
+    value.replace(/\s+/g, ' ').trim()
+  )
+
   eleventyConfig.addFilter('isPublished', value =>
     value.filter(v => v.data.draft !== true)
   )
