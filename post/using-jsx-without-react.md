@@ -20,8 +20,6 @@ Much like typescript is transpilled into javascript.
 
 ## What jsx does
 
-> I talk about babel here, but I presume other preprocessors work too
-
 Jsx is passed to babel and it converts your xml into javascript function calls.
 You pass a `pragma` option to babel which tells it how to process your xml.
 For instance if you set pragma to `createElement` and run this script through it:
@@ -193,27 +191,24 @@ function createElement(tagName, attrs = {}, ...children) {
 ```
 
 First it creates a dom element with `document.createElement`
-and assign the attributes passed to jsx onto with with `Object.assign`.
-This is the reason you use className inside jsx
-because it maps to the the element's [className](https://developer.mozilla.org/en-US/docs/Web/API/Element/className).
+and assigns the jsx attributes onto it with `Object.assign`.
+This lets you set most element properties like `id` or
+[Element#className](https://developer.mozilla.org/en-US/docs/Web/API/Element/className).
 
 Next it loops through the child elements,
 which have already been generated into dom elements with this function.
 With each element it adds them as a child.
-I chose [append](https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/append)
-because will also create text nodes for you from javascript strings.
-It checks for nested arrays so it can add any nested children,
+I chose [Window#append](https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/append)
+because will it create text nodes for you too.
+It checks for arrays children too so it can add any nested children,
 like the friend's mapping above:
 
 ```jsx
-const app = (
-  ...
-  <ul>
-    {friends.map(name => (
-      <li>{name}</li>
-    ))}
-  </ul>
-)
+<ul>
+  {friends.map(name => (
+    <li>{name}</li>
+  ))}
+</ul>
 ```
 
 ## pragmaFrag
