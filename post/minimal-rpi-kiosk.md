@@ -58,6 +58,7 @@ xset s noblank
 unclutter &
 chromium-browser http://yourfancywebsite.com \
   --window-size=1080,1920 \
+  --window-position=0,0 \
   --start-fullscreen \
   --kiosk \
   --incognito \
@@ -68,7 +69,9 @@ chromium-browser http://yourfancywebsite.com \
   --fast-start \
   --disable-infobars \
   --disable-features=TranslateUI \
-  --disk-cache-dir=/dev/null
+  --disk-cache-dir=/dev/null \
+  --overscroll-history-navigation=0 \
+  --disable-pinch
 ```
 
 It disables the cursor and screensaver.
