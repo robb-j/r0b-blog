@@ -16,7 +16,7 @@ then installing chrome, then hacking away at it.
 I felt this was a waste as all I wanted was to run chrome.
 I didn't need a window manager,
 or any of the countless pre-installed apps that come with raspbian.
-I wanted a minimal footprint on the pi, with hopefully just chrome.
+I wanted a minimal footprint on the pi, with hopefully only chrome.
 
 Then I found [this blog post](https://www.sylvaindurand.org/launch-chromium-in-kiosk-mode/),
 which promised to do all of that.

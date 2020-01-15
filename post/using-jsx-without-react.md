@@ -247,7 +247,7 @@ const elements = (
 ```
 
 It will now pass whatever you set `pragmaFrag` to to your pragma method,
-which you can handle however you want.
+which you can handle in any way you like.
 In this case `'fragment'` will get passed to `createElement`
 which the method handles by returning the child elements.
 This can be useful if you don't want to create too many extra dom elements.
@@ -255,6 +255,6 @@ This can be useful if you don't want to create too many extra dom elements.
 ---
 
 That's what I know about using jsx without react.
-I've found it useful for tidying up small web apps which just need dom access.
+I've found it useful for tidying up small web apps which only need dom access.
 
 You can find the example at [robb-j/r0b-blog](https://github.com/robb-j/r0b-blog/tree/master/examples/jsx-without-react)
