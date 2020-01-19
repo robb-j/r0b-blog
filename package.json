@@ -30,7 +30,6 @@
     "rehype-preset-minify": "^4.0.0",
     "rehype-retext": "^2.0.3",
     "rehype-stringify": "^6.0.1",
-    "retext-assuming": "^1.0.0",
     "retext-diacritics": "^2.0.0",
     "retext-english": "^3.0.4",
     "retext-equality": "^4.5.0",
