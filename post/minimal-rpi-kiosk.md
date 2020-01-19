@@ -1,7 +1,7 @@
 ---
 title: A minimal kiosk mode for a Raspberry Pi
 date: 2020-01-20
-draft: true
+draft: false
 summary: >
   When you need a Raspberry Pi to just display a webpage, you don't really need
   an entire operating system and window manager. This was my solution.
