@@ -1,10 +1,9 @@
 ---
 title: 'Tales from the bashrc: npr'
-date: 2020-01-20
-draft: true
+date: 2020-01-27
+draft: false
 summary: >
-  When you need a Raspberry Pi to just display a webpage, you don't really need
-  an entire operating system and window manager. This was my solution.
+  I added a new alias to my repertoire to make running npm commands more usable.
 ---
 
 ```bash
