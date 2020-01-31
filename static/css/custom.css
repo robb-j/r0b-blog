@@ -74,6 +74,18 @@ footer.page-footer {
   color: inherit;
 }
 
+.post-alert {
+  color: #4a4a4a;
+  font-size: 3rem;
+  text-align: center;
+  text-transform: uppercase;
+  border-top: 2px dashed #ccc;
+  border-bottom: 2px dashed #ccc;
+  margin-bottom: 3rem;
+  padding: 0.8rem 0;
+  font-weight: 900;
+}
+
 .breadcrumbs {
   /* margin-bottom: 0.8em */
 }
@@ -90,6 +102,11 @@ footer.page-footer {
 .content h6 {
   color: #4a4a4a;
   font-weight: 900;
+}
+
+.content a,
+.content code {
+  word-break: break-word;
 }
 
 /* 

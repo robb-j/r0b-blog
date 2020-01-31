@@ -34,6 +34,10 @@ layout: layouts/base.njk
   <div class="page-block is-paper is-inbetween">
     <section class="section blog-post">
       <div class="container">
+        {% if draft %}
+        <h2 class="post-alert">Draft</h2>
+        {% endif%}
+
         <div class="content">
           {{ content | safe }}
         </div>
