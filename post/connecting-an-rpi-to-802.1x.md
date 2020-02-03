@@ -1,19 +1,21 @@
 ---
 title: Connecting a Raspberry pi to 802.1x WiFi
-date: 2020-02-05
-draft: true
+date: 2020-02-03
+draft: false
 summary: >
   I've been playing around with Pis while on University Pi's recently
   so I want to document this non-simple process.
 ---
 
-First you'll want to conenct the pi to your laptop directly via ethernet
-or [ssh-over-usb](https://desertbot.io/blog/ssh-into-pi-zero-over-usb)
-if you're using a pi Zero with it enabled.
+First you'll want to connect your pi either via ethernet,
+an actual keyboard & monitor
+or [ssh-over-usb](https://desertbot.io/blog/ssh-into-pi-zero-over-usb) if you're fancy.
 All the wifi config on a pi is setup in `/etc/wpa_supplicant/wpa_supplicant.conf`.
 
 First though, you need to generate a hash of your password,
-so your password isn't stored in plaintext on the very-hackable pi.
+so your password isn't stored in plaintext on the
+[very-hackable](https://www.raspberrypi-spy.co.uk/2014/08/how-to-reset-a-forgotten-raspberry-pi-password/)
+pi.
 
 ```bash
 # ssh you@yourpi.local
@@ -29,7 +31,7 @@ PASSWORD=abcdef123abcdef123abcdef123
 unset pass
 ```
 
-Now you can start editing your wpa_supplicant.conf file:
+Now you can start editing your `wpa_supplicant.conf` file:
 
 ```bash
 sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
@@ -49,6 +51,7 @@ Then add a network block for the connection you want to conenct to.
 Where `$SSID` is the name of the router,
 `$USERNAME` is your username for the wifi
 and `$PASSWORD` is the hash from above.
+Be careful with the quotes!
 
 ```
 network = {
@@ -63,6 +66,8 @@ network = {
 	password=hash:$PASSWORD
 }
 ```
+
+> These work for the 802.1x wifi I'm connecting to
 
 Now you can use the `wpa_cli` to restart the pi's network interface.
 
