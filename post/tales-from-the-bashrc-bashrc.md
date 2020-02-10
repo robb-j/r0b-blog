@@ -15,7 +15,8 @@ It simply edits my bashrc and automatically reloads the config into the current 
 I think I just found it faffy to edit the right file on mac,
 only to try the thing I changed and realised I forgot to source the file too.
 
-It also works for zshrc too, although it does take a bit longer to re-source a zshrc.
+It also works for zshrc too, although it does take a bit longer to re-source a zshrc
+(maybe because I'm using oh-my-zsh).
 
 ```bash
 alias zshrc='nano ~/.zshrc && source ~/.zshrc'
