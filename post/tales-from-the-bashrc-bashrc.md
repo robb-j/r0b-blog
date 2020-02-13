@@ -1,7 +1,7 @@
 ---
 title: 'Tales from the bashrc: bashrc'
-date: 2020-02-10
-draft: true
+date: 2020-02-13
+draft: false
 summary: >
   I added a command to make adding commands easier.
 ---
