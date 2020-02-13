@@ -30,7 +30,7 @@ jobs:
         run: npm run build
 
       - name: Zip assets
-        run: tar -zcvf archive.tar.gz -C dist .
+        run: tar -zcvf archive.tar.gz -C _site .
 
       - name: Upload zip
         run: 'curl --silent --header "Authorization: Bearer $DEPLOY_KEY" --form archive=@archive.tar.gz $DEPLOY_URL'
