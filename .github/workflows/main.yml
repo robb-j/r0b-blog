@@ -1,0 +1,39 @@
+name: Generate and deploy site
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache node modules
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Install Dependencies
+        run: npm install --no-fund --no-audit --production
+
+      - name: Build assets
+        run: npm run build
+
+      - name: Zip assets
+        run: tar -zcvf archive.tar.gz -C dist .
+
+      - name: Upload zip
+        run: 'curl --silent --header "Authorization: Bearer $DEPLOY_KEY" --form archive=@archive.tar.gz $DEPLOY_URL'
+        env:
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+          DEPLOY_URL: ${{ secrets.DEPLOY_URL }}
