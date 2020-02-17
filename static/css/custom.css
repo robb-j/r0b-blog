@@ -105,7 +105,7 @@ footer.page-footer {
 }
 
 .content a,
-.content code {
+.content :not(pre) code {
   word-break: break-word;
 }
 
