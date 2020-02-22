@@ -1,6 +1,6 @@
 ---
 title: Spoofing a Raspberry Pi's mac address
-date: 2020-01-10
+date: 2020-02-22
 draft: false
 summary: >
   Sometimes you just want to fake a raspberry pi's mac address to appear as
