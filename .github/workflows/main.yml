@@ -23,6 +23,9 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
+      - name: test
+        run: ls -la; ls -la ~/.npm; ls -la node_modules
+
       - name: Install Dependencies
         run: npm install --no-fund --no-audit --production
 
