@@ -1,7 +1,7 @@
 ---
 title: Spoofing a Raspberry Pi's mac address
 date: 2020-01-10
-draft: true
+draft: false
 summary: >
   Sometimes you just want to fake a raspberry pi's mac address to appear as
   something else on the network. This is how to do that.
