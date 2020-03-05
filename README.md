@@ -1,4 +1,4 @@
-# r0b-blog
+# r0b-blog ![Generate and deploy site](https://github.com/robb-j/r0b-blog/workflows/Generate%20and%20deploy%20site/badge.svg?branch=master)
 
 My personal blog, a static site generated with [11ty](https://www.11ty.dev/)
 using [r0b-design](https://github.com/robb-j/r0b-design/)
