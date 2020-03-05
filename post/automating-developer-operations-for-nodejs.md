@@ -22,7 +22,7 @@ The workflow is as follows:
 
 1. structure commits to describe changes to the application
 2. semantically version the app based on those commits
-3. automatically build container images based on those versions
+3. [not covered] automatically build container images based on those versions
 4. [not covered] some process for watching and deploying those images
 
 There are a couple of npm packages to help with this.
