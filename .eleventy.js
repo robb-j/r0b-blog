@@ -16,8 +16,7 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addPassthroughCopy('node_modules/@robb_j/r0b-design/dist')
   eleventyConfig.addPassthroughCopy('static')
-  eleventyConfig.addPassthroughCopy('static')
-  eleventyConfig.addPassthroughCopy('static')
+  eleventyConfig.addPassthroughCopy('admin')
 
   eleventyConfig.addLinter('r0b-retext', textLinter)
   eleventyConfig.addTransform('r0b-retext', htmlTransformer)
