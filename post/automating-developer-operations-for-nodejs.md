@@ -1,6 +1,6 @@
 ---
 title: Automating developer operations for Node.js
-date: 2020-03-03
+date: 2020-04-04
 draft: true
 summary: >
   I've been working on my GitOps for a while now and wanted to document 
@@ -31,7 +31,7 @@ There are a couple of npm packages to help with this.
 - [@commitlint/cli](https://www.npmjs.com/package/@commitlint/cli) is a utility for linting commit messages
 - [standard-version](https://www.npmjs.com/package/standard-version) analyses commits to version your app and generate changelogs
 
-## What is semantic versioning?
+## Semantic versioning
 
 This workflow uses semantic versioning to denote the changes to the application.
 From this you can see the relation between different versions
@@ -45,7 +45,7 @@ as they should be backwards compatable changes.
 
 > [More about Semantic versioning →](https://semver.org/)
 
-## What's a conventional commit?
+## Conventional commits
 
 Conventional commits are a standard for commit messages that describe the type of changes made.
 It also forces commits towards atomic single-concern commits,
@@ -74,7 +74,7 @@ I find the footer works nicely with
 
 > [More info on conventional commits →](https://www.conventionalcommits.org/en/v1.0.0-beta.2/)
 
-## So what's standard-version?
+## Standard version
 
 The final piece of the puzzle is standard version,
 it is a library that parses git commits to work out whats changed since the last version.
@@ -88,7 +88,7 @@ It will also create and `git tag` a commit for that version.
 
 When you push up a tag you then have a pipeline of your choice to build a container image.
 
-## How does the process look
+## The process
 
 ```bash
 # Commit your atomic change
@@ -122,7 +122,7 @@ git push --follow-tags origin master
 
 > Most of these can be done inside your favourite IDE
 
-## What's the setup?
+## Project setup
 
 Start by adding these dependencies
 
