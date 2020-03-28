@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const { join } = require('path')
 const pluginRss = require('@11ty/eleventy-plugin-rss')
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight')
@@ -13,6 +15,8 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(excerpt)
   eleventyConfig.addPlugin(readingTime)
   eleventyConfig.addPlugin(syntaxHighlight)
+
+  eleventyConfig.setQuietMode(true)
 
   eleventyConfig.addPassthroughCopy('node_modules/@robb_j/r0b-design/dist')
   eleventyConfig.addPassthroughCopy('static')
@@ -39,7 +43,9 @@ module.exports = function(eleventyConfig) {
   )
 
   eleventyConfig.addFilter('isPublished', value =>
-    value.filter(v => v.data.draft !== true)
+    value.filter(
+      v => v.data.draft !== true || process.env.NODE_ENV === 'development'
+    )
   )
 
   eleventyConfig.addFilter('newestFirst', collection => {
