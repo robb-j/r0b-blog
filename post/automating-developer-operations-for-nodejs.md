@@ -1,7 +1,7 @@
 ---
 title: Automating developer operations for Node.js
-date: 2020-04-04
-draft: true
+date: 2020-04-10
+draft: false
 summary: >
   I've been working on my GitOps for a while now and wanted to document 
   it all in one place.
@@ -9,7 +9,7 @@ summary: >
 
 Dev agility is all about getting your code into production as fast as possible
 and turning the time you invested into product value.
-The faster you can securely and reliably get your code into the hands of your users the better.
+The faster you can securely and reliably get your code into the hands of your users, the better.
 
 One part of this is packaging up code into containers, ready to be deployed on servers.
 Containers are great at defining the exact environment to run code in
@@ -39,7 +39,7 @@ and work out what changes are safe to be deployed.
 There are three parts to a semantic version `major.minor.patch`.
 If the application is a **major** change, e.g. 1.2.3 to 2.0.0,
 you know there is some extra work needed to migrate a deployment.
-If there is a **minor** or **patch** change, e.g. 2.0.0 to 2.0.1 or 2.1.0
+If there is a **minor** or **patch** change, e.g. going from 2.0.0 to 2.0.1 or 2.1.0
 you know it's safe to deploy the new version
 as it (should) only contain backwards compatable changes.
 
