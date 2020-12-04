@@ -8,7 +8,7 @@ const { DateTime } = require('luxon')
 const excerpt = require('eleventy-plugin-excerpt')
 const readingTime = require('eleventy-plugin-reading-time')
 
-const { textLinter, htmlTransformer } = require('./text-utils')
+// const { textLinter, htmlTransformer } = require('./text-utils')
 
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(pluginRss)
@@ -22,8 +22,8 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy('static')
   eleventyConfig.addPassthroughCopy('admin')
 
-  eleventyConfig.addLinter('r0b-retext', textLinter)
-  eleventyConfig.addTransform('r0b-retext', htmlTransformer)
+  // eleventyConfig.addLinter('r0b-retext', textLinter)
+  // eleventyConfig.addTransform('r0b-retext', htmlTransformer)
 
   eleventyConfig.addFilter('r0bAsset', value => {
     if (!value) throw new Error('Invalid r0bAsset')
