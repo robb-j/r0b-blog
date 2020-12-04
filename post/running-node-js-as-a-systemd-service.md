@@ -148,5 +148,5 @@ Congratulations! 🎉
 
 Useful links:
 
-- https://github.com/robb-j/blinkit/
-- https://nodesource.com/blog/running-your-node-js-app-with-systemd-part-1/
+- [github.com/robb-j/blinkit](https://github.com/robb-j/blinkit/)
+- [nodesource.com/blog/running-your-node-js-app-with-systemd-part-1](https://nodesource.com/blog/running-your-node-js-app-with-systemd-part-1/)
