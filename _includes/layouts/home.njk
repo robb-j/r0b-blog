@@ -9,6 +9,16 @@ layout: layouts/base.njk
     <section class="section">
       <div class="container">
         <div class="a4-page is-post-it">
+          <div class="buttons">
+            <a class="button is-text" href="{{ site.homeUrl }}">
+              <span class="icon">
+                {% include 'svg/home.svg' %}
+              </span>
+              <span>
+                Homepage
+              </span>
+            </a>
+          </div>
           <div class="content">{{ content | safe }}</div>
         </div>
       </div>
