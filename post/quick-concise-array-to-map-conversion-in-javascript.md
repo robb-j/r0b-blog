@@ -1,7 +1,7 @@
 ---
 title: Quick Array to Map Conversion in JavaScript
 date: 2021-02-28T19:50:00.000Z
-draft: true
+draft: false
 summary: >-
   How to quickly and concisly convert a JavaScript Array into a Map
   to enable efficient lookups.
