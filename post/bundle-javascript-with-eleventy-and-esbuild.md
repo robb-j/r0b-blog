@@ -7,17 +7,17 @@ summary: >
 ---
 
 [Static site generators are great...](https://blog.r0b.io/post/compile-sass-with-eleventy/)
-as I have previously mentioned.
-This is a spiritual second part to that post for JavaScript instead of Sass.
+as I have previously mentioned,
+now here is how to bundle JavaScript into your Eleventy site.
 
 When you're making a website with a static site generator,
 you have already chosen to not to create a Single Page App (SPA).
-But you might still want to add a little bit of vanilla JavaScript into the mix,
-to add an extra bit of interaction.
+But you might still want to add a bit of JavaScript to add some dynamic features.
 
-You can use the same technique as before to bundle up JavaScript into a single backwards-compatible file.
-This time using esbuild instead of Sass.
-Esbuild is a newer JavaScript bundler written in Go and it's very performant compared to tools like WebPack and Parcel.
+You can use an [Eleventy JavaScript class template](https://www.11ty.dev/docs/languages/javascript/#classes)
+to bundle up multiple JavaScript files into a single backwards-compatible file using esbuild.
+Esbuild is a newer JavaScript bundler written in Go
+and it's very performant compared to tools like WebPack and Parcel.
 
 > The only downside to esbuild I've found is that it only goes back to es6, so no IE support...
 
@@ -33,24 +33,26 @@ cd esbuild-eleventy
 # Create an npm project
 npm init -y
 
-# Install 11ty and esbuild
-npm install —save-dev @11ty/eleventy esbuild
+# Install Eleventy and esbuild
+npm install --save-dev @11ty/eleventy esbuild
 ```
 
 ## Create some JavaScript
 
-Next create **src/js/app.js** using some modern JavaScript features:
+Next, create **src/js/app.js** using some modern JavaScript features,
+this is the file we want to bundle.
 
 ```js
 async function main() {
-  await new Promise((resolve) => setTimeout(1000, resolve))
+  await new Promise(resolve => setTimeout(1000, resolve))
   console.log('done')
 }
 
 main()
 ```
 
-Then create an Eleventy JavaScript template **scripts.11ty.js**:
+Then create an Eleventy JavaScript class template **scripts.11ty.js**,
+this is in charge of bundling the app's JavaScript.
 
 ```js
 const esbuild = require('esbuild')
@@ -62,7 +64,7 @@ module.exports = class {
   data() {
     return {
       permalink: false,
-      eleventyExcludeFromCollections: true,
+      eleventyExcludeFromCollections: true
     }
   }
 
@@ -73,7 +75,7 @@ module.exports = class {
       minify: isProduction,
       outdir: '_site/js',
       sourcemap: !isProduction,
-      target: isProduction ? 'es6' : 'esnext',
+      target: isProduction ? 'es6' : 'esnext'
     })
   }
 }
@@ -83,12 +85,11 @@ module.exports = class {
 <summary>A Note on JSX</summary>
 
 If you want to use JSX,
-like [Using jsx WITHOUT React](https://blog.r0b.io/post/using-jsx-without-react/),
-you can configure that above:
+like in [Using jsx WITHOUT React](https://blog.r0b.io/post/using-jsx-without-react/),
+you can add these parameters to the `esbuild.build` call:
 
 ```js
 {
-  '...'
   jsxFactory: 'createElement',
   jsxFragment: "'DomFragment'",
 }
@@ -96,39 +97,39 @@ you can configure that above:
 
 </details>
 
-Similar to compiling Sass, this is an 11ty class-based JavaScript template,
-that exports a class which 11ty will instantiate.
-11ty will call the data method first, which is the same as the frontmatter of a markdown file.
+Similar to compiling Sass, this is an Eleventy class-based JavaScript template,
+that exports a class which Eleventy will instantiate.
+Eleventy will call the data method first, which is the same as the front-matter of a markdown file.
 We use the [permalink](https://www.11ty.dev/docs/permalinks/)
-to tell 11ty not to create a file for this template, as esbuild does this for us.
-Eleventy then calls render which is used to call esbuild.
+to tell Eleventy not to create a file for this template, as esbuild does this for us.
+Eleventy then calls the render method which calls esbuild.
 
-The esbuild js api handles outputting files and we tell it to put it in the same place the Eleventy does. An added benefit to this is that the Eleventy template can be used to bundle multiple JavaScript entry points in one go by adding them to the `entryPoints` option.
+The esbuild JavaScript API handles outputting files
+and we tell it to put them in the same place the Eleventy does.
+A benefit of this is that the Eleventy template can be used to bundle multiple JavaScript entry points in one go, by passing `entryPoints`.
 
 > See [esbuild's API docs](https://esbuild.github.io/api/)
 > for more information about the options you can pass here,
-> like turning on sourcemaps or minifying code.
+> like turning on source-maps or minifying code.
 
-## Configure 11ty
+## Configure Eleventy
 
-Finally, configure 11ty to use our JavaScript template.
-
-Create **.eleventy.js**:
+Finally, configure Eleventy to use our template by creating **.eleventy.js**:
 
 ```js
 module.exports = function eleventyConfig(eleventyConfig) {
   eleventyConfig.addWatchTarget('./src/js/')
 
   return {
-    templateFormats: ['md', '11ty.js'],
+    templateFormats: ['md', '11ty.js']
   }
 }
 ```
 
 This does two things.
-First, it tells 11ty to watch for file changes in the **src/js** folder.
-So in development, when you edit a JavaScript file 11ty will rebuild and reload the development server.
-Second it tells 11ty to look for our `.11ty.js` templates and load them.
+First, it tells Eleventy to watch for file changes in the **src/js** folder.
+So in development, when you edit a JavaScript file Eleventy will rebuild and reload the development server.
+Second it tells Eleventy to look for our `.11ty.js` templates and load them.
 
 ## Build the site
 
