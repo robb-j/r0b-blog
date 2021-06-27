@@ -1,18 +1,18 @@
 ---
 title: Bundle JavaScript with Eleventy and esbuild
-date: 2021-06-25
-draft: true
+date: 2021-06-27
+draft: false
 summary: >
   How to add JavaScript and bundle it together for an Eleventy project plus integration with the development server for automatic reloading.
 ---
 
 [Static site generators are great...](https://blog.r0b.io/post/compile-sass-with-eleventy/)
 as I have previously mentioned,
-now here is how to bundle JavaScript into your Eleventy site.
+here is how to bundle JavaScript into your Eleventy site too.
 
 When you're making a website with a static site generator,
 you have already chosen to not to create a Single Page App (SPA).
-But you might still want to add a bit of JavaScript to add some dynamic features.
+But you might still want to add JavaScript to add dynamic features.
 
 You can use an [Eleventy JavaScript class template](https://www.11ty.dev/docs/languages/javascript/#classes)
 to bundle up multiple JavaScript files into a single backwards-compatible file using esbuild.
@@ -52,7 +52,7 @@ main()
 ```
 
 Then create an Eleventy JavaScript class template **scripts.11ty.js**,
-this is in charge of bundling the app's JavaScript.
+this is in charge of bundling JavaScript for the website.
 
 ```js
 const esbuild = require('esbuild')
@@ -91,7 +91,7 @@ you can add these parameters to the `esbuild.build` call:
 ```js
 {
   jsxFactory: 'createElement',
-  jsxFragment: "'DomFragment'",
+  jsxFragment: "'fragment'",
 }
 ```
 
@@ -102,7 +102,7 @@ that exports a class which Eleventy will instantiate.
 Eleventy will call the data method first, which is the same as the front-matter of a markdown file.
 We use the [permalink](https://www.11ty.dev/docs/permalinks/)
 to tell Eleventy not to create a file for this template, as esbuild does this for us.
-Eleventy then calls the render method which calls esbuild.
+Eleventy then calls the render method which we use to call esbuild.
 
 The esbuild JavaScript API handles outputting files
 and we tell it to put them in the same place the Eleventy does.
@@ -110,7 +110,7 @@ A benefit of this is that the Eleventy template can be used to bundle multiple J
 
 > See [esbuild's API docs](https://esbuild.github.io/api/)
 > for more information about the options you can pass here,
-> like turning on source-maps or minifying code.
+> like configuring source-maps or minifying code.
 
 ## Configure Eleventy
 
@@ -139,4 +139,4 @@ This site doesn't have any markdown, but it will still generate our bundled Java
 npx eleventy
 ```
 
-You should see the js generated into the \_site folder now, all done! 🎉
+You should see the JavaScript generated into the \_site folder now, all done! 🎉
