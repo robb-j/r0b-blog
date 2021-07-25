@@ -74,7 +74,7 @@ A few points to note:
   It should support macs from 2016 onwards.
 - `noEmit` is set to true because we're using esbuild to bundle things, not TypeScript's compiler, `tsc`.
 - The `$schema` section helps JSON Extension to validate and suggest completions
-- https://www.typescriptlang.org/tsconfig has great info about possible options
+- [typescriptlang.org/tsconfig](https://www.typescriptlang.org/tsconfig) has great info about possible options
 
 <details>
 <summary>For improved linting:</summary>
