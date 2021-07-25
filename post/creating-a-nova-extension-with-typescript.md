@@ -70,7 +70,8 @@ Create **tsconfig.json** in the root folder:
 
 A few points to note:
 
-- We're targeting ES6 which means ... TODO
+- We're targeting ES6 which lets us use newer JavaScript features and still [support older macs](https://caniuse.com/?search=es6).
+  It should support macs from 2016 onwards.
 - `noEmit` is set to true because we're using esbuild to bundle things, not TypeScript's compiler, `tsc`.
 - The `$schema` section helps JSON Extension to validate and suggest completions
 - https://www.typescriptlang.org/tsconfig has great info about possible options
