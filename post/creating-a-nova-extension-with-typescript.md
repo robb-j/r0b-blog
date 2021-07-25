@@ -9,7 +9,7 @@ summary: >
 
 I've been quite getting into [Nova](https://nova.app) recently, a macOS-only IDE developed by [Panic](https://panic.com). It's a ["Mac-assed"](https://daringfireball.net/linked/2020/03/20/mac-assed-mac-apps) editor and I feel it fits a lot more naturally into my flow.
 
-I've gone far enough into making [a few extensions](https://github.com/robb-j?tab=repositories&q=nova-&type=&language=&sort=) for Nova to make it work for me more. Here I want to share my experiences in doing that, specifically around setting up a project with TypeScript. Writing an extension with TypeScript requires a few different steps to the [recommended setup](https://library.panic.com/nova/npm-packages-in-extensions/).
+I've gone far enough into making [a few extensions](https://github.com/robb-j?tab=repositories&q=nova-&type=&language=&sort=) for Nova to make it work for me more. Here I want to share my experiences in doing that, specifically around setting up a project with TypeScript. Writing an Extension with TypeScript requires a few different steps to the [recommended setup](https://library.panic.com/nova/npm-packages-in-extensions/).
 
 ## Prerequisites
 
@@ -21,7 +21,7 @@ I've gone far enough into making [a few extensions](https://github.com/robb-j?ta
 
 ## Setup
 
-First, create a folder to put your extension in, this will be referred to as the _root folder_ going forwards.
+First, create a folder to put your Extension in, this will be referred to as the _root folder_ going forwards.
 
 ```bash
 # Create a folder to put the project in
@@ -38,13 +38,13 @@ npm install --save-dev esbuild typescript @types/nova-editor-node
 nova .
 ```
 
-Now open this folder in Nova and create a Nova Extension inside of it. The reason for this nesting is to keep TypeScript source-files and development tooling outside of the extension, then compile JavaScript files into the extension.
+Now open this folder in Nova and create a Nova Extension inside of it. The reason for this nesting is to keep TypeScript source-files and development tooling outside of the Extension, then compile JavaScript files into it.
 
 > A Nova Extension is essentially a folder with a `.novaextension` file extension.
 
 In Nova, select **Extensions** → **Create New Extension..**. Then choose the type of extension you want to make, for this tutorial I will choose **Blank**. Make sure to put the new extension inside the folder we created above. Remember to close the new window Nova opened after creating an extension, because we want to have the root folder open in Nova.
 
-> If you don't see **Extensions** in the Nova menu, make sure you have enabled development mode in **Nova** → **Preferences** → **General** → **Extension Development**.
+If you don't see **Extensions** in the Nova menu, make sure you have enabled development mode in **Nova** → **Preferences** → **General** → **Extension Development**.
 
 ## Configure TypeScript
 
@@ -91,7 +91,7 @@ Add these to your `compilerOptions`
 
 ## Create a build task
 
-Next, create a build Task which will take TypeScript, bundle any imported files together and output JavaScript into the extension folder. Go to **Project** → **Project Settings...** then create a Task called **Development** (or whatever you want). Then in the **Build** section, enter the script below. Make sure to update `--outfile` with whatever your extension is called.
+Next, create a build Task which will take TypeScript, bundle any imported files together and output JavaScript into the Extension folder. Go to **Project** → **Project Settings...** then create a Task called **Development** (or whatever you want). Then in the **Build** section, enter the script below. Make sure to update `--outfile` with whatever your Extension is called.
 
 ```bash
 #!/usr/bin/env sh
@@ -116,7 +116,7 @@ Now you can compile TypeScript with a **cmd+B** or by pressing the build button.
 
 ## Write some TypeScript
 
-Finally we can write some TypeScript, lets create script which will be the Extension entry point. If you have the TypeScript extension enabled, you should start seeing the auto suggestions and linting while typing this out.
+Finally we can write some TypeScript, let's create a script which will be the Extension entry point. If you have the TypeScript Extension enabled, you should start seeing the auto suggestions and linting while typing this out.
 
 **src/Scripts/main.ts**
 
@@ -133,7 +133,7 @@ export function deactivate() {
 }
 ```
 
-## Configure the extension
+## Configure the Extension
 
 To link everything up, configure your Extension's **extension.json**, to ensure it uses our `main.dist.js`. For the purpose of this tutorial, set `activationEvents` so your code always gets run. In production, you'd want to configure that to only activate the Extension when it is needed, so users aren't running it unnecessarily.
 
@@ -148,11 +148,11 @@ To link everything up, configure your Extension's **extension.json**, to ensure 
 }
 ```
 
-## Run the extension
+## Run the Extension
 
 Run a build with **cmd+B** and it should generate your code into `Example.novaextension/Scripts/main.dist.js`, providing there are no TypeScript errors.
 
-Run the extension locally with **Extensions** > **Activate Project as Extension**. This will activate this extension for any active Nova windows and will automatically reload it when you rebuild (or if any other files inside your extension folder change).
+Run the Extension locally with **Extensions** > **Activate Project as Extension**. This will activate this Extension for any active Nova windows and will automatically reload it when you rebuild (or if any other files inside your Extension folder change).
 
 When activated, you should see a notification in the top right of Nova 🎉 it's all working!
 
