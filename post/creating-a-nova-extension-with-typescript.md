@@ -1,7 +1,7 @@
 ---
 title: Creating a Nova Extension with TypeScript
 date: 2021-07-25
-draft: true
+draft: false
 summary: >
   I've been playing a lot with Nova recently, here's my experiences
   and best practices for creating Nove extensions with TypeScript.
