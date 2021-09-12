@@ -1,12 +1,12 @@
 ---
 title: Creating custom JavaScript errors
 date: 2021-09-12
-draft: true
+draft: false
 summary: >
   Custom errors are a powerful tool in JavaScript. Here's how to create them with modern ES classes and static methods.
 ---
 
-Creating custom errors in JavaScript can be very useful. If you want to handle those errors in a `catch` block then you can use the `instanceof` operator to check for that specific error. And with TypeScript you can then safely use the fields and methods on your custom error.
+Creating custom errors in JavaScript can be very useful. If you want to handle those errors in a `catch` block you can use the `instanceof` operator to check for that specific error. And with TypeScript, you can then safely use the fields and methods on your custom error.
 
 Another benefit of custom errors is that you can provide your own constructor which lets you pass more information to the error. Which is information you can use in an error handler.
 
@@ -14,7 +14,7 @@ Custom JavaScript errors are almost as simple as creating an `Error` subclass, b
 
 ## Set the name
 
-The first thing to enhance errors is to set `this.name` inside the constructor. This means your error name will appear in stack traces rather than the generic `Error:`.
+The first thing to enhance custom errors is to set `this.name` inside the constructor. This means your error name will appear in stack traces rather than the generic `Error:`.
 
 ## Re-capture the stack trace
 
@@ -69,7 +69,7 @@ ApiError: There was an error with your API request: "notFound"
 
 The output shows that it has namespaced the error with `ApiError:` which is from us setting `this.name`.
 The first line of the stack trace is not **ApiError**'s constructor but `runApp` which was the method which threw the error.
-Because of this, it also shows you the exact that created the error in the code sample.
+Because of this, it now shows you the exact line of code that threw the error in the excerpt.
 
 You can also see that `status` and `apiCode` have been stored on the error.
 
