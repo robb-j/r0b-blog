@@ -6,7 +6,7 @@ and pushed to [blog.r0b.io](blog.r0b.io).
 
 ## dev scripts
 
-```bash
+```sh
 # Run the generator
 # -> .eleventy.js is the entrypoint
 # -> Outputs to _site which is git-ignored
@@ -33,9 +33,5 @@ npm run lint
 
 ## future work
 
-- migrate to use https://github.com/robb-j/http-tar-unpacker/
 - merge style changes back into r0b-design
 - add opengraph support for posts
-- spelling / grammer checker plugins for 11ty
-  - try `retext-keywords` to generate opengraph meta?
-  - explore `retext-sentiment`

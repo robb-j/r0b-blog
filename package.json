@@ -1,59 +1,36 @@
 {
   "name": "@robb_j/r0b-blog",
   "private": true,
-  "version": "1.0.0",
-  "description": "",
   "repository": "robb-j/r0b-blog",
-  "author": "Rob Anderson (https://r0b.io)",
-  "license": "MIT",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint",
-    "prettier": "prettier --write '**/*.{js,json,css,md}'",
     "serve": "eleventy --serve",
-    "deploy": "eleventy && rsync -azv --delete _site/* root@r0b.io:/srv/static/blog",
+    "format": "prettier --write '**/*.{js,json,css,md}'",
     "build": "eleventy"
   },
-  "keywords": [],
   "engines": {
     "node": ">=8"
   },
   "dependencies": {
-    "@11ty/eleventy": "^0.11.0",
-    "@11ty/eleventy-plugin-rss": "^1.0.7",
-    "@11ty/eleventy-plugin-syntaxhighlight": "^3.0.1",
-    "@robb_j/r0b-design": "^0.2.7",
-    "chalk": "^3.0.0",
-    "dotenv": "^8.2.0",
-    "eleventy-plugin-excerpt": "^1.1.2",
-    "eleventy-plugin-reading-time": "0.0.1",
-    "luxon": "^1.24.1",
-    "rehype-parse": "^6.0.2",
-    "rehype-preset-minify": "^4.0.0",
-    "rehype-retext": "^2.0.4",
-    "rehype-stringify": "^6.0.1",
-    "retext-diacritics": "^2.0.0",
-    "retext-english": "^3.0.4",
-    "retext-equality": "^4.5.0",
-    "retext-indefinite-article": "^1.1.7",
-    "retext-passive": "^2.0.0",
-    "retext-quotes": "^3.0.0",
-    "retext-redundant-acronyms": "^2.0.0",
-    "retext-repeated-words": "^2.0.0",
-    "retext-sentence-spacing": "^3.0.0",
-    "unified": "^8.4.2"
+    "@robb_j/r0b-design": "^0.2.7"
   },
   "devDependencies": {
-    "eslint": "^7.2.0",
-    "eslint-config-prettier": "^6.11.0",
+    "@11ty/eleventy": "^0.12.1",
+    "@11ty/eleventy-plugin-rss": "^1.1.2",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^3.1.3",
+    "dotenv": "^10.0.0",
+    "eleventy-plugin-reading-time": "^0.0.1",
+    "esbuild": "^0.13.12",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^6.15.0",
     "eslint-config-standard": "^14.1.1",
-    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1",
-    "husky": "^4.2.5",
-    "jest": "^26.0.1",
-    "lint-staged": "^10.2.11",
+    "eslint-plugin-promise": "^4.3.1",
+    "eslint-plugin-standard": "^4.1.0",
+    "husky": "^4.3.8",
+    "lint-staged": "^11.2.6",
+    "luxon": "^2.0.2",
     "prettier": "^1.19.1"
   },
   "prettier": {
@@ -67,12 +44,10 @@
   },
   "lint-staged": {
     "*.{js,json,css,less,md}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ],
     "*.{js}": [
-      "eslint",
-      "git add"
+      "eslint"
     ]
   }
 }

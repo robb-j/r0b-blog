@@ -1,6 +1,6 @@
 ---
 title: r0b's random ramblings
-layout: layouts/home.njk
+layout: home
 ---
 
 # r0b's random ramblings

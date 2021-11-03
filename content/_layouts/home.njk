@@ -1,5 +1,5 @@
 ---
-layout: layouts/base.njk
+layout: html
 ---
 
 {% include 'navbar.njk' %}
@@ -36,7 +36,7 @@ layout: layouts/base.njk
             <svg>
               <use
                 xlink:href="{{
-                  'fa/twitter-brands.svg' | r0bAsset | url
+                  '/r0b/fa/twitter-brands.svg' | url
                 }}#twitter"
               ></use>
             </svg>
@@ -48,7 +48,7 @@ layout: layouts/base.njk
             <svg>
               <use
                 xlink:href="{{
-                  'fa/github-brands.svg' | r0bAsset | url
+                  '/r0b/fa/github-brands.svg' | url
                 }}#github"
               ></use>
             </svg>

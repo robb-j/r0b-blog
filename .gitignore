@@ -1,5 +1,9 @@
-**/_site
-**/node_modules
-**/dist
-.DS_Store
+#
+# Ignore files from git source control
+#
+
+node_modules
+coverage
 *.env
+.DS_Store
+_site

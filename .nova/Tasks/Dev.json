@@ -1,14 +1,14 @@
 {
-  "actions" : {
-    "build" : {
-      "enabled" : true,
-      "script" : "#!\/bin\/sh\n\nnpm run build"
+  "actions": {
+    "build": {
+      "enabled": true,
+      "script": "#!/bin/sh\n\nnpm run build"
     },
-    "run" : {
-      "enabled" : true,
-      "script" : "#!\/bin\/sh\n\nnpm run serve"
+    "run": {
+      "enabled": true,
+      "script": "#!/bin/sh\n\nnpm run serve"
     }
   },
-  "identifier" : "154B992D-8DB6-4316-A8E2-3D4444511A3E",
-  "openLogOnRun" : "fail"
+  "identifier": "154B992D-8DB6-4316-A8E2-3D4444511A3E",
+  "openLogOnRun": "start"
 }

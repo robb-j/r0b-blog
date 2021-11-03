@@ -1,6 +1,5 @@
 ---
 title: Using jsx WITHOUT React
-layout: layouts/post
 date: 2020-01-12
 draft: false
 summary: >
