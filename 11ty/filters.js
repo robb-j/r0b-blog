@@ -25,7 +25,12 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addFilter('jsonDate', value => value.toISOString())
 
-  eleventyConfig.addFilter('arrSlice', (value, begin, end) =>
+  eleventyConfig.addFilter('slice', (value, begin, end) =>
     value.slice(begin, end)
   )
+
+  eleventyConfig.addFilter('fullUrl', function(path) {
+    const url = new URL(path.replace(/^\/+/, '/'), this.ctx.site.url)
+    return url.toString()
+  })
 }

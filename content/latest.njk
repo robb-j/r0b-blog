@@ -2,7 +2,7 @@
 permalink: latest.json
 ---
 [
-{%- for post in collections.posts | isPublished | arrSlice(0, 3) %}
+{%- for post in collections.posts | isPublished | slice(0, 3) %}
   {
     "title": "{{ post.data.title }}",
     "link": "{{ post.url | url | absoluteUrl(site.url) }}",

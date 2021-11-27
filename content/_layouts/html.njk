@@ -19,17 +19,17 @@
     />
     <meta
       property="og:title"
-      content="{{ metaTitle or title or site.title }}"
+      content="{{ meta.title or title or site.title }}"
     />
     <meta property="og:type" content="website" />
     <meta
       property="og:image"
-      content="{{ site.url + 'static/img/opengraph.png' }}"
+      content="{{ (meta.image or 'static/img/opengraph.png') | fullUrl }}"
     />
-    <meta property="og:url" content="{{ url }}" />
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="{{ site.twitter }}" />
-    <meta property="og:description" content="{{ metaSummary or summary }}" />
+    <meta property="og:url" content="{{ page.url | fullUrl }}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@{{ site.twitter }}" />
+    <meta property="og:description" content="{{ meta.summary or summary }}" />
   </head>
   <body>
     {{ content | safe }}
