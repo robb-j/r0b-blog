@@ -172,6 +172,37 @@ kubectl -n kube-prometheus-stack port-forward svc/alertmanager-operated 9093:909
 open http://localhost:9093
 ```
 
+## Testing
+
+To make sure alerting is setup, create an obviously bad workload and see if it triggers an alert.
+e.g. this `deployment.yml`:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bad-app
+  namespace: production
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/app: bad-app
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/app: bad-app
+    spec:
+      containers:
+        - name: bad-app
+          image: busybox
+          command: ['exit', '1']
+```
+
+After you `kubectl apply -f` it, you should first see a "Pending" alert in [Prometheus](http://localhost:9090)
+After the `for` duration has passed, it should fire the alert.
+Once fired, you should see the new alert in [Alertmanager](http://localhost:9093)
+and you should receive it in whatever receiver(s) you have setup.
+
 ## Next steps
 
 **Choosing rules** is the next logical step. This setup will alert on all of _kube-prometheus-stack_'s default alerts, which are a good first step. But if thats too much info, you need to find the alerts that are useful to your specific stack. Looking through prometheus's default alerts should be a good first step, i.e. [localhost:9090/alerts](http://localhost:9090/alerts).
