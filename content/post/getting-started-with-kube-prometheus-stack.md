@@ -205,7 +205,7 @@ and you should receive it in whatever receiver(s) you have setup.
 
 ## Next steps
 
-**Choosing rules** is the next logical step. This setup will alert on all of _kube-prometheus-stack_'s default alerts, which are a good first step. But if thats too much info, you need to find the alerts that are useful to your specific stack. Looking through prometheus's default alerts should be a good first step, i.e. [localhost:9090/alerts](http://localhost:9090/alerts).
+**Choosing rules** is the next logical step. This setup will alert on all of kube-prometheus-stack's default alerts, which are a good first step. But if thats too much info, you need to find the alerts that are useful to your specific stack. Looking through prometheus's default alerts should be a good first step, i.e. [localhost:9090/alerts](http://localhost:9090/alerts).
 
 **Meta alerting** is useful to ensure confidence that monitoring and alerting is all going as expected. Prometheus constantly fires a `Watchdog` alert so you could use a [dead-man's-switch](https://en.wikipedia.org/wiki/Dead_man%27s_switch) type service that alerts you when the alert stops firing.
 
