@@ -1,14 +1,14 @@
 ---
 title: Getting started with kube-prometheus-stack
 date: 2022-02-02
-draft: true
+draft: false
 summary: >
   I recently added monitoring and alerting to my Kubernetes stack to discover and respond to failures faster.
-  It took me way too long so here's what I did and learned.
+  It took me way too long so here's what I did and learned along the way.
 ---
 
 I recently added monitoring and alerting to my Kubernetes stack to discover and respond to failures faster.
-It took me a lot longer to get my head around `kube-prometheus-stack` and get it doing what I wanted it to,
+It took me a lot longer I than expected to get my head around `kube-prometheus-stack` and get it doing what I wanted it to,
 so here's what I found out.
 
 ## Background
@@ -18,15 +18,15 @@ I've spent the last year building and running infrastructure to host virtual con
 Running these large deployments by myself has led to a lot of automation.
 I start off automating testing and integration,
 then building and releasing containers
-and also deployment, configuration and scaling of those containers.
+and then deployment, configuration and scaling of those containers.
 
 I'd previously used [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack)
 to see what was going on inside my Kubernetes clusters,
-but always knew these was a lot more to it than the fancy Grafana graphs.
+but always knew there was a lot more to it than the fancy Grafana graphs.
 For MozFest 2022 I decided it was time to look into this properly.
 
 The conference infrastructure relies on several background tasks, running as Kubernetes `CronJob` resources,
-which if they failed it wasn't quick to find out.
+which can fail very quietly.
 If one of the jobs failed, the schedule might become stale or new users might not be able to sign in.
 I needed something to quickly surface those background errors and report them.
 
@@ -44,7 +44,7 @@ helm install kube-prometheus-stack prometheus-community/kube-prometheus-stack
 
 This deploys [prometheus-operator/kube-prometheus](https://prometheus-operator.dev),
 which is an [operator](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/) that uses [CRDs](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/) to deploy and configure instances of Prometheus and Alertmanager.
-It deploys a standard instance of Prometheus and Alertmanager and adds a tonne of rules for monitoring standard Kubernetes resources.
+It uses them to deploy a standard instance of Prometheus and Alertmanager and adds a tonne of rules for monitoring standard Kubernetes resources.
 
 > One confusion point was that internally kube-prometheus-stack is deployed using [Jsonnet templates](https://jsonnet.org)
 > and the helm offering is community-operated, so there are some differences between both sets of documentation.
@@ -57,25 +57,26 @@ to query those metrics over time and a rule system that triggers alerts based on
 Alerts have a name and key-value labels of information about them,
 like the `namespace` the resource was in or name of the related `container`.
 
+The stack comes setup to monitor the resources within Kubernetes using [kube-state-metrics](https://github.com/kubernetes/kube-state-metrics) and has lots of rules already setup to monitor things like Pods crashing.
+
 Alertmanager takes Prometheus' alerts and lets you group and filter them based on the associated labels.
 It provides routing to send different alerts to different receivers, like an email or Slack message.
 
 ## Configuring Alertmanager
 
 The default Prometheus instance is already configured to collect metrics on Kubernetes resources and alert on failures.
-I was interested in `KubeJobFailed` and `KubePodCrashLooping` to detect failed jobs or bad deployments.
-We need to configure Alertmanager to setup a receiver to send them somewhere.
+I was interested in `KubeJobFailed` and `KubePodCrashLooping` rules to detect failed jobs or bad deployments.
+Alertmanager needs to be configured with a receiver to send them somewhere.
 `prometheus-operator` provides the _AlertmanagerConfig_ custom resource to do just that.
-
-The default Alertmanager instance is configured to automatically regenerate it's internal configuration
-whenever any `AlertmanagerConfig` is changed in any namespace.
+The default Alertmanager instance automatically regenerates it's internal configuration
+whenever **any** AlertmanagerConfig is changed in **any** namespace.
 So you can create a `custom-alertmanagerconfig.yml` and `kubectl apply -f` -it:
 
 ```yaml
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: AlertmanagerConfig
 metadata:
-  name: mozfest-smtp
+  name: custom-config
   namespace: production
 spec:
   route:
@@ -100,7 +101,7 @@ spec:
             key: SENDGRID_API_KEY
 ```
 
-> It's worth pointing out AlertmanagerConfig is a `v1alpha1` so it will most likely change in the future.
+> It's worth pointing out AlertmanagerConfig is a `v1alpha1` CRD so it will most likely change in the future.
 
 This configuration is a camel-case version of regular [Alertmanager config](https://prometheus.io/docs/prometheus/latest/configuration/configuration/)
 and the operator merges them together into one configuration.
@@ -108,8 +109,8 @@ This creates a `route` that groups jobs by their `job` label and sends them to t
 You can use `matchers` to filter the alerts the route receives based on their labels.
 
 There is a bit of hidden logic in how `prometheus-operator` merges these configurations back together.
-First it will ignore any `namespace` matchers you set
-and instead add a namespace matcher from the namespace the AlertmanagerConfig itself is in.
+It will ignore any `namespace` matchers you set
+and instead match the namespace the AlertmanagerConfig itself is in.
 In this case it would be `namespace=production`,
 so make sure to put the config in the same namespace you want alerts from.
 
@@ -123,7 +124,7 @@ So you don't have to put credentials in your CRD.
 **Detecting errors**
 
 First, you want to make sure the operator is accepting accepting your AlertmanagerConfig.
-It will log any errors it finds parsing the config or let you know that it successfully reload.
+It will log any errors from the config or let you know that it successfully reloaded.
 You can watch those logs:
 
 ```bash
@@ -200,20 +201,20 @@ spec:
 
 After you `kubectl apply -f` it, you should first see a "Pending" alert in [Prometheus](http://localhost:9090)
 After the `for` duration has passed, it should fire the alert.
-Once fired, you should see the new alert in [Alertmanager](http://localhost:9093)
-and you should receive it in whatever receiver(s) you have setup.
+Once fired, you will see the new alert in [Alertmanager](http://localhost:9093)
+and receive it in whatever receiver(s) you have setup.
 
 ## Next steps
 
-**Choosing rules** is the next logical step. This setup will alert on all of kube-prometheus-stack's default alerts, which are a good first step. But if thats too much info, you need to find the alerts that are useful to your specific stack. Looking through prometheus's default alerts should be a good first step, i.e. [localhost:9090/alerts](http://localhost:9090/alerts).
+**Choosing rules** is the next logical step. This setup will alert on all of kube-prometheus-stack's default alerts, which are a good first step. But if that's too much info, you need to find the alerts that are useful to your specific stack and setup matchers. Looking through prometheus's default alerts should be a good first step, i.e. [localhost:9090/alerts](http://localhost:9090/alerts).
 
 **Meta alerting** is useful to ensure confidence that monitoring and alerting is all going as expected. Prometheus constantly fires a `Watchdog` alert so you could use a [dead-man's-switch](https://en.wikipedia.org/wiki/Dead_man%27s_switch) type service that alerts you when the alert stops firing.
 
-**Different receivers** let you send different notifications to different places, perhaps based on severity or the team responsible. You could think about having for frontend or backend teams for example.
+**Different receivers** let you send different notifications to different places, perhaps based on severity or the team responsible. You could have seperate alerts for frontend or backend teams for example.
 
 **Setup persistence**, the default `kube-prometheus-stack` doesn't persist any metrics beyond a reboot. For alerting purposes this is fine but if you need to keep those metrics around you'll want to look into configuring some [PersistentVolumeClaims](https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/README.md#persistent-volumes).
 
-**Custom metrics** is a very interesting next step. You'll need to tell your Prometheus instance to start scraping your services or pods directly using a `ServiceMonitor` or `PodMonitor` and define custom `/metrics` endpoints on your containers that expose [prometheus metrics](https://prometheus.io/docs/concepts/metric_types/) specific to your stack. For MozFest there is a 'site-visitors' widget and it could be interesting to track that over time and maybe create a custom alert when it is over a certain value.
+**Custom metrics** is a very interesting next step. You'll need to tell your Prometheus instance to start scraping your services or pods directly using a `ServiceMonitor` or `PodMonitor` and define custom `/metrics` endpoints on your containers that expose [prometheus metrics](https://prometheus.io/docs/concepts/metric_types/) specific to your stack. For MozFest there is a 'site-visitors' widget and it could be interesting to track that over time and have a custom alert when it is over a certain value.
 
 ## Resources
 
