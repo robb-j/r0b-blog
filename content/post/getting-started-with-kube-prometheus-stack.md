@@ -14,7 +14,7 @@ so here's what I found out.
 ## Background
 
 I've spent the last year building and running infrastructure to host virtual conferences
-([Climate:Red](https://climate.red), [MozFest '21 & '22](https://schedule.mozillafestival.org/plaza) & [Planet:Red](https://planetredsummit.com/atrium)).
+([Climate:Red](https://climate-red.openlab.dev/), [MozFest '21 & '22](https://schedule.mozillafestival.org/plaza) & [Planet:Red](https://planetredsummit.com/atrium)).
 Running these large deployments by myself has led to a lot of automation.
 I start off automating testing and integration,
 then building and releasing containers
