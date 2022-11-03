@@ -15,7 +15,7 @@ I've been using one for a new project I'm working on and here is what I've learn
 This is my first time developing firmware for a chip like the ESP32 so my approach
 may be a little different from firmware veterans.
 My goal is to automate as much of the process as possible
-and have the entire pipeline codified for reproducable builds.
+and have the entire pipeline codified for reproducible builds.
 
 I've not got on well with [Arduino IDE](https://www.arduino.cc/en/software)
 and the recent v2 that broke a few needed plugins didn't help.
@@ -43,13 +43,13 @@ and tags the commit as `vx.y.z`.
 When a tag with a `v` prefix is pushed to GitHub it runs an action to build and publish the release.
 It first sets up the environment, with a recursive git checkout.
 3rd party libraries are added as git submodules so they can be kept track of an upgraded dependably.
-It then installs and sets up `arduino-cli` and `node.js` and installs npm dependencies.
+It then installs and sets up `arduino-cli` and `node.js` and installs NPM dependencies.
 `arduino-cli` is then used to install published libraries and add the ESP32 package.
 
 **3. Generate the firmware**
 
 The ESP32 I'm using is a captive portal that serves a web app, so next it builds the web-app using [parcel](https://parceljs.org).
-This packages everything up nicely, minifies the code and makes it compatable with older browsers.
+This packages everything up nicely, minifies the code and makes it compatible with older browsers.
 The it uses ESP32's `mkspiff` tool wrap all those files up into a `spiffs.bin` partition.
 
 **4. Generate flashing app**
@@ -57,7 +57,7 @@ The it uses ESP32's `mkspiff` tool wrap all those files up into a `spiffs.bin` p
 Next it creates another website, this one uses [esp-web-tools](https://esphome.github.io/esp-web-tools/)
 to create an interface to flash the ESP32 from a browser. Sadly only Chrome is supported at this time.
 This is a little html file which loads the tool and has the firmware binaries adjacent to it for the tool to load them in.
-It's all joined together with a manifest file, which specifies the firmare partitions and where to put each binary.
+It's all joined together with a manifest file, which specifies the firmware partitions and where to put each binary.
 
 **5. Deploy flash tool**
 
@@ -74,13 +74,11 @@ The first hurdle was generating a SPIFFS file...
 
 Another hurdle was getting a consistent flash from the CLI, to quickly develop the firmware and try different fixes...
 
-### Getting the spiff onto the esp
+### Getting the spiff onto the ESP
 
 ### Arduino partitions
 
 Arduino defines partitions in csv files within it's own packages...
-
-### Things I wish I'd knew
 
 ### Where ESP32 puts things
 
@@ -93,7 +91,7 @@ Arduino defines partitions in csv files within it's own packages...
 
 ### Misc
 
-`python` vs `python3` on macos
+`python` vs `python3` on macOS
 
 ## Next steps
 
