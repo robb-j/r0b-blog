@@ -44,7 +44,7 @@ this is the file we want to bundle.
 
 ```js
 async function main() {
-  await new Promise(resolve => setTimeout(1000, resolve))
+  await new Promise((resolve) => setTimeout(1000, resolve))
   console.log('done')
 }
 
@@ -64,7 +64,7 @@ module.exports = class {
   data() {
     return {
       permalink: false,
-      eleventyExcludeFromCollections: true
+      eleventyExcludeFromCollections: true,
     }
   }
 
@@ -75,7 +75,7 @@ module.exports = class {
       minify: isProduction,
       outdir: '_site/js',
       sourcemap: !isProduction,
-      target: isProduction ? 'es6' : 'esnext'
+      target: isProduction ? 'es6' : 'esnext',
     })
   }
 }
@@ -121,7 +121,7 @@ module.exports = function eleventyConfig(eleventyConfig) {
   eleventyConfig.addWatchTarget('./src/js/')
 
   return {
-    templateFormats: ['md', '11ty.js']
+    templateFormats: ['md', '11ty.js'],
   }
 }
 ```

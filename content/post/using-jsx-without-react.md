@@ -132,7 +132,7 @@ const app = (
       <strong>Your friends are:</strong>
     </p>
     <ul>
-      {friends.map(name => (
+      {friends.map((name) => (
         <li>{name}</li>
       ))}
     </ul>
@@ -204,7 +204,7 @@ like the friend's mapping above:
 
 ```jsx
 <ul>
-  {friends.map(name => (
+  {friends.map((name) => (
     <li>{name}</li>
   ))}
 </ul>

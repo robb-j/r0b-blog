@@ -59,7 +59,7 @@ module.exports = class SassTemplate {
     return Sass.renderSync({
       file: path.join(__dirname, './src/sass/theme.scss'),
       includePaths: [path.join(__dirname, './node_modules')],
-      outputStyle: 'compressed'
+      outputStyle: 'compressed',
     }).css
   }
 }
@@ -88,7 +88,7 @@ module.exports = function eleventyConfig(eleventyConfig) {
   eleventyConfig.addWatchTarget('./sass/')
 
   return {
-    templateFormats: ['md', '11ty.js']
+    templateFormats: ['md', '11ty.js'],
   }
 }
 ```

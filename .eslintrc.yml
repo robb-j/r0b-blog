@@ -12,4 +12,3 @@ env:
 extends:
   - standard
   - prettier
-  - prettier/standard

@@ -55,7 +55,7 @@ const contentToParse = [
   { pattern: 'pages/*.md', key: 'pages', struct: PageStruct },
   { pattern: 'events/*.md', key: 'events', struct: EventStruct },
   { pattern: 'tags/*.md', key: 'tags', struct: TagStruct },
-  { pattern: 'posts/*.md', key: 'posts', struct: PostStruct }
+  { pattern: 'posts/*.md', key: 'posts', struct: PostStruct },
 ]
 ```
 
@@ -66,7 +66,7 @@ then came up with this:
 
 ```ts
 // Create a generator for each content type
-const generators = contentToParse.map(async function*(job) {
+const generators = contentToParse.map(async function* (job) {
   // In the first run, read and validate files that match the pattern
   const [errors, records] = await readAndParse(job.pattern, job.struct)
 
@@ -88,10 +88,10 @@ As code, it looks like this:
 
 ```ts
 // You can asynchronously run each generator in parallel
-const firstRun = await Promise.all(generators.map(gen => gen.next()))
+const firstRun = await Promise.all(generators.map((gen) => gen.next()))
 
 // Then grab all the errors out and flatten into a single array
-const allErrors = firstRun.map(result => result.value).flat()
+const allErrors = firstRun.map((result) => result.value).flat()
 ```
 
 Now I could exit early if there are any errors,
@@ -99,7 +99,7 @@ or if there aren't any continue on:
 
 ```ts
 // Run the generators again, which will continue on after the `yield` above
-await Promise.all(generators.map(gen => gen.next()))
+await Promise.all(generators.map((gen) => gen.next()))
 ```
 
 And it works!

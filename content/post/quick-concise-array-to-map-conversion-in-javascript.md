@@ -15,10 +15,10 @@ summary: >-
 const people = [
   { id: 'geoff', name: 'Geoff' },
   { id: 'helen', name: 'Helen' },
-  { id: 'tim', name: 'Tim' }
+  { id: 'tim', name: 'Tim' },
 ]
 
-const peopleMap = new Map(people.map(item => [item.id, item]))
+const peopleMap = new Map(people.map((item) => [item.id, item]))
 
 console.log(peopleMap.get('tim'))
 // { id: 'tim', name: 'Tim' }
@@ -43,7 +43,7 @@ This entries value is an array of key-value pairs which it can use to initially 
 const entries = [
   ['geoff', { id: 'geoff', name: 'Geoff' }],
   ['helen', { id: 'helen', name: 'Helen' }],
-  ['tim', { id: 'tim', name: 'Tim' }]
+  ['tim', { id: 'tim', name: 'Tim' }],
 ]
 ```
 
@@ -59,9 +59,9 @@ You can use this to easily convert an array of objects into an array of entries.
 const people = [
   { id: 'geoff', name: 'Geoff' },
   { id: 'helen', name: 'Helen' },
-  { id: 'tim', name: 'Tim' }
+  { id: 'tim', name: 'Tim' },
 ]
-const entries = people.map(object => [object.id, object.name])
+const entries = people.map((object) => [object.id, object.name])
 ```
 
 The arrow function passed to `map` takes an object and converts it into an entry

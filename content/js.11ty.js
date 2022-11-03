@@ -7,7 +7,7 @@ module.exports = class {
   data() {
     return {
       permalink: false,
-      eleventyExcludeFromCollections: true
+      eleventyExcludeFromCollections: true,
     }
   }
 
@@ -18,7 +18,7 @@ module.exports = class {
       minify: isProduction,
       outdir: '_site/js',
       sourcemap: !isProduction,
-      target: isProduction ? 'es6' : 'esnext'
+      target: isProduction ? 'es6' : 'esnext',
     })
   }
 }
