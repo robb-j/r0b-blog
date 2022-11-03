@@ -64,15 +64,23 @@ It's all joined together with a manifest file, which specifies the firmare parti
 With the flash tool built, a GitHub action takes those html, js, css, json and binaries and deploys them to GitHub pages,
 so you can access the tool or directly download the firmware and `manifest.json`.
 
-## Creating a spiff partition
+## Hurdles
+
+### Creating a spiff partition
 
 The first hurdle was generating a SPIFFS file...
 
-## Flashing from the CLI
+### Flashing from the CLI
 
-Another hurdle was getting a consisten flash from the CLI, to quickly develop the firmware and try different fixes...
+Another hurdle was getting a consistent flash from the CLI, to quickly develop the firmware and try different fixes...
 
-## Things I wish I'd knew
+### Getting the spiff onto the esp
+
+### Arduino partitions
+
+Arduino defines partitions in csv files within it's own packages...
+
+### Things I wish I'd knew
 
 ### Where ESP32 puts things
 
@@ -82,10 +90,6 @@ Another hurdle was getting a consisten flash from the CLI, to quickly develop th
 - different places libraries are
 - where mkspiff is
 - where esptool is
-
-### Arduino partitions
-
-Arduino defines partitions in csv files within it's own packages...
 
 ### Misc
 
