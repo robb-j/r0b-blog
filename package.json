@@ -31,6 +31,7 @@
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "luxon": "^2.0.2",
+    "markdown-it-anchor": "^8.6.5",
     "prettier": "^2.7.1"
   },
   "prettier": {
