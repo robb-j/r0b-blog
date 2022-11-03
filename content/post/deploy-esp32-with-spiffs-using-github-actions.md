@@ -95,7 +95,7 @@ It sort-of serves as a definition of the dependencies of the arduino code.
 
 **bin/setup.sh**
 
-```sh
+```bash
 arduino-cli core update-index
 arduino-cli core install esp32:esp32@1.0.6
 arduino-cli lib install ArduinoJson@6.19.4 AnotherPackage@x.y.x
@@ -219,7 +219,7 @@ More info on this in [Arduino partitions](#arduino-partitions) below.
 Another hurdle was getting a consistent flash from the CLI, to quickly develop the firmware and try out different fixes.
 This took the form of another bash script, **bin/flash.sh**:
 
-```sh
+```bash
 #!/usr/bin/env sh
 
 ESP_VERSION=${ESP_VERSION:-1.0.6}
@@ -261,9 +261,9 @@ The bootloader and partitions go at hardcoded locations for the ESP as previousl
 
 ### Where things are
 
-- $ARDUINO_DIR
-- $ESP_VERSION
-- $SPIFFS_VERSION
+- \$ARDUINO_DIR
+- \$ESP_VERSION
+- \$SPIFFS_VERSION
 - different places libraries are
 - where mkspiff is
 - where esptool is
@@ -273,7 +273,7 @@ The bootloader and partitions go at hardcoded locations for the ESP as previousl
 One of the commands needed the `python` to be on my `$PATH`, but that is no longer the case on macOS.
 So I had to create a symlink to the `python3` binary. On an M1 mac with Homebrew it looked like:
 
-```sh
+```bash
 sudo ln -s /opt/homebrew/bin/python3/opt/homebrew/bin/python
 ```
 
