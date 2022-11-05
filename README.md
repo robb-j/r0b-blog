@@ -6,7 +6,7 @@ and pushed to [blog.r0b.io](blog.r0b.io).
 
 ## dev scripts
 
-```sh
+```bash
 # Run the generator
 # -> .eleventy.js is the entrypoint
 # -> Outputs to _site which is git-ignored

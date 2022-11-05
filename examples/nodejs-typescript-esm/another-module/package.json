@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "typescript": "4.8"
+  },
+  "dependencies": {
+    "@robb_j/my-module": "file:../"
+  }
+}
