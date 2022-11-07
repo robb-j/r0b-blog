@@ -120,7 +120,7 @@ jobs:
         run: ./bin/esp32.sh
 
       - name: Build the flash tool
-        run: npm run -w web_flash build -- --public-url=/CrapMovement/
+        run: npm run -w web_flash build
         env:
           NODE_ENV: production
 
