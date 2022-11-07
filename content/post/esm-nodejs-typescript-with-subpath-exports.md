@@ -102,7 +102,7 @@ To see all the code, see the [examples folder](https://github.com/robb-j/r0b-blo
 ## Bonus: testing locally
 
 To test a module locally, you can use local relative dependencies.
-This work better than the `npm link` method, which I've always struggled with.
+This works better than the `npm link` method, which I've always struggled with.
 
 In another folder:
 
