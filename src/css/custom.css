@@ -144,6 +144,12 @@ pre {
 .token.punctuation {
   color: #d6ecfd;
 }
+.token.key {
+  color: #8be9fd;
+}
+pre.language-yaml {
+  color: #f1fa8c;
+}
 
 .token.tag {
   color: #ff7dc7;
