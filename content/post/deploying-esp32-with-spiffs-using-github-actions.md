@@ -1,25 +1,26 @@
 ---
-title: Deploy ESP32 with spiffs using github actions
-date: 2022-11-02
+title: Deploying ESP32 with spiffs using github actions
+date: 2022-11-10
 draft: true
 summary: >
-  I've been working on my GitOps for a while now and wanted to document 
-  it all in one place.
+  Playing around with ESP32s has led to some interesting automations to make the whole process easier.
 ---
 
 Generating and flashing firmware onto an ESP32 can be a bit difficult.
-I've been using one for a new project I'm working on and here is what I've learned.
+I've been using one for a new project and here is what I've learned.
+This post is in two parts, the pipeline I ended up creating
+and some key things I've learnt that I didn't think was obvious.
 
 ## Background
 
 This is my first time developing firmware for a chip like the ESP32 so my approach
 may be a little different from firmware veterans.
 My goal is to automate as much of the process as possible
-and have the entire pipeline codified for reproducible builds.
+and have the entire pipeline codified for reproducible builds that run automatically.
 
 I've not got on well with [Arduino IDE](https://www.arduino.cc/en/software)
-and the recent v2 that broke a few needed plugins didn't help.
-I also didn't like the global nature of library dependencies and lack of manifest to define them.
+and the recent v2 seems to have broken some plugins too.
+I also didn't like the global nature of library dependencies and lack of a manifest to define them.
 I opted instead for a command line based approach that could run on my computer or on GitHub Actions.
 
 ## The pipeline
@@ -27,10 +28,10 @@ I opted instead for a command line based approach that could run on my computer 
 The pipeline I eventually setup looked like this:
 
 1. A new version is pushed to GitHub, like `v1.2.3`
-2. In response to that, it builds the firmware
-3. Generate some static files that are bundled into a SPIFFS partition
-4. Create a static website that can be used to flash the device using web serial
-5. Deploy the flash website to GitHub pages
+2. It compiles the firmware
+3. Generate static files that are bundled into a SPIFFS partition
+4. Create a static website that can be used to flash the device or download assets
+5. Deploy the static website to GitHub pages
 
 **1. create a release**
 
@@ -64,12 +65,86 @@ It's all joined together with a manifest file, which specifies the firmware part
 With the flash tool built, a GitHub action takes those html, js, css, json and binaries and deploys them to GitHub pages,
 so you can access the tool or directly download the firmware and `manifest.json`.
 
+<details>
+<summary>Example GitHub workflow</summary>
+
+**workflow.yml**
+
+```yaml
+name: Release
+
+on:
+  push:
+    tags: [v*]
+
+jobs:
+  build:
+    name: Compile web flash
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+      contents: read
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install Arduino CLI
+        uses: arduino/setup-arduino-cli@v1
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v2
+
+      - name: Install dependencies
+        run: npm install --no-audit
+
+      - name: Build the app
+        run: npm run -w app build
+
+      - name: Setup arduino
+        run: ./bin/esp32.sh
+
+      - name: Compile firmware
+        run: ./bin/esp32.sh
+
+      - name: Build the flash tool
+        run: npm run -w web_flash build -- --public-url=/CrapMovement/
+        env:
+          NODE_ENV: production
+
+      - name: Upload pages artifacts
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: web_flash/dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
+```
+
+</details>
+
 ## Hurdles
 
 ### What is a sketch
 
 A sketch is a folder with a same-named file inside it with a `.ino` extension.
 So for `MyProject/MyProject.ino`, the sketch is the folder `MyProject`.
+
+Arduino also references a "sketchbook" which I think is just a folder that has multiple sketches in it,
+but it is a different thing.
 
 ### Setting and configuring arduino-cli
 
@@ -90,12 +165,14 @@ board_manager:
 The configuration is useful for ESP32 development because you can set `board_manager.additional_urls`
 which is needed to install the ESP32 packages.
 You can also install the libraries you need to.
-I ended up having `bin/setup-arduino.sh` to do this one-time config so it can easily be ran from the CI.
-It sort-of serves as a definition of the dependencies of the arduino code.
+I ended up having `bin/setup.sh` to do this one-time config so it can easily be ran from the CI.
+It sort-of serves as a definition of the dependencies of the Arduino code.
 
 **bin/setup.sh**
 
 ```bash
+#!/usr/bin/env sh
+
 arduino-cli core update-index
 arduino-cli core install esp32:esp32@1.0.6
 arduino-cli lib install ArduinoJson@6.19.4 AnotherPackage@x.y.x
@@ -105,16 +182,16 @@ arduino-cli lib install ArduinoJson@6.19.4 AnotherPackage@x.y.x
 
 ### Custom libraries as submodules
 
-The ESP32 library I was using had some 3rd party dependencies so I wanted to codify those too,
-and I didn't want them installed globally, I wanted them dependably in one place at a specific version.
+The ESP32 library I was using has some 3rd party dependencies so I wanted to codify those too
+I didn't want them installed globally, I wanted them dependably in one place at a specific version.
 
 The best way I found to codify these dependencies was to add them as git submodules to the project,
-so a specific version is pinned within the parent git repository.
-It does add an extra step to `git submodule init` and `git submodule sync` every so often.
+so a specific version or commit can be pinned within the parent git repository.
+It does add an extra step to `git submodule init` during setup and `git submodule update` needs to be run every so often.
 
-I hoped Arduino IDE would automatically load them if they were in `libraries` or the `src` folder
+I hoped Arduino IDE would automatically load them if they were in `lib`, `libraries` or the `src` folder
 which it claims to check and compile, but I couldn't get this working.
-This needed an extra argument to the `arduino-cli compile` command.
+It needed an extra argument to the `arduino-cli compile` command instead.
 You can pass a `--libraries` option which is a custom folder of libraries,
 which worked out well because all the submodules were in a folder together.
 
@@ -122,16 +199,16 @@ which worked out well because all the submodules were in a folder together.
 
 ### Arduino partitions
 
-I first had to learn how flashing an ESP worked.
+I had to learn how flashing an ESP worked.
 You have a set amount of flash storage on the device and several binaries that need placing at specific places in that storage.
 These are called partitions and one of the partitions tells the device where the other partitions are.
 
-When you compile with `arduino-cli` it creates two binaries `app.bin` and `app.partitions.bin`,
+When you compile with the IDE or `arduino-cli` it creates two binaries `app.bin` and `app.partitions.bin`,
 the first is your compiled firmware, the second is the partitions you're going to use.
 
-You can choose different partitions by passing `--build-property build.partitions=default`,
-where `default` is the partition scheme you want to use. More on these below.
-You might want to have more space for your app, or a larger spiffs section.
+You can choose different partitions by passing `--build-property build.partitions=scheme`,
+where `scheme` is the partition scheme you want to use. More on these below.
+You might want to have more space for your app, or a larger spiffs section for example.
 
 The partitions table **must** be flashed at [0x8000](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/partition-tables.html)
 and be 0xC00 bytes long, where the other binaries go depends on which partition scheme you use.
@@ -152,27 +229,29 @@ app1,     app,  ota_1,   0x150000,0x140000,
 spiffs,   data, spiffs,  0x290000,0x170000,
 ```
 
-Here we can find that our app should be at 0x10000 and be no more than 0x140000 bytes long
+Here we can find that our app should be at 0x10000 and be 0x140000 bytes long
 and our spiffs should be at 0x290000 and 0x170000 bytes long.
 These numbers become very useful as we [create spiffs](#creating-a-spiff-partition)
-and [flash them](flashing-from-the-cli) later.
+and [flash them](flashing-from-the-cli) below.
 
 ### Creating a spiff partition
 
 [SPIFFS](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/storage/spiffs.html)
 is an in-memory filesystem the ESP32 can use to store extra files alongside the app.
-For my app it's where web assets (html, js, css) go that the ESP serves as a captive portal.
+For my app it's where web assets (html, js, css and images) go that the ESP serves as a captive portal.
 
-There is a [plugin](https://github.com/esp8266/arduino-esp8266fs-plugin) for Arduino IDE to generate a SPIFFS partition.
+There is a [plugin](https://github.com/me-no-dev/arduino-esp32fs-plugin) for Arduino IDE to generate a SPIFFS partition.
 It takes the contents of the `data/` folder inside your sketch, creates a partition for you and flashes it to the ESP.
-I couldn't get this working and it didn't fit with my automation goals.
+I couldn't get this working and the manual process didn't fit with my automation goals.
 
 To generate one from the CLI you need need to know a few things.
-First where the ESP32 Arduino package gets installed, this is `$HOME/Arduino/...TODO...`.
+First, where the ESP32 Arduino package gets installed, this is `$HOME/Library/Arduino15/packages/esp32` on my mac.
+You can use `arduino-cli config dump` to see where it looks, the path is under `directories.data`
+
 Next you need to find the `tools` directory in there and find the `mkspiffs` binary.
 There are a few hard-coded versions in there so it makes sense to have them as script variables.
 
-> You can get the Ardunio directory from the CLI with a little help from [jq](https://stedolan.github.io/jq/).
+> You can get the Arduino directory from the CLI with a little help from [jq](https://stedolan.github.io/jq/).
 
 **bin/build.sh**
 
@@ -205,19 +284,21 @@ ${ARDUINO_DIR}/packages/esp32/tools/mkspiffs/${SPIFFS_VERSION}/mkspiffs \
   arduino/build/esp32.esp32.esp32/arduino.ino.spiffs.bin
 ```
 
-There are several very-specific numbers here and they have to be exactly right.
+There are three very-specific numbers here and they have to be exactly right.
 So it took a while to find out exactly what these numbers should be.
 I found the block-size, `-b` , and page size, `-p` in the
 [official docs](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/storage/spiffs.html#mkspiffs).
 
 The size parameter was a little harder to track down.
 The size is important, it needs to be the exact size of the `spiffs` partition you want to mount, otherwise it won't work.
-More info on this in [Arduino partitions](#arduino-partitions) below.
+More info on this in [Arduino partitions](#arduino-partitions) above.
 
 ### Flashing from the CLI
 
-Another hurdle was getting a consistent flash from the CLI, to quickly develop the firmware and try out different fixes.
-This took the form of another bash script, **bin/flash.sh**:
+The final hurdle was getting a consistent flash from the CLI, to quickly develop the firmware and try out different fixes.
+This took the form of another bash script:
+
+**bin/flash.sh**
 
 ```bash
 #!/usr/bin/env sh
@@ -247,7 +328,7 @@ $ARDUINO_DIR/packages/esp32/tools/esptool_py/${ESPTOOL_VERSION}/esptool \
 This is a bit of a monster of hard-coded configuration and more specific numbers are needed again!
 `--chip` is simple, I'm building for an ESP32, its not the "board name" (esp32:esp32) though.
 `--before` and `--after` run their operations at their respective times,
-so it does a reset before flashing then a hard reset after flashing.
+so it does a regular reset before flashing then a hard reset after flashing.
 
 There is also a new `BOOTLOADER` variable, which is the path to where the ESP32 package has the bootloader I wanted to use.
 
@@ -261,9 +342,6 @@ The bootloader and partitions go at hardcoded locations for the ESP as previousl
 
 ### Where things are
 
-- \$ARDUINO_DIR
-- \$ESP_VERSION
-- \$SPIFFS_VERSION
 - different places libraries are
 - where mkspiff is
 - where esptool is
@@ -277,7 +355,34 @@ So I had to create a symlink to the `python3` binary. On an M1 mac with Homebrew
 sudo ln -s /opt/homebrew/bin/python3/opt/homebrew/bin/python
 ```
 
+It seems the `esp32` package for Arduino CLI has specific versions of `esptool` and `mkspiffs` bundled with it,
+but it still makes sense to keep those as variables so the script can be updated at a later date.
+
+### Bonus: monitor serial from the CLI
+
+If you're using the `Serial` within your firmware code you can use the `arduino-cli` to get the serial output
+right in your own terminal.
+You'll need to know your baud rate, which is the number you pass to `Serial.begin(...)`.
+
+**bin/monitor.sh**
+
+```bash
+#!/usr/bin/env sh
+set -e
+
+# This is a little hack,
+# If you call the command without an argument, it suggests one that is probably an ESP32
+if [ -z "$1" ]
+then
+  echo "Usage:\n  $0 $(echo /dev/cu.usbserial-*)"
+  exit 1;
+fi
+
+# Put your own chip and baud rate here
+arduino-cli monitor -b esp32:esp32:esp32 -p "$1" -c baudrate=115200
+```
+
 ## Next steps
 
-- Generate a GitHub release and attach the firmware binaries.
-- Explore merging all binaries into one.
+- Generate a GitHub release and attach the firmware binaries directly to it.
+- Explore merging all binaries into one and see if there are any benefits
