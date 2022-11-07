@@ -116,7 +116,8 @@ pre {
   font-size: 0.8em;
 }
 
-.token.comment {
+.token.comment,
+.token.shebang {
   color: #7a7f8c;
 }
 .token.function,
@@ -146,6 +147,12 @@ pre {
 }
 .token.key {
   color: #8be9fd;
+}
+.token.assign-left.variable {
+  color: #f8f8f2;
+}
+.token.variable {
+  color: #ff7dc7;
 }
 pre.language-yaml {
   color: #f1fa8c;

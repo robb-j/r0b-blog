@@ -340,12 +340,6 @@ The bootloader and partitions go at hardcoded locations for the ESP as previousl
 
 > A nicety of `esptool` over `arduino-cli upload` is that you don't need to specify a USB device, it picks it for you.
 
-### Where things are
-
-- different places libraries are
-- where mkspiff is
-- where esptool is
-
 ### Misc
 
 One of the commands needed the `python` to be on my `$PATH`, but that is no longer the case on macOS.
