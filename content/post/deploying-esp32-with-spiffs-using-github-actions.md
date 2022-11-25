@@ -1,7 +1,7 @@
 ---
-title: Deploying ESP32 with spiffs using github actions
-date: 2022-11-10
-draft: true
+title: Deploying ESP32 with SPIFFS using github actions
+date: 2022-11-25
+draft: false
 summary: >
   Playing around with ESP32s has led to some interesting automations to make the whole process easier.
 ---
@@ -28,18 +28,18 @@ I opted instead for a command line based approach that could run on my computer 
 The pipeline I eventually setup looked like this:
 
 1. A new version is pushed to GitHub, like `v1.2.3`
-2. It compiles the firmware
+2. It compiles the Arduino firmware
 3. Generate static files that are bundled into a SPIFFS partition
 4. Create a static website that can be used to flash the device or download assets
 5. Deploy the static website to GitHub pages
 
-**1. create a release**
+**1. Create a release**
 
 A release is triggered using the "npm version" command locally,
 which bumps the version in `package.json`, commits the change as `x.y.x`
 and tags the commit as `vx.y.z`.
 
-**2. setup GitHub actions**
+**2. Setup GitHub actions**
 
 When a tag with a `v` prefix is pushed to GitHub it runs an action to build and publish the release.
 It first sets up the environment, with a recursive git checkout.
@@ -51,12 +51,13 @@ It then installs and sets up `arduino-cli` and `node.js` and installs NPM depend
 
 The ESP32 I'm using is a captive portal that serves a web app, so next it builds the web-app using [parcel](https://parceljs.org).
 This packages everything up nicely, minifies the code and makes it compatible with older browsers.
-The it uses ESP32's `mkspiff` tool wrap all those files up into a `spiffs.bin` partition.
+Then it uses ESP32's `mkspiff` tool to wrap all those files up into a `spiffs.bin` partition.
 
 **4. Generate flashing app**
 
-Next it creates another website, this one uses [esp-web-tools](https://esphome.github.io/esp-web-tools/)
-to create an interface to flash the ESP32 from a browser. Sadly only Chrome is supported at this time.
+Next it creates the flash tool which a website that uses [esp-web-tools](https://esphome.github.io/esp-web-tools/)
+to create an interface to flash the ESP32 from a browser. Sadly only Chrome is supported at this time,
+it needs the [Web Serial API](https://caniuse.com/web-serial).
 This is a little html file which loads the tool and has the firmware binaries adjacent to it for the tool to load them in.
 It's all joined together with a manifest file, which specifies the firmware partitions and where to put each binary.
 
@@ -140,11 +141,45 @@ jobs:
 
 ### What is a sketch
 
-A sketch is a folder with a same-named file inside it with a `.ino` extension.
+An Arduino sketch is a folder with a same-named file inside it with a `.ino` extension.
 So for `MyProject/MyProject.ino`, the sketch is the folder `MyProject`.
 
-Arduino also references a "sketchbook" which I think is just a folder that has multiple sketches in it,
+The Arduino docs also reference a "sketchbook" which I think is just a folder that has multiple Arduino sketches in it,
 but it is a different thing.
+
+### IDE setup
+
+My reccomendation for an IDE is [Visual Studio Code](https://code.visualstudio.com) with these extensions:
+
+- [C++ tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) to get intellisense for Arduino code
+- [YAML](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) to validate GitHub workflow or other YAML files
+- [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig) to make sure all your indentations match up
+- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) to auto-format html/css/ts/js/yaml/md files
+
+To get _C++ tools_ working with Arduino, create a **.vscode/c_cpp_properties.json** 
+and modify the default configuration to include:
+
+```json
+{
+  "configurations": [
+    {
+      ...
+      "name": "ESP32",
+      "includePath": [
+        "${workspaceFolder}/arduino/**",
+        "~/Library/Arduino15/packages/esp32/hardware/esp32/**",
+        "~/Documents/Arduino/libraries/**"
+      ],
+      "defines": ["ESP32=1"],
+      ...
+    }
+  ]
+}
+```
+
+This will set the required hash-defines for ESP32 development
+and tell the extension where to load the Arduino libraries.
+It's not perfect and not all imports works but it gets most of the way.
 
 ### Setting and configuring arduino-cli
 
@@ -165,7 +200,7 @@ board_manager:
 The configuration is useful for ESP32 development because you can set `board_manager.additional_urls`
 which is needed to install the ESP32 packages.
 You can also install the libraries you need to.
-I ended up having `bin/setup.sh` to do this one-time config so it can easily be ran from the CI.
+I ended up having `bin/setup.sh` to do this one-time config so it can easily be ran locally and on GitHub actions.
 It sort-of serves as a definition of the dependencies of the Arduino code.
 
 **bin/setup.sh**
@@ -231,10 +266,10 @@ spiffs,   data, spiffs,  0x290000,0x170000,
 
 Here we can find that our app should be at 0x10000 and be 0x140000 bytes long
 and our spiffs should be at 0x290000 and 0x170000 bytes long.
-These numbers become very useful as we [create spiffs](#creating-a-spiff-partition)
+These numbers become very useful as we [create SPIFFS](#creating-a-spiff-partition)
 and [flash them](flashing-from-the-cli) below.
 
-### Creating a spiff partition
+### Creating a SPIFFS partition
 
 [SPIFFS](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/storage/spiffs.html)
 is an in-memory filesystem the ESP32 can use to store extra files alongside the app.
@@ -339,6 +374,31 @@ namely the address' of where to put the app and spiffs.
 The bootloader and partitions go at hardcoded locations for the ESP as previously discussed.
 
 > A nicety of `esptool` over `arduino-cli upload` is that you don't need to specify a USB device, it picks it for you.
+
+### Where is esptool and mkspiffs
+
+When you install the ESP32 package with `arduino-cli` it also installs `esptool` and `mkspiffs`
+which are handy CLI tools for ESP32 development.
+
+You can use this little [jq](https://stedolan.github.io/jq) trick to get your `ARDUINO_DIR`
+and then find the binaries, as long as you know what versions it installed.
+
+> I only found the versions through trial and error.
+
+```bash
+SPIFFS_VERSION=${SPIFFS_VERSION:-0.2.3}
+ESPTOOL_VERSION=${ESPTOOL_VERSION:-3.0.0}
+ARDUINO_DIR=`arduino-cli config dump --format json | jq -r .directories.data`
+
+# esptool location
+${ARDUINO_DIR}/packages/esp32/tools/esptool_py/${ESPTOOL_VERSION}/esptool
+
+# mkspiffs location
+${ARDUINO_DIR}/packages/esp32/tools/mkspiffs/${SPIFFS_VERSION}/mkspiffs
+```
+
+> [esptool docs →](https://docs.espressif.com/projects/esptool/en/latest/esp32/)
+
 
 ### Misc
 
