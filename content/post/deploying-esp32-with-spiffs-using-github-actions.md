@@ -35,7 +35,7 @@ The pipeline I eventually setup looked like this:
 
 **1. Create a release**
 
-A release is triggered using the "npm version" command locally,
+A release is triggered using the `npm version` command locally,
 which bumps the version in `package.json`, commits the change as `x.y.x`
 and tags the commit as `vx.y.z`.
 
@@ -43,7 +43,7 @@ and tags the commit as `vx.y.z`.
 
 When a tag with a `v` prefix is pushed to GitHub it runs an action to build and publish the release.
 It first sets up the environment, with a recursive git checkout.
-3rd party libraries are added as git submodules so they can be kept track of an upgraded dependably.
+thirdy-party libraries are added as git submodules so they can be kept track of and upgraded dependably.
 It then installs and sets up `arduino-cli` and `node.js` and installs NPM dependencies.
 `arduino-cli` is then used to install published libraries and add the ESP32 package.
 
@@ -55,7 +55,7 @@ Then it uses ESP32's `mkspiff` tool to wrap all those files up into a `spiffs.bi
 
 **4. Generate flashing app**
 
-Next it creates the flash tool which a website that uses [esp-web-tools](https://esphome.github.io/esp-web-tools/)
+Next it creates the flash tool which is a website that uses [esp-web-tools](https://esphome.github.io/esp-web-tools/)
 to create an interface to flash the ESP32 from a browser. Sadly only Chrome is supported at this time,
 it needs the [Web Serial API](https://caniuse.com/web-serial).
 This is a little html file which loads the tool and has the firmware binaries adjacent to it for the tool to load them in.
@@ -156,7 +156,7 @@ My reccomendation for an IDE is [Visual Studio Code](https://code.visualstudio.c
 - [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig) to make sure all your indentations match up
 - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) to auto-format html/css/ts/js/yaml/md files
 
-To get _C++ tools_ working with Arduino, create a **.vscode/c_cpp_properties.json** 
+To get _C++ tools_ working with Arduino, create a `.vscode/c_cpp_properties.json` 
 and modify the default configuration to include:
 
 ```json
@@ -217,7 +217,7 @@ arduino-cli lib install ArduinoJson@6.19.4 AnotherPackage@x.y.x
 
 ### Custom libraries as submodules
 
-The ESP32 library I was using has some 3rd party dependencies so I wanted to codify those too
+The ESP32 library I was using has some third-party dependencies so I wanted to codify those too
 I didn't want them installed globally, I wanted them dependably in one place at a specific version.
 
 The best way I found to codify these dependencies was to add them as git submodules to the project,
@@ -365,9 +365,7 @@ This is a bit of a monster of hard-coded configuration and more specific numbers
 `--before` and `--after` run their operations at their respective times,
 so it does a regular reset before flashing then a hard reset after flashing.
 
-There is also a new `BOOTLOADER` variable, which is the path to where the ESP32 package has the bootloader I wanted to use.
-
-> TODO: why do we use this...
+There is also a new `BOOTLOADER` variable, which is the path to where the ESP32 package has the bootloader I wanted to use. This lets you flash the bootloader onto the ESP too. It makes sure the latest versio of the bootloader is installed and that its compatible with the compilled firmware.
 
 The main chunk of this command is information from the [partitions](#arduino-partitions) file,
 namely the address' of where to put the app and spiffs.
