@@ -267,7 +267,7 @@ spiffs,   data, spiffs,  0x290000,0x170000,
 Here we can find that our app should be at 0x10000 and be 0x140000 bytes long
 and our spiffs should be at 0x290000 and 0x170000 bytes long.
 These numbers become very useful as we [create SPIFFS](#creating-a-spiff-partition)
-and [flash them](flashing-from-the-cli) below.
+and [flash them](#flashing-from-the-cli) below.
 
 ### Creating a SPIFFS partition
 
