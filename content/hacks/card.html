@@ -1,0 +1,106 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+      .wrapper {
+        border: 5px solid black;
+        padding: 50px;
+        position: relative;
+        min-height: 960px;
+        min-width: 1048px;
+        overflow: hidden;
+      }
+      .projectCard {
+        position: absolute;
+        width: 320px;
+        height: 180px;
+
+        background-color: transparent;
+        color: black;
+        perspective: 1000px;
+        box-shadow: 0 3px 1px rgba(0, 0, 0, 0.05);
+        cursor: move;
+        opacity: 1;
+      }
+      .projectCard-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform 500ms ease;
+        transform-style: preserve-3d;
+        text-align: center;
+      }
+      .projectCard[data-side='back'] .projectCard-inner {
+        transform: rotateY(180deg);
+      }
+      .projectCard-front,
+      .projectCard-back {
+        aspect-ratio: 16 / 9;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      .projectCard-front {
+      }
+      .projectCard-back {
+        background-color: white;
+        color: black;
+        transform: rotateY(180deg);
+        border: 5px solid black;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <article class="projectCard" data-side="front">
+        <div class="projectCard-inner">
+          <div class="projectCard-front">
+            <img src="/img/opengraph.png" width="320" height="180" />
+          </div>
+          <div class="projectCard-back">
+            <p>
+              My fancy project — it was really cool and goes over at least one
+              line
+            </p>
+            <!-- TODO: clicking this doesn't work -->
+            <p><a href="https://example.com">More info</a></p>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <script type="module">
+      for (const card of document.querySelectorAll('.projectCard')) {
+        let startPosition = null
+        card.onpointerdown = (event) => {
+          event.preventDefault()
+          card.setPointerCapture(event.pointerId)
+          startPosition = [event.screenX, event.screenY]
+          card.onpointermove = (event) => {
+            card.style.left = `${card.offsetLeft + event.movementX}px`
+            card.style.top = `${card.offsetTop + event.movementY}px`
+          }
+        }
+        card.onpointerup = (event) => {
+          let dx = event.screenX - startPosition[0]
+          let dy = event.screenY - startPosition[1]
+          if (dx === 0 && dy === 0) {
+            card.dataset.side = card.dataset.side === 'front' ? 'back' : 'front'
+          }
+          card.onpointermove = null
+          card.releasePointerCapture(event.pointerId)
+        }
+      }
+    </script>
+  </body>
+</html>

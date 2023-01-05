@@ -24,8 +24,8 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addPassthroughCopy({
     'node_modules/@robb_j/r0b-design/dist': 'r0b',
-    // 'src/css': 'css',
     'src/img': 'img',
+    'src/video': 'video',
   })
 
   eleventyConfig.addPlugin(filters)
@@ -41,7 +41,7 @@ module.exports = function (eleventyConfig) {
       layouts: '_layouts',
     },
     pathPrefix: PATH_PREFIX,
-    templateFormats: ['11ty.js', 'njk', 'md'],
+    templateFormats: ['11ty.js', 'njk', 'md', 'html'],
     htmlTemplateEngine: 'njk',
     markdownTemplateEngine: 'njk',
   }

@@ -18,7 +18,7 @@ module.exports = function (eleventyConfig) {
     async (src, text, type = 'video/mp4') => {
       const source = `<source src="${src}" type="${type}">`
 
-      const vid = `<video controls loop>${source}</video>`
+      const vid = `<video controls loop width="640" height="360">${source}</video>`
       const caption = `<figcaption>${text}</figcaption>`
       return `<figure class="figureVideo">${vid}${caption}</figure>`
     }
