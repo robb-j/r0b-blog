@@ -1,7 +1,7 @@
 {
   "name": "@robb_j/r0b-blog",
   "private": true,
-  "repository": "robb-j/blog.r0b.io",
+  "repository": "robb-j/r0b-blog",
   "scripts": {
     "lint": "tsc",
     "serve": "eleventy --serve --port=8081",
