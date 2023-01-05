@@ -1,5 +1,6 @@
 const { DateTime } = require('luxon')
 
+/** @param {import("@11ty/eleventy/src/UserConfig")} eleventyConfig */
 module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter('date', (value, format) => {
     return DateTime.fromJSDate(value).toFormat(format)

@@ -2,17 +2,16 @@ require('dotenv/config')
 
 const markdown = require('markdown-it')
 const markdownAnchor = require('markdown-it-anchor')
-
 const pluginRss = require('@11ty/eleventy-plugin-rss')
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight')
-const readingTime = require('eleventy-plugin-reading-time')
 
 const shortcodes = require('./11ty/shortcodes')
 const filters = require('./11ty/filters')
 const { PATH_PREFIX } = require('./11ty/env')
 
+/** @param {import("@11ty/eleventy/src/UserConfig")} eleventyConfig */
 module.exports = function (eleventyConfig) {
-  eleventyConfig.addWatchTarget('./src/js/')
+  eleventyConfig.addWatchTarget('./src/')
 
   const md = markdown({
     html: true,
@@ -24,7 +23,6 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.setLibrary('md', md)
 
   eleventyConfig.addPassthroughCopy({
-    'node_modules/@robb_j/r0b-design/dist': 'r0b',
     'src/css': 'css',
     'src/img': 'img',
   })
@@ -33,7 +31,6 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(shortcodes)
 
   eleventyConfig.addPlugin(pluginRss)
-  eleventyConfig.addPlugin(readingTime)
   eleventyConfig.addPlugin(syntaxHighlight)
 
   return {

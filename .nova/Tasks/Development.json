@@ -1,0 +1,12 @@
+{
+  "actions": {
+    "build": {
+      "enabled": true,
+      "script": "#!/bin/sh\nnpm run build"
+    },
+    "run": {
+      "enabled": true,
+      "script": "#!/bin/sh\n\nnpm run serve"
+    }
+  }
+}
