@@ -1,4 +1,5 @@
 @import '@robb_j/r0b-design/dist/styles.css';
+@import 'prism-themes/themes/prism-dracula.css';
 
 body {
   min-height: 100vh;
@@ -111,55 +112,6 @@ footer.page-footer {
   word-break: break-word;
 }
 
-/* 
-  Code highlighting
-*/
-pre {
-  font-size: 0.8em;
-}
-
-.token.comment,
-.token.shebang {
-  color: #7a7f8c;
-}
-.token.function,
-.token.attr-name {
-  color: #00ed78;
-}
-.token.property {
-  color: #80e3f4;
-}
-.token.string,
-.token.attr-value {
-  color: #e5ef8c;
-}
-.token.builtin,
-.token.keyword {
-  color: #ff7dc7;
-}
-.token.boolean {
-  color: #c69af4;
-}
-.token.parameter {
-  color: #ffb55c;
-  font-style: italic;
-}
-.token.punctuation {
-  color: #d6ecfd;
-}
-.token.key {
-  color: #8be9fd;
-}
-.token.assign-left.variable {
-  color: #f8f8f2;
-}
-.token.variable {
-  color: #ff7dc7;
-}
-pre.language-yaml {
-  color: #f1fa8c;
-}
-
 .token.tag {
   color: #ff7dc7;
   align-items: inherit;
@@ -195,4 +147,20 @@ pre.language-yaml {
   .post .content {
     font-size: 1.1em;
   }
+}
+
+/*
+  Figures
+*/
+figure {
+  max-width: 640px;
+  margin: 2rem auto !important;
+  text-align: center;
+}
+figcaption {
+  font-style: italic;
+}
+
+pre {
+  font-size: 1rem;
 }

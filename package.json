@@ -4,7 +4,7 @@
   "repository": "robb-j/blog.r0b.io",
   "scripts": {
     "lint": "tsc",
-    "serve": "eleventy --serve",
+    "serve": "eleventy --serve --port=8081",
     "format": "prettier --write '**/*.{js,json,css,md,ts,tsx}'",
     "build": "eleventy"
   },

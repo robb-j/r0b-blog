@@ -2,7 +2,7 @@ const Image = require('@11ty/eleventy-img')
 
 /** @param {import("@11ty/eleventy/src/UserConfig")} eleventyConfig */
 module.exports = function (eleventyConfig) {
-  eleventyConfig.addNunjucksAsyncShortcode('figure', async (src, text) => {
+  eleventyConfig.addAsyncShortcode('image', async (src, text) => {
     const stats = await Image(src, {
       widths: [1200, 1200],
       formats: ['webp', 'auto'],
@@ -12,4 +12,15 @@ module.exports = function (eleventyConfig) {
     const caption = `<figcaption>${text}</figcaption>`
     return `<figure class="figureImage">${img}${caption}</figure>`
   })
+
+  eleventyConfig.addAsyncShortcode(
+    'video',
+    async (src, text, type = 'video/mp4') => {
+      const source = `<source src="${src}" type="${type}">`
+
+      const vid = `<video controls loop>${source}</video>`
+      const caption = `<figcaption>${text}</figcaption>`
+      return `<figure class="figureVideo">${vid}${caption}</figure>`
+    }
+  )
 }

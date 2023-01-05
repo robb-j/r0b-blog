@@ -16,7 +16,7 @@ module.exports = class {
       entryPoints: ['src/js/app.ts', 'src/css/styles.css'],
       bundle: true,
       minify: isProduction,
-      outdir: '_site/js',
+      outdir: '_site',
       sourcemap: !isProduction,
       target: isProduction ? 'es6' : 'esnext',
       loader: {

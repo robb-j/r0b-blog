@@ -3,5 +3,5 @@
   "workspace.name": "blog",
   "workspace.preview_append_paths": false,
   "workspace.preview_type": "custom",
-  "workspace.preview_url": "http://localhost:8080"
+  "workspace.preview_url": "http://localhost:8081"
 }

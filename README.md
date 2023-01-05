@@ -13,7 +13,7 @@ and pushed to [blog.r0b.io](blog.r0b.io).
 npm run build
 
 # Run the dev server
-# -> Runs on http://localhost:8080
+# -> Runs on http://localhost:8081
 # -> Reloads on change using BrowserSync
 npm run serve
 

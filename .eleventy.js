@@ -23,7 +23,8 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.setLibrary('md', md)
 
   eleventyConfig.addPassthroughCopy({
-    'src/css': 'css',
+    'node_modules/@robb_j/r0b-design/dist': 'r0b',
+    // 'src/css': 'css',
     'src/img': 'img',
   })
 
