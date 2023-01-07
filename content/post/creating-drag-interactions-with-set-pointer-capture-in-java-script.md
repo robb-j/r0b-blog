@@ -1,6 +1,6 @@
 ---
 title: Creating drag interactions with setPointerCapture in JavaScript
-date: 2023-01-7
+date: 2023-01-07
 draft: false
 summary: >
   Using "pointer" events and setPointerCapture in JavaScript you can create drag interactions with quite little JavaScript.
