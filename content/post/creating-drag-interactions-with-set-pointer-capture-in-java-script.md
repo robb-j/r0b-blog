@@ -1,25 +1,23 @@
 ---
 title: Creating drag interactions with setPointerCapture in JavaScript
-date: 2023-01-10
-draft: true
+date: 2023-01-7
+draft: false
 summary: >
   Using "pointer" events and setPointerCapture in JavaScript you can create drag interactions with quite little JavaScript.
 ---
 
 Pointer events are the web's answer to mouse vs touch interactions, so you can add one event and it will be triggered consistently whether you are touching on mobile or clicking on a computer. I recently played around with some fun cards on my personal website.
 
-{% image './src/img/r0b-io-project-cards.png', 'The project cards on my website. Click to flip over the card or drag to move them about.' %}
+{% image 'r0b-io-project-cards.png', 'The project cards on my website. Click to flip over the card or click & drag to move them about.' %}
 
 The main issue with implementing a drag like this is that as soon as the cursor exits the target element, it stops receiving the events it needs.
 This is where `setPointerCapture` comes in.
 
 ## How it works
 
-To get this working you listen for `pointer*` events or set the `.onpointer*` methods to your callback.
-I've always been one to prefer events over setting the `on` methods but recently I've come to realise that if you only have one exclusive interaction with an element, you might as well use the methods.
-Its easier to handle (pun intended) and it's easier to manage in more dynamic environments (you can't re-add the same listener by accident).
+To get this working you listen for [pointer events](https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events) or set the `.onpointer*` methods to your callback. I've always been one to prefer the event listeners over setting callbacks but recently have come to realise that if you only have one exclusive interaction with an element, it makes sense to use the methods. It's easier to handle (pun intended) and it's simpler to manage in more dynamic environments (you can't re-add the same listener by accident).
 
-So, to create a drag effect, you first need some HTML to manipulate:
+So, to create a drag effect, let's add some HTML to manipulate:
 
 ```html
 <div class="projectBoard">
@@ -27,7 +25,7 @@ So, to create a drag effect, you first need some HTML to manipulate:
 </div>
 ```
 
-And a rough style:
+And give it a rough style:
 
 ```css
 /* Create a space to move the card about in */
@@ -47,7 +45,7 @@ And a rough style:
 }
 ```
 
-Then the JavaScript to listen to those events:
+Now let's add the drag with JavaScript:
 
 ```ts
 // Start by iterating through all the cards that we want to add the interaction too
@@ -56,8 +54,13 @@ for (const card of document.querySelectorAll('.projectCard')) {
   let startPosition = null
 
   // Listen for "pointerdown" events, when a touch/click starts on that element
-  // https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerdown_event
   card.onpointerdown = (event) => {
+    // Ignore this event if it is not a left-click or touch
+    // or if clicking an anchor tag on the back of the card
+    // https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events#determining_button_states
+    if (event.button !== 0) return
+    if (event.target instanceof HTMLAnchorElement) return
+
     // This stops normal browser' drag behaviour
     // Note: It can cause trouble if you have an anchor on the card
     event.preventDefault()
@@ -71,7 +74,6 @@ for (const card of document.querySelectorAll('.projectCard')) {
 
     // Only add the "move" event handler once the interaction has started
     // Using the "on" method means we can easily remove it later
-    // https://developer.mozilla.org/en-US/docs/Web/API/Element/pointermove_event
     card.onpointermove = (event) => {
       // In this setup the cards are positioned absolutely in a container
       // so setting the top/left will move them about in their container
@@ -82,7 +84,6 @@ for (const card of document.querySelectorAll('.projectCard')) {
   }
 
   // Listen for "pointerup" events, when a touch/click that started on the element and was captured ended
-  // https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerup_event
   card.onpointerup = (event) => {
     let dx = event.screenX - startPosition[0]
     let dy = event.screenY - startPosition[1]
@@ -105,14 +106,18 @@ for (const card of document.querySelectorAll('.projectCard')) {
 
 Thats an extra verbose implementation, not too many steps!?
 
-You can find the source for my [blog's version here](https://github.com/robb-j/r0b-home/blob/134abc134b6a768056a89bedb4b229b522060b42/src/js/app.ts#L144-L194),
+First we add the [onpointerdown](https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerdown_event) callback to listen for pointer events starting. In that callback it captures the pointer which binds all events to that element, even if they aren't pointing to it. Then it adds a [onpointermove](https://developer.mozilla.org/en-US/docs/Web/API/Element/pointermove_event) callback to update the relative position of the card when the pointer moves.
+
+Lastly, it sets the [onpointerup](https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerup_event) callback to handle when the pointer event finishes. It releases the captured pointer and removes the `onpointermove` callback. If the pointer didn't move since it started, it treats it as a click and flips over the card.
+
+You can find the source for my [homepage's version here](https://github.com/robb-j/r0b-home/blob/134abc134b6a768056a89bedb4b229b522060b42/src/js/app.ts#L144-L194),
 if you want to dig a little deeper.
 
-## Bonus: card-flip animation
+## Bonus: card flip animation
 
-I adapted this [w3schools tutorial](https://www.w3schools.com/howto/howto_css_flip_card.asp) to create a nice flip effect for my cards. Instead of on-hover though, I wanted to be able to toggle the cards with a click. To store that information I turned to HTML data attributes which can also be styled from CSS. You could also use a HTML aria attribute for bonus points, as long as the meaning matches up with the interaction you're creating.
+I adapted this [w3schools tutorial](https://www.w3schools.com/howto/howto_css_flip_card.asp) to create a nice flip effect for my cards. Instead of on-hover though, I wanted to be able to toggle the cards with a click. To store that state I turned to HTML data attributes which can be used in CSS styling. You could also use a HTML aria attribute, as long as the meaning matches up with the interaction you're creating.
 
-{% video '/video/r0b-card-flip.mov' | url, 'The card flip animation like a ... card flip. Very skeuomorphic' %}
+{% video 'r0b-card-flip.mov', 'The card flip animation like a ... card flip. Very skeuomorphic' %}
 
 The code above will toggle the `data-side` attribute on the card between `front` or `back` when you click on it. It needs more markup that the above example:
 
@@ -137,12 +142,13 @@ The code above will toggle the `data-side` attribute on the card between `front`
 </article>
 ```
 
-Then you can style that something like this:
+<!-- Then you can style that something like this: -->
+
+This effect needs a few elements to take place, the wrapper (`projectCard`), an `inner` element and the `front` and `back` elements.
+
+Let's style them:
 
 ```css
-/*
-  Give the card a size and set the "perspective" 
-*/
 .projectCard {
   position: absolute;
   width: 320px;
@@ -151,10 +157,11 @@ Then you can style that something like this:
   perspective: 1000px;
   box-shadow: 0 3px 1px rgba(0, 0, 0, 0.05);
 }
-/*
-  Give the inner element position (so the front and back can be absolutely positioned).
-  Make sure the inner element fills the card itself and setup a transitions on the "transform" property.
-*/
+```
+
+The wrapper element sets the `perspective` attribute which controls how far the object is away from the user when using 3d transforms. A smaller number puts it closer to the user, `1000px` looked nice for these size cards. If the number is less than the width of the card, then the animation will clip through the "camera" (where the viewer is) and look glitchy.
+
+```css
 .projectCard-inner {
   position: relative;
   width: 100%;
@@ -163,10 +170,24 @@ Then you can style that something like this:
   transform-style: preserve-3d;
   text-align: center;
 }
-/* Show the backside when that data property is set */
+```
+
+The inner element sets up the animation by setting `transition` and `transform-style`. The transition will animate the transform property on the element whenever it changes.
+
+The `transform-style` statement makes child elements exist in their own 3d space which lets the back be rotated 180 degrees away from the front in the 3d world.
+
+```css
+/* Show the card's backside when that data property is set */
 .projectCard[data-side='back'] .projectCard-inner {
   transform: rotateY(180deg);
 }
+```
+
+When the inner element has the attribute `data-side="back"` it rotates itself (and it's children) 180 degrees on the y axis. These transforms composite, so when the parent is rotated 180 degrees, the back is rotated 180 degrees + 180 degrees which is a full rotation so it is facing forwards again.
+
+Because there is also a transition setup, it animates! These dataset attributes can easily be set from JavaScript using the [dataset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset) field, shown earlier.
+
+```css
 /* Style the front back back of the card the same way */
 .projectCard-front,
 .projectCard-back {
@@ -178,11 +199,13 @@ Then you can style that something like this:
   border-radius: 6px;
   overflow: hidden;
 }
-.projectCard-front {
-  /* If you want to style the front of the card! */
-}
-/* Flip the back of the card (relatively to the whole card) */
+```
+
+The front & back elements share styles so they are exactly the same and don't get misaligned.
+
+```css
 .projectCard-back {
+  /* Flip the back of the card (relatively to the whole card) */
   transform: rotateY(180deg);
 
   /* Style the text and surround with a border */
@@ -199,19 +222,10 @@ Then you can style that something like this:
 }
 ```
 
-This effect needs a few elements to take place, the wrapper (`projectCard`), an `inner` element and the `front` and `back` elements.
-
-The _wrapper_ has `perspective: 1000px;` on it which sets how far the object is away from the user.
-A smaller number puts it closer to the user and can create some pretty trippy effects, 1000px looked nice for these size cards. If the number is less than the width of the card, then the animation will clip through the "camera" (where the user is) and look glitchy.
-
-The _inner_ element does the animation by setting up `transition` and `transform-style`. The transition is the standard css animation mechanism. The `transform-style` statement makes child elements exist in their own 3d space which lets the back be rotated 180 degrees away from the front in the 3d world.
-
-When the _inner_ element has the attribute `data-side="back"` it rotates itself (and it's children) 180 degrees on the y axis. Because there is also a transition setup, it animates! These dataset attributes can easily be set from JavaScript using the [dataset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset) field, shown above.
-
-The _back_ element has the final piece of the puzzle, it is rotated away from the visitor. Because both _front_ and _back_ have `backface-visibility: hidden;` set, you cannot see the reverse of the elements and they don't bleed through each other. This rotation is also achieved through the `transform` statement.
+The back element has the final piece of the puzzle, it is rotated away from the visitor. Because both front and back have `backface-visibility: hidden;` set, you cannot see the reverse of the elements and they don't bleed through each other.
 
 ## Wrapping up
 
-That's card dragging and a cheeky flip animation too, you can see it on [my homepage]({{ site.homeUrl }}) and I've also attached a [demo]({{ '/hacks/card' | url }}) into the blog too!
+That's my card dragging and a cheeky flip animation too, you can see at the bottom of [my homepage]({{ site.homeUrl }}) and I've also attached a [demo]({{ '/hacks/card' | url }}) into the blog too!
 
-Any questions or feedback? Reach out on [Mastodon]({{ site.mastodon }}).
+If you have any questions or feedback, reach out to me on [Mastodon]({{ site.mastodon }}).

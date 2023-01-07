@@ -112,6 +112,10 @@ footer.page-footer {
   word-break: break-word;
 }
 
+.content > * + * {
+  margin-top: var(--flow-space, 1em);
+}
+
 .token.tag {
   color: #ff7dc7;
   align-items: inherit;
@@ -129,10 +133,6 @@ footer.page-footer {
 
 .post .content {
   font-size: 1.3em;
-}
-
-.content details {
-  margin-bottom: 1em;
 }
 
 @media screen and (max-width: 768px) {

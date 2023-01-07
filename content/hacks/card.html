@@ -83,6 +83,9 @@
       for (const card of document.querySelectorAll('.projectCard')) {
         let startPosition = null
         card.onpointerdown = (event) => {
+          if (event.button !== 0) return
+          if (event.target instanceof HTMLAnchorElement) return
+
           event.preventDefault()
           card.setPointerCapture(event.pointerId)
           startPosition = [event.screenX, event.screenY]

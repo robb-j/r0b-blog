@@ -1,8 +1,11 @@
+const path = require('path')
 const Image = require('@11ty/eleventy-img')
 
 /** @param {import("@11ty/eleventy/src/UserConfig")} eleventyConfig */
 module.exports = function (eleventyConfig) {
-  eleventyConfig.addAsyncShortcode('image', async (src, text) => {
+  eleventyConfig.addAsyncShortcode('image', async (imageName, text) => {
+    const src = path.join('./src/img', imageName)
+
     const stats = await Image(src, {
       widths: [1200, 1200],
       formats: ['webp', 'auto'],
@@ -15,7 +18,10 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addAsyncShortcode(
     'video',
-    async (src, text, type = 'video/mp4') => {
+    async (videoName, text, type = 'video/mp4') => {
+      const src = eleventyConfig.javascriptFunctions.url(
+        path.join('/video', videoName)
+      )
       const source = `<source src="${src}" type="${type}">`
 
       const vid = `<video controls loop width="640" height="360">${source}</video>`
