@@ -23,6 +23,17 @@ The machine now knew who had bought the least amount of beans for the number of 
 
 Last year we rebuilt the system to be a native piece of software that ran entirely on-device and this included adding a nice 7" touchscreen. One of my goals was to see how feasible it was to build a web app without any frameworks. (Cue the rest of this post)
 
+## How it works
+
+The app is made up of a few pages:
+
+- The **home** page which shows general stats, daily messages and collective usage information.
+- A **scan** page navigated to by scanning a smart card which registers a cup drank and shows personal stats.
+- A **register** page to log a coffee purchase and set the weight if it is a new product, triggered to by scanning a barcode when on the **scan** page.
+- The **register** is shown when a new RFID card scanned. You can associate with a person on our [group website](https://openlab.ncl.ac.uk/people/) or be anonymous.
+
+Each page is a HTML document, CSS stylesheet and a bit of JavaScript. The structure of the page is all in the HTML file and dynamic elements are put in `<template>` tags to be populated when needed.
+
 ## Page-based navigation
 
 One of the things that SPAs break is natural browser navigation. With coffee club it ended up be several html files and some with query parameters, so normal page navigation could occur.
