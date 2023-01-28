@@ -29,14 +29,14 @@ The app is made up of a few pages:
 
 - The **home** page which shows general stats, daily messages and collective usage information.
 - A **scan** page navigated to by scanning a smart card which registers a cup drank and shows personal stats.
-- A **register** page to log a coffee purchase and set the weight if it is a new product, triggered to by scanning a barcode when on the **scan** page.
-- The **register** is shown when a new RFID card scanned. You can associate with a person on our [group website](https://openlab.ncl.ac.uk/people/) or be anonymous.
+- A **register** page to log a coffee purchase and set the weight if it is a new product, triggered by scanning a barcode when on the **scan** page.
+- The **register** page is shown when a new RFID card scanned. You can associate with a person on our [group website](https://openlab.ncl.ac.uk/people/) or be anonymous.
 
 Each page is a HTML document, CSS stylesheet and a bit of JavaScript. The structure of the page is all in the HTML file and dynamic elements are put in `<template>` tags to be populated when needed.
 
 ## Page-based navigation
 
-One of the things that SPAs break is natural browser navigation. With coffee club it ended up be several html files and some with query parameters, so normal page navigation could occur.
+One of the things that SPAs (Single Page Applications) break is natural browser navigation. With coffee club it ended up be several html files and some with query parameters, so normal page navigation could occur.
 
 The system defaults to the home page (`index.html`) then when someone scans an RFID card it goes to `/scan.html?card=abcdef123456`, all good. You can’t do any fancy url-parameters like `/scan/abcdef123456/` which I was hung up on for a while but it doesn’t really matter does it, no one sees this! The client side javascript can pick up the `URLSearchParams` easily by creating a URL from `location.href`.
 
@@ -46,7 +46,7 @@ const url = new URL(location.href)
 
 ## Data binding
 
-The first thing I missed was data-binding which SPA frameworks rely heavily upon. I toyed with lightweight ones like [alpine](https://alpinejs.dev/) or [petite-vue](https://github.com/vuejs/petite-vue) but held firm and ended up making my own minimalistic version. It looks like this:
+The first thing I missed was data-binding which _SPA_ frameworks rely heavily upon. I toyed with lightweight ones like [alpine](https://alpinejs.dev/) or [petite-vue](https://github.com/vuejs/petite-vue) but held firm and ended up making my own minimalistic version. It looks like this:
 
 ```js
 const state = reactive({ profile: null })
@@ -60,21 +60,44 @@ Whenever `state.profile` changes it will call the callback with the latest state
 
 Internally it uses [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) objects, and it was quite a fun exercise to learn how they work and play around with them.
 
-<!-- ## EveryLayout / cube-ish
-
-Mid way through making the new app I heard about [EveryLayout](https://every-layout.dev/) so somewhat pivoted and rewrote the app a bit to use these new layouts I’d learned about. It also followed to refactor the remaining css into a [cube.fyi](https://cube.fyi/)-style to try and simplify things more. This tidied things up -->
-
 ## Kiosk display affordances
 
 Something that was different to design for was that this device was to run in a kiosk-like mode and I put in extra effort to think through the ui components we used so that the app didn’t get stuck anywhere.
 
 The main idea was to make sure it always got back to the home page. This meant each page needed a countdown to either perform an action or cancel. I ended up with buttons with countdowns on them to try to show their relation. I say try because from watching people use the app, they still tend to press the button even when the countdown indicates that it will happen anyway.
 
+## HTML templates
+
+In HTML you can have `<template>` tags which are not shown to viewers and let you start to do things programatically. I used these in the app for dynamic bits of the page which I wanted to control when they were shown without navigating to a new page. For example if you'd scanned your card but didn't want to register a cup so pressed "no coffee", it would stay on the same page but swap out the main element with something different. I created a wrapper to grab a template and fill it in:
+
+```html
+<template id="noCoffee">
+  <span id="name">…</span>
+  <button id="done">Finish</button>
+</template>
+```
+
+```js
+// Create a template hydrator
+const noCoffee = hydrateTemplate('#noCoffee', (elem) => {
+  const name = elem.querySelector('#name')
+  name.innerText = 'Geoff Testington'
+
+  const done = elem.querySelector('#done')
+  done.addEventListener('click', () => { /* ... */ }))
+})
+
+// Add it to the DOM
+rootElement.appendChild(noCoffee())
+```
+
+These templates worked pretty well, definitely a bit more verbose than their Vue or React counterparts but pretty serviceable. Being more-specific to implement did make me re-think what needed to be dynamic and what could be built into the page itself which was interesting. In retrospect this is a bit of a precursor to "islands architecture" that tools like [11ty/is-land](https://github.com/11ty/is-land) and [fresh](https://fresh.deno.dev/docs/concepts/islands) are proposing.
+
 ## The only dependency
 
 Eventually I did concede and add a client-side dependency. It was for charts because they are just a hard problem and there has been lots of good effort gone into solving that already. Until now everything could be made to work with the browser but charts are a different beast.
 
-I went for [chart.js](https://www.chartjs.org/) to show some nice usage graphs on the home screen, it’s minimal but it’s nice to see the average for each day of the week compared to the current week. Why are Tuesdays our most popular day?
+I went for [chart.js](https://www.chartjs.org/) to show some nice usage graphs on the home screen, it’s nice to see the average cups for each day of the week compared to the current week. Why are Tuesdays our most popular day?
 
 ## Event-driven issues
 
@@ -93,14 +116,13 @@ A few things in modern web dev that make things easier:
 - [URLSearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams)
 - [ESM](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
 - [Intl.NumberFormatter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat)
-- [EveryLayout](https://every-layout.dev) for taking layout out of the equation
 
-And a non-JavaScript mention to [Dan Jackson](https://danjackson.dev/), who's the main brain behind this system, designed our human-friendly csv-based filesystem and made it easy to talk to the various input devices.
+And a mention to [Dan Jackson](https://danjackson.dev/), who's the main brain behind this system, designed our human-friendly csv-based filesystem and made it easy to talk to the various input devices. Also [EveryLayout](https://every-layout.dev) for taking layout out of the equation.
 
 ## Conclusions
 
-I think it’s safe to say you can make a web app without an SPA framework like react or vue. You definitely loose a bit of developer experience, but all the tools are there for you to try it yourself. The main loss I’ve found is data-binding and I don’t think most people would be interested in creating their own on top of Proxy objects.
+I think it’s safe to say you can make a web app without an _SPA_ framework like react or vue. You definitely loose a bit of developer experience, but all the tools are there for you to try it yourself. The main loss I’ve found is data-binding and I don’t think most people would be interested in creating their own on top of Proxy objects.
 
-This specific app is a bit of an outlier in the whole SPA debate as it’s running on very precise hardware and software. In this case it might have actually made sense to use something like vue.js to speed up development and avoid those event hang-ups. We have considered this a few times! But in writing this I think it has been useful to explore the space and question the norm.
+This specific app is a bit of an outlier in the whole _SPA_ debate as it’s running on very precise hardware and software. In this case it might have actually made sense to use something like vue.js to speed up development and avoid those event hang-ups. We have considered this a few times! But in writing this I think it has been useful to explore the space and question the norm.
 
 Thanks for reading, I'm interested to know what you think, [Reach out!](https://hyem.tech/@rob)!
