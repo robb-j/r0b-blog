@@ -28,15 +28,17 @@ Last year we rebuilt the system to be a native piece of software that ran entire
 The app is made up of a few pages:
 
 - The **home** page which shows general stats, daily messages and collective usage information.
-- A **scan** page navigated to by scanning a smart card which registers a cup drank and shows personal stats.
+- A **scan** page which registers a cup drank and shows personal stats, navigated to when you scan your card.
 - A **register** page to log a coffee purchase and set the weight if it is a new product, triggered by scanning a barcode when on the **scan** page.
-- The **register** page is shown when a new RFID card scanned. You can associate with a person on our [group website](https://openlab.ncl.ac.uk/people/) or be anonymous.
+- The **register** page which is shown when a new RFID card is scanned. You can associate with a person on our [group website](https://openlab.ncl.ac.uk/people/) or be anonymous.
+
+> The register somewhat-cheekily pulls down the [search.json](https://openlab.ncl.ac.uk/search.json) from our group website to populate it's list, we need to make this a little more formal.
 
 Each page is a HTML document, CSS stylesheet and a bit of JavaScript. The structure of the page is all in the HTML file and dynamic elements are put in `<template>` tags to be populated when needed.
 
 ## Page-based navigation
 
-One of the things that SPAs (Single Page Applications) break is natural browser navigation. With coffee club it ended up be several html files and some with query parameters, so normal page navigation could occur.
+One of the things that SPAs (Single Page Applications) break is natural browser navigation. With coffee club it had the static html files and some query parameters, so normal page navigation could occur.
 
 The system defaults to the home page (`index.html`) then when someone scans an RFID card it goes to `/scan.html?card=abcdef123456`, all good. You can’t do any fancy url-parameters like `/scan/abcdef123456/` which I was hung up on for a while but it doesn’t really matter does it, no one sees this! The client side javascript can pick up the `URLSearchParams` easily by creating a URL from `location.href`.
 
@@ -56,13 +58,13 @@ bind(state, ".totalCups", (state, elem) => {
 }
 ```
 
-Whenever `state.profile` changes it will call the callback with the latest state and the element that matches the query selector (in fact each element that matches gets a call). It also calls the callback straight away to render the initial state.
+Whenever `state.profile` changes it will call the callback with the latest state and the element that matches the query selector. It also calls the callback straight away to render the initial state.
 
 Internally it uses [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) objects, and it was quite a fun exercise to learn how they work and play around with them.
 
 ## Kiosk display affordances
 
-Something that was different to design for was that this device was to run in a kiosk-like mode and I put in extra effort to think through the ui components we used so that the app didn’t get stuck anywhere.
+Something that was different to design for was that this device was to run in a kiosk-like mode and I put in extra effort to think through the UI components we used so that the app didn’t get stuck anywhere.
 
 The main idea was to make sure it always got back to the home page. This meant each page needed a countdown to either perform an action or cancel. I ended up with buttons with countdowns on them to try to show their relation. I say try because from watching people use the app, they still tend to press the button even when the countdown indicates that it will happen anyway.
 
@@ -105,7 +107,7 @@ Another oddity about this interface is that it is not driven by cursor/pointer i
 
 Because it is not a Single Page App, it’s a bit harder to handle those events and difficult to handle across actual page navigations. The sensors work by emulating a keyboard under-the-hood so you need to keep state to know what’s been typed and that can get lost if the page navigates away.
 
-For the current version the app has a common "Scanner" class that can be easily created to listen and process the raw events then emit specific events like “card scanned” or “barcode detected”. I think this could be better handled with SharedWorkers in the future but we haven’t got around to trying them yet.
+For the current version the app has a common "Scanner" class that can be easily created to listen and process the raw events then emit specific events like “card scanned” or “barcode detected”. I think this could be better handled with [SharedWorkers](https://developer.mozilla.org/en-US/docs/Web/API/SharedWorker) in the future but we haven’t got around to trying them yet.
 
 ## Honourable mentions
 
@@ -121,8 +123,8 @@ And a mention to [Dan Jackson](https://danjackson.dev/), who's the main brain be
 
 ## Conclusions
 
-I think it’s safe to say you can make a web app without an _SPA_ framework like react or vue. You definitely loose a bit of developer experience, but all the tools are there for you to try it yourself. The main loss I’ve found is data-binding and I don’t think most people would be interested in creating their own on top of Proxy objects.
+I think it’s safe to say you can make a web app without an _SPA_ framework like React or Vue. You definitely loose a bit of developer experience, but all the tools are there for you to try it yourself. The main loss I found was data-binding and I don’t think most people would be interested in creating their own on top of Proxy objects.
 
-This specific app is a bit of an outlier in the whole _SPA_ debate as it’s running on very precise hardware and software. In this case it might have actually made sense to use something like vue.js to speed up development and avoid those event hang-ups. We have considered this a few times! But in writing this I think it has been useful to explore the space and question the norm.
+This specific app is a bit of an outlier in the whole _SPA_ debate as it’s running on very precise hardware and software. In this case it might have actually made sense to use something like Vue.js to speed up development and avoid those event hang-ups. We have considered this a few times! But in writing this I think it has been useful to explore the space and question the norm.
 
-Thanks for reading, I'm interested to know what you think, [Reach out!](https://hyem.tech/@rob)!
+Thanks for reading, please [let me know](https://hyem.tech/@rob) what you think!
