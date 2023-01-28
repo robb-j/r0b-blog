@@ -23,6 +23,8 @@ The machine now knew who had bought the least amount of beans for the number of 
 
 Last year we rebuilt the system to be a native piece of software that ran entirely on-device and this included adding a nice 7" touchscreen. One of my goals was to see how feasible it was to build a web app without any frameworks. (Cue the rest of this post)
 
+{% image 'coffee-club.jpeg', 'The home screen of the coffee club, above our bean-to-cup machine.' %}
+
 ## How it works
 
 The app is made up of a few pages:
