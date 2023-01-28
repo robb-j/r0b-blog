@@ -2,7 +2,7 @@
 title: Trying to make a vanilla web app
 date: 2023-01-28
 draft: false
-summary: >
+summary: >-
   Last year we rebuilt our lab's co-operative coffee system and I didn't use any frameworks
 ---
 
@@ -10,6 +10,7 @@ At work we have a Coffee Club. It goes back a while but we cooperatively bought 
 
 <details>
 <summary>A brief history of the club</summary>
+
 In our old office we were split on two floors and upstairs had an "official" lab-sanctioned and paid machine and on our floor we had naught. One Black Friday a few of us clubbed together to buy a bean-to-cup machine and a bunch of coffee beans.
 
 We had this brilliant idea that we could ask people who wanted to join to buy 3 bags of beans to be in the club. This solved our need for beans running out and we had more people to talk to on coffee breaks. Yes, we just made a Ponzi scheme.
@@ -76,13 +77,14 @@ For the current version the app has a common "Scanner" class that can be easily 
 
 A few things in modern web dev that make things easier:
 
-- The fetch API
-- URL constructors (especially the second base parameter)
-- SearchParams
-- ESM
-- Intl.NumberFormatter
+- The [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) API
+- [URL constructors](https://developer.mozilla.org/en-US/docs/Web/API/URL/URL) (especially that second `base` parameter)
+- [URLSearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams)
+- [ESM](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
+- [Intl.NumberFormatter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat)
+- [EveryLayout](https://every-layout.dev) for taking layout out of the equation
 
-And non-JavaScript related mention to [Dan Jackson](https://danjackson.dev/), who's the main brain behind this system and designed our csv-based filesystem and made it easy to talk to the various input devices.
+And a non-JavaScript mention to [Dan Jackson](https://danjackson.dev/), who's the main brain behind this system, designed our human-friendly csv-based filesystem and made it easy to talk to the various input devices.
 
 ## Conclusions
 
@@ -90,4 +92,4 @@ I think it’s safe to say you can make a web app without an SPA framework like 
 
 This specific app is a bit of an outlier in the whole SPA debate as it’s running on very precise hardware and software. In this case it might have actually made sense to use something like vue.js to speed up development and avoid those event hang-ups. We have considered this a few times! But in writing this I think it has been useful to explore the space and question the norm.
 
-Thanks for reading, I'm interested to know what you think! [Reach out](https://hyem.tech/@rob)!
+Thanks for reading, I'm interested to know what you think, [Reach out!](https://hyem.tech/@rob)!

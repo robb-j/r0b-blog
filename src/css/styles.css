@@ -164,3 +164,14 @@ figcaption {
 pre {
   font-size: 1rem;
 }
+
+/* Misc */
+details {
+  padding: 1em;
+  border: 5px dashed #ddd;
+  border-radius: 15px;
+}
+details summary {
+  cursor: pointer;
+  font-weight: bold;
+}
