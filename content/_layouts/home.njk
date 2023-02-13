@@ -58,9 +58,10 @@ layout: html
           </a>
         </p>
 
-        {% for post in collections.posts | isPublished | newestFirst %}
+        {% for post in collections.posts | newestFirst %}
         <article class="post-summary">
           <h2 class="title is-2">
+            {% if post.data.draft %}[DRAFT]{% endif %}
             <a href="{{ post.url }}"> {{ post.data.title }}</a>
           </h2>
           <h3 class="subtitle is-4">{{ post.date | longDate }}</h3>
