@@ -1,4 +1,4 @@
-# blog.r0b.io [![Netlify Status](https://api.netlify.com/api/v1/badges/e6495d2d-ccc5-4104-b32f-905a159eea3c/deploy-status)](https://app.netlify.com/sites/elastic-cori-ac8dbc/deploys)
+# blog.r0b.io [![Netlify Status](https://api.netlify.com/api/v1/badges/e6495d2d-ccc5-4104-b32f-905a159eea3c/deploy-status)](https://app.netlify.com/sites/blog-r0b-io/deploys)
 
 My personal blog, a static site generated with [11ty](https://www.11ty.dev/)
 using [r0b-design](https://github.com/robb-j/r0b-design/)
