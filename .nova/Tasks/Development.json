@@ -6,7 +6,7 @@
     },
     "run": {
       "enabled": true,
-      "script": "#!/bin/sh\n\nnpm run serve"
+      "script": "#!/bin/sh\nnpm run serve"
     }
   }
 }
