@@ -31,7 +31,7 @@ The app is made up of a few pages:
 
 - The **home** page which shows general stats, daily messages and collective usage information.
 - A **scan** page which registers a cup drank and shows personal stats, navigated to when you scan your card.
-- A **register** page to log a coffee purchase and set the weight if it is a new product, triggered by scanning a barcode when on the **scan** page.
+- A **product** page to log a coffee purchase and set the weight if it is a new product, triggered by scanning a barcode when on the **scan** page.
 - The **register** page which is shown when a new RFID card is scanned. You can associate with a person on our [group website](https://openlab.ncl.ac.uk/people/) or be anonymous.
 
 > The register somewhat-cheekily pulls down the [search.json](https://openlab.ncl.ac.uk/search.json) from our group website to populate it's list, we need to make this a little more formal.
