@@ -1,0 +1,40 @@
+---
+layout: html.njk
+---
+
+<section>
+
+<p><a href="/">Home</a></p>
+
+<h1>API Docs</h1>
+
+<p>This is all the things the API does, in alphabetical order </p>
+
+<blockquote>This page shows how to enumerate each entry point in the API and render each export from them</blockquote>
+
+<details>
+<summary>Debug</summary>
+<pre>{{ api | json }}</pre>
+</details>
+</section>
+
+{% for entrypoint, items in api %}
+
+<section>
+  <h2 id="{{ entrypoint | slugify }}">{{ entrypoint }}</h2>
+  
+  {% for name, item in items  %}
+  {% if item.content %}
+  
+  <div class="apiDoc">
+    <h3 id="{{ name | slugify }}">{{ name }}</h3>
+    
+    {{ item.content | md | safe }}
+  </div>
+  
+  {% endif %}
+  {% endfor %}
+</section>
+
+{% endfor %}
+

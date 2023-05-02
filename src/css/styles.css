@@ -175,3 +175,11 @@ details summary {
   cursor: pointer;
   font-weight: bold;
 }
+
+/* Hacks */
+code .title {
+  font-size: 1em !important;
+}
+code .content {
+  font-size: 1em !important;
+}

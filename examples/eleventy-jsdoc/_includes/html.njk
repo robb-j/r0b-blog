@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Fancy API</title>
+    <meta charset="utf8" />
+    <meta name="viewport" content="width=device-width" />
+    <!-- Some base styles so raw HTML doesn't look gross -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
+    />
+    <!-- A light-theme for our code -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css"
+      media="(prefers-color-scheme: light)"
+    />
+    <!-- A dark-theme for our code -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css"
+      media="(prefers-color-scheme: dark)"
+    />
+    <style>
+      /** Something to make our code snippets POP */
+      .apiDoc { padding-left: 1em; border-left: 5px solid var(--text-bright); }
+    </style>
+  </head>
+  <body>
+    {{ content | safe }}
+  </body>
+</html>
