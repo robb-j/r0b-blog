@@ -16,12 +16,10 @@ ${md.render(item.content)}
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(syntaxHighlight)
+  eleventyConfig.setLibrary('md', md)
 
   // Manually watch out API so that
   eleventyConfig.addWatchTarget('./lib.js')
-
-  // TODO: Can this use the new eleventy render stuff?
-  eleventyConfig.setLibrary('md', md)
 
   // NOTE: There is a bit of a hack here in that Eleventy mutates
   // this instance so it magically gets syntax-highlighting applied.

@@ -23,19 +23,19 @@ You can use [JSDoc](https://jsdoc.app/) to automatically generate a documentatio
 
 Personally, I've found these generated documentation websites hard to navigate and difficult to get to the information I need. You can create your own template but that requires learning the ins and outs of JSDoc and how it's templating works.
 
-For a recent project, a [design system](https://alembic.openlab.dev/) for our lab, I was creating a site to demonstrate and document the system. I wanted to reference the JSDoc I'd already written in the code, rather than duplicating it. I found the [ts-morph](https://github.com/dsherret/ts-morph) package on GitHub which wraps TypeScript's Abstract Syntax Tree (_AST_) parser to make it friendlier amongst other things. The _AST_ was a lot more complex than I expected so I reduced my integration to only pull the JSDoc comments and embed them as markdown on our site.
+For a recent project, a [design system](https://alembic.openlab.dev/) for our lab, I was creating a site to demonstrate and document the system. I wanted to reference the JSDoc I'd already written in the code, rather than duplicating it. I found the [ts-morph](https://github.com/dsherret/ts-morph) package on GitHub which wraps TypeScript's Abstract Syntax Tree (_AST_) parser to make it friendlier. The _AST_ was a lot more complex than I expected so I reduced my integration to only pull the JSDoc comments and embed them as markdown on our site.
 
 > _AST_ is a data structure that represents the code in a file, rather than the raw text string. It allows it to be queried and modified in-place. [AST Explorer](https://astexplorer.net/) is a good tool to play around and inspect the trees generated from code files.
 
 There are a couple of benefits to this general approach:
 
-1. The code comments only need to be written once, then they can be viewed in IDEs during hovers and code completion and on the documentation website. Those comments only need to be updated once and can't get out of sync.
+1. The code comments only need to be written once. They can be viewed in your IDE through hovers or code completions and on the documentation website. Those comments only need to be updated once and can't get out of sync.
 2. The comments are close to the code that they document. So it's easier to update when the code itself changes and there is hopefully less chance that you forget to update them. This feels in the vein of **Locality**, from The Unicorn Project's [Five Ideals](https://itrevolution.com/articles/five-ideals-of-devops/)
 3. You have complete control of how your documentation site looks and feels. It's important to properly think through documentation, rather than just dump out the types, methods & classes available. I've sometimes tried "Documentation driven development" where the documentation is written before any code to get a feel for how something should work from a consumer's perspective, rather than jumping into the technical implementation.
 
 ## How it works
 
-Ok you're sold, or still interested to learn more? To show how it works, we'll create a fresh Eleventy website, along with an API to document and hook up the to site.
+Ok you're sold, or still interested to learn more? To show how it works, we'll create a fresh Eleventy website, along with an "API" to document and hook up the to site. In a terminal, lets skaffold the project and fetch NPM dependencies:
 
 ```bash
 mkdir eleventy-jsdoc
@@ -65,24 +65,29 @@ Now we can use that layout to make a basic homepage, `index.md`:
 
 And create the first page, `guide.md`, to showcase specific bits of our amazing API.
 This uses the `apiDoc` shortcode registered in the Eleventy config to directly embed our JSDoc comments!
+The shortcode needs the `api` data object passed to it, more on that later, along with the entry-point and export you want to embed.specific API exports
 
 {% exampleCode 'eleventy-jsdoc/guide.md' %}
 
 Then we can make a page that enumerates the whole API to document everything, `docs.md`.
-This shows how you can do whatever you like with that `api` data object, if you put extra information from `ts-morph` you can access that here.
-Here it loops through each entry-point and their exports to dump them all out
+This shows how you can do whatever you like with that `api` data object, if you pull in extra information from `ts-morph` you can access that here.
+Here it loops through each entry-point and their corresponding exports to dump them all out.
+
+There is also a little "Debug" section so you can see what was put onto that `api` object.
 
 {% exampleCode 'eleventy-jsdoc/docs.njk', 'html' %}
 
-That is the basic site setup, now we need to start linking it up with TypeScript and ts-morph. For that we'll need a TypeScript config file, `tsconfig.json`:
+That is the basic site setup, now we need to start linking it up with TypeScript with ts-morph. For that we'll need a TypeScript config file, `tsconfig.json`:
 
 {% exampleCode 'eleventy-jsdoc/tsconfig.json' %}
 
-To get this `api` object we've seen in the templates, we'll use an Eleventy [global data file](https://www.11ty.dev/docs/data-global/), `_data/api.js`. This is the brunt of the integration, there is quite a bit going on here and the TypeScript _AST_ is quite complicated. It is setup here to ignore any exports marked with `@internal`, but you could change that check for anything you like.
+To get this `api` object we've seen in the templates, we'll use an Eleventy [global data file](https://www.11ty.dev/docs/data-global/), `_data/api.js`. This is the brunt of the integration, there is quite a bit going on here and the TypeScript _AST_ is quite complicated.
+
+It loads the entry-points up and parses their AST nodes. With those we go through and find the code which is exported and then collect the JSDoc comments from them. This version is setup here to ignore any exports marked with `@internal`, but you could change that check for anything you like.
 
 {% exampleCode 'eleventy-jsdoc/_data/api.js' %}
 
-You should have a directory structure something like this:
+You should now have a directory structure something like this:
 
 ```
 .
@@ -111,11 +116,15 @@ There are three pages:
 
 **better embedding** — I left the `apiDoc` shortcode quite brief on purpose, you might want a url-slug `id` in there or to use a different heading tag.
 
+**Actually use TypeScript** — The example `lib.js` is just JavaScript, you can of course use it with TypeScript too. I was just trying to keep things simple here.
+
 **More TypeScript integration** — There is a load more information in the TypeScript _AST_ that isn't being used, I tried getting it to generate code signatures before but didn't get very far. There are also some cool things that could be done with the "tags" in JSDoc comments, e.g. `@param`, maybe they could be processed more and put into HTML tables or something.
 
 **A library** — with some more iteration, and some interest, there could be a nice library/eleventy-plugin here to make this a lot easier in the future, it's quite a lot of code in this post 🙄.
 
-**work out the "hack" in eleventy.config.js** — I'm not sure how properly get the syntax highlighting to work without relying on the mutation of my `md` instance in there.
+**Work out the "hack" in eleventy.config.js** — I'm not sure how properly get the syntax highlighting to work without relying on the mutation of my `md` instance in there.
+
+**Configure the Watch Target** — there is only one entry-point here but with multiple you'll want too pass a glob pattern to `eleventyConfig.addWatchTarget` to make it reload when any of your source code changes.
 
 ---
 
