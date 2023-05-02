@@ -1,7 +1,7 @@
 ---
 title: Embed JSDoc comments in an Eleventy website
 date: 2023-05-03
-draft: true
+draft: false
 summary: >
   How to embed JSDoc comments in Eleventy to reference API documentation rather than duplicate it.
 ---
@@ -124,7 +124,7 @@ There are three pages:
 
 **Work out the "hack" in eleventy.config.js** — I'm not sure how properly get the syntax highlighting to work without relying on the mutation of my `md` instance in there.
 
-**Configure the Watch Target** — there is only one entry-point here but with multiple you'll want too pass a glob pattern to `eleventyConfig.addWatchTarget` to make it reload when any of your source code changes.
+**Configure the Watch Target** — there is only one file in the API here but with multiple you'll want to pass a glob pattern to `eleventyConfig.addWatchTarget` to make it reload when any of your source code changes.
 
 ---
 
