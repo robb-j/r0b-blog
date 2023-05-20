@@ -38,8 +38,6 @@ module.exports = function (eleventyConfig) {
     const data = await fs.readFile(file, 'utf8')
 
     // https://weblog.west-wind.com/posts/2022/Feb/16/Escaping-Markdown-Code-Snippets-and-Inline-Code-as-Markdown
-    const output = md.render('````' + lang + '\n' + data + '\n```')
-    console.log(output)
-    return output
+    return md.render('````' + lang + '\n' + data + '\n```')
   })
 }

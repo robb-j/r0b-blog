@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "dependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "ical-generator": "^4.1.0"
+  }
+}
