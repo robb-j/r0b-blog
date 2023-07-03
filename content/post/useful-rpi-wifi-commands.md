@@ -1,5 +1,5 @@
 ---
-title: Useful Raspberry Pi WiFi dommands
+title: Useful Raspberry Pi WiFi commands
 date: 2020-03-21
 draft: false
 summary: >
