@@ -1,6 +1,6 @@
 ---
 title: Creating a HTTP proxy with Deno
-date: 2023-08-21
+date: 2023-08-12
 draft: false
 summary: >
   Turns out its pretty easy to create a reverse proxy with Deno, here's how.
