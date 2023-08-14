@@ -8,9 +8,9 @@ summary: >
 
 I've been playing around with [Deno](https://deno.land) quite a bit recently. I'm really liking all of the integrated tooling and it's web-standards based approach.
 
-I wanted to create a little proxy so that I could access our Grafana dashboard on a Raspberry Pi based display in our office. The problem is that Grafana requires authenticated, but there was no way to configure the kiosk to provide that authentication.
+I wanted to create a little proxy so that I could access our Grafana dashboard on a Raspberry Pi-based display in our office. The problem is that Grafana requires authentication, but there was no way to configure the kiosk to provide it.
 
-So I set about to create a proxy server that could inject the authentication needed to access the dashboard, then I ran the proxy on the Raspberry Pi and pointed the kiosk to that proxy server. Now it easily boots up and shows our dashboard.
+So I set about to create a proxy server that could inject the authentication needed to access the dashboard. I ran the proxy on the Raspberry Pi and pointed the kiosk to the proxy rather that grafana directly. Now it easily boots up and shows our dashboard.
 
 ## The code
 
@@ -79,7 +79,7 @@ That's it, all you need to do is run it with a deno command:
 deno run --allow-net proxy.ts
 ```
 
-I hope you found this interesting. I've been quite liking Deno recently, I think it's worth a try. I've also been playing around more in-depth with a little proxy server for some work and personal infrastructure, [goldiprox](https://r.r0b.io/goldiprox), if you're interested to see some more Deno proxy stuff. There is also a more fleshed out example in [examples/proxy.ts](/examples/proxy.ts) to check out.
+I hope you found this interesting. I've been quite liking Deno recently, I think it's worth a try. I've also been playing around more in-depth with a little proxy server for some work and personal infrastructure, [goldiprox](https://r.r0b.io/goldiprox), if you're interested to see some more Deno proxy stuff. There is also a more fleshed out example in [examples/proxy.ts](https://github.com/robb-j/r0b-blog/blob/main/examples/proxy.ts) to check out.
 
 ---
 
