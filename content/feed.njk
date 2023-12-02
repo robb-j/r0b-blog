@@ -22,7 +22,7 @@ metadata:
   </author>
   <generator
     uri="https://www.11ty.io"
-    version="{{ pkg.devDependencies['@11ty/eleventy'].slice(1) }}"
+    version="{{ pkg.dependencies['@11ty/eleventy'].slice(1) }}"
     >Eleventy</generator
   >
   {%- for post in collections.posts | isPublished | newestFirst %} {% set

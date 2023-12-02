@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'Patrick Hand';
+  src: url(./PatrickHand-Regular.woff2) format('woff2'),
+    url(./PatrickHand-Regular.ttf) format('ttf');
+  font-weight: 400;
+  font-style: normal;
+}

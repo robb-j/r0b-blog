@@ -1,7 +1,6 @@
-const path = require('path')
-const fs = require('fs/promises')
+const path = require('node:path')
+const fs = require('node:fs/promises')
 const Image = require('@11ty/eleventy-img')
-const md = require('./markdown')
 
 /** @param {import("@11ty/eleventy/src/UserConfig")} eleventyConfig */
 module.exports = function (eleventyConfig) {
@@ -22,22 +21,21 @@ module.exports = function (eleventyConfig) {
     'video',
     async (videoName, text, type = 'video/mp4') => {
       const src = eleventyConfig.javascriptFunctions.url(
-        path.join('/video', videoName)
+        path.join('/video', videoName),
       )
       const source = `<source src="${src}" type="${type}">`
 
       const vid = `<video controls loop width="640" height="360">${source}</video>`
       const caption = `<figcaption>${text}</figcaption>`
       return `<figure class="figureVideo">${vid}${caption}</figure>`
-    }
+    },
   )
 
   eleventyConfig.addAsyncShortcode('exampleCode', async (filename, lang) => {
     lang = lang ?? path.extname(filename).slice(1)
     const file = path.join(__dirname, '../examples', filename)
-    const data = await fs.readFile(file, 'utf8')
+    const code = await fs.readFile(file, 'utf8')
 
-    // https://weblog.west-wind.com/posts/2022/Feb/16/Escaping-Markdown-Code-Snippets-and-Inline-Code-as-Markdown
-    return md.render('````' + lang + '\n' + data + '\n```')
+    return eleventyConfig.javascriptFunctions.highlight(lang, code)
   })
 }

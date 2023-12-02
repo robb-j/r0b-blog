@@ -3,32 +3,29 @@
   "private": true,
   "repository": "robb-j/r0b-blog",
   "scripts": {
-    "lint": "tsc",
     "serve": "eleventy --serve",
     "format": "prettier --write '**/*.{js,json,css,md,ts,tsx}'",
     "build": "eleventy"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=20"
   },
   "dependencies": {
-    "@robb_j/r0b-design": "^0.2.7"
-  },
-  "devDependencies": {
-    "@11ty/eleventy": "^1.0.2",
-    "@11ty/eleventy-img": "^2.0.1",
+    "@11ty/eleventy": "^2.0.1",
+    "@11ty/eleventy-img": "^3.1.8",
     "@11ty/eleventy-plugin-rss": "^1.2.0",
-    "@11ty/eleventy-plugin-syntaxhighlight": "^4.2.0",
-    "@types/11ty__eleventy-img": "^2.0.1",
-    "dotenv": "^16.0.3",
-    "esbuild": "^0.15.13",
-    "husky": "^8.0.1",
-    "lint-staged": "^13.0.3",
-    "luxon": "^2.0.2",
-    "markdown-it-anchor": "^8.6.5",
-    "prettier": "^2.7.1",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
+    "@openlab/alembic": "^0.3.3",
+    "@robb_j/r0b-design": "^0.2.7",
+    "@types/11ty__eleventy-img": "^2.0.5",
+    "dotenv": "^16.3.1",
+    "esbuild": "^0.19.8",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.1.0",
+    "luxon": "^3.4.4",
+    "markdown-it-anchor": "^8.6.7",
+    "prettier": "^3.1.0",
     "prism-themes": "^1.9.0",
-    "typescript": "^4.9.4",
     "yorkie": "^2.0.0"
   },
   "prettier": {
@@ -36,7 +33,7 @@
     "singleQuote": true
   },
   "gitHooks": {
-    "pre-commit": "tsc && lint-staged"
+    "pre-commit": "lint-staged"
   },
   "lint-staged": {
     "*.{js,json,css,md,ts,tsx}": [

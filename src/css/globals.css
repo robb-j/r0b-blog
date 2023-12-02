@@ -1,0 +1,173 @@
+/*
+  Globals
+*/
+html {
+  font-family: var(--family-main);
+  line-height: 1.4;
+  color: var(--color-dark);
+  font-size: 16px;
+}
+a {
+  color: var(--color-anchor);
+}
+img {
+  height: auto;
+  max-width: 100%;
+}
+[aria-hidden='true'] {
+  display: none;
+}
+
+/*
+  Figures
+*/
+figure {
+  max-width: 640px;
+  margin: 2rem auto !important;
+  text-align: center;
+}
+figcaption {
+  font-style: italic;
+}
+
+/*
+  Headings
+*/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #4a4a4a;
+  font-weight: 900;
+  line-height: 1.125;
+}
+
+/*
+  Code
+*/
+pre {
+  font-size: 1rem;
+  border-left: var(--s-2) solid #209cee;
+}
+* + pre[class*='language-'] {
+  margin-top: var(--flow, 1em);
+}
+/* Style non-language code */
+pre > code {
+  font-size: 1em;
+  background-color: unset;
+  color: unset;
+}
+pre:has(code) {
+  background-color: #353a43;
+  color: #d6ecfc;
+  padding: var(--s-1);
+}
+code {
+  border-radius: 4px;
+  padding: 0.1em 0.2em;
+  margin: -0.1em 0;
+  color: #353a43;
+  background-color: #d6ecfc;
+  font-size: 0.875em;
+  font-weight: normal;
+}
+
+em {
+  text-decoration: underline dashed #888;
+}
+
+/*
+  Blockquote
+*/
+blockquote {
+  background-color: #f5f5f5;
+  border-left: 5px solid #dbdbdb;
+  padding: 1.25em 1.5em;
+}
+
+/*
+  Flow
+*/
+.flow > * + * {
+  margin-top: var(--flow, 1em);
+}
+
+/* 
+  Footer
+*/
+footer {
+  font-family: var(--family-mono);
+  font-size: 0.85em;
+  text-align: center;
+  color: #7a7a7a;
+  background-image: url(../img/paper.png);
+  background-repeat: repeat;
+  border-bottom: var(--s-3) solid var(--color-primary);
+  padding: var(--s4) 0 var(--s-1);
+}
+footer > a {
+  color: #363636 !important;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+/* 
+  Image Grid
+*/
+reel-layout.imageGrid {
+  background-color: #eeeeee;
+  border-radius: var(--s0) var(--s0) 0.4rem 0.4rem;
+  padding: var(--s0);
+
+  --color-foreground: var(--color-berry);
+  --color-background: #dddddd;
+}
+.imageGrid img,
+.imageGrid picture {
+  flex: 0 0 auto;
+  width: 600px;
+  max-width: unset;
+}
+
+.r0bBrand {
+  transform: rotate(-10deg);
+}
+
+.postAlert {
+  color: #4a4a4a;
+  font-size: 3rem;
+  text-align: center;
+  text-transform: uppercase;
+  border-top: 2px dashed #ccc;
+  border-bottom: 2px dashed #ccc;
+  margin-bottom: 3rem;
+  padding: 0.8rem 0;
+  font-weight: 900;
+}
+
+/*
+  detail summary
+*/
+details {
+  padding: 1em;
+  border: 5px dashed #ddd;
+  border-radius: 15px;
+}
+details summary {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Hacks */
+code .title {
+  font-size: 1em !important;
+}
+code .content {
+  font-size: 1em !important;
+}
+cover-layout > center-layout {
+  width: 100%;
+}

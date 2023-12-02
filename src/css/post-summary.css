@@ -1,0 +1,18 @@
+/*
+  Post summary
+*/
+.postSummary {
+  font-size: 1.25em;
+  --flow: 0.5em;
+}
+.postSummary h2 {
+  /* font-size: 1.8em; */
+}
+.postSummary h2 svg {
+  color: #aaa;
+}
+.postSummary p {
+}
+.postSummary time {
+  display: block;
+}

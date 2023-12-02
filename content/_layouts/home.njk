@@ -1,76 +1,66 @@
 ---
-layout: html
+layout: html.njk
 ---
 
-{% include 'navbar.njk' %}
-
-<main>
-  <div class="page-block is-magenta has-slope-after">
-    <section class="section">
-      <div class="container">
-        <div class="a4-page is-post-it">
-          <div class="buttons">
-            <a class="button is-text" href="{{ site.homeUrl }}">
-              <span class="icon">
-                {% include 'svg/home.svg' %}
-              </span>
-              <span>
-                Homepage
-              </span>
-            </a>
-          </div>
-          <div class="content">{{ content | safe }}</div>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <div class="page-block is-paper is-inbetween">
-    <section class="section post-section">
-      <div class="container">
-        <p class="buttons is-right">
-          <a
-            class="button is-circle is-twitter"
-            href="https://twitter.com/{{ site.twitter }}"
-          >
-            <svg>
-              <use
-                xlink:href="{{
-                  '/r0b/fa/twitter-brands.svg' | url
-                }}#twitter"
-              ></use>
-            </svg>
+<header class="bigHeader">
+  <cover-layout centered="center-layout" space="s0" minHeight="20vh">
+    {% include 'nav.njk' %}
+    
+    <center-layout max="60ch" gutters="s0">
+      <section class="a4Page flow">
+        {{ content | safe }}
+        
+        <cluster-layout justify="flex-end" space="s-1">
+          <a class="circleButton" data-accent="rss" href="/feed.xml">
+            <icon-layout label="RSS Feed">
+              <svg>
+                <use xlink:href="/img/icons.svg#rss"></use>
+              </svg>
+            </icon-layout>
           </a>
-          <a
-            class="button is-circle is-github"
-            href="https://github.com/robb-j"
-          >
-            <svg>
-              <use
-                xlink:href="{{
-                  '/r0b/fa/github-brands.svg' | url
-                }}#github"
-              ></use>
-            </svg>
+          <a class="circleButton" data-accent="mastodon" href="{{ site.mastodon }}">
+            <icon-layout label="Mastodon">
+              <svg>
+                <use xlink:href="/img/icons.svg#mastodon"></use>
+              </svg>
+            </icon-layout>
           </a>
-          <a class="button is-circle is-rss" href="{{ '/feed.xml' | url }}">
-            {% include 'svg/rss.svg' %}
+          <a class="circleButton" data-accent="github" href="{{ site.github }}">
+            <icon-layout label="GitHub">
+              <svg>
+                <use xlink:href="/img/icons.svg#github"></use>
+              </svg>
+            </icon-layout>
           </a>
-        </p>
+        </cluster-layout>
+      </section>
+    </center-layout>
+  </cover-layout>
+</header>
 
-        {% for post in collections.posts | newestFirst %}
-        <article class="post-summary">
-          <h2 class="title is-2">
-            {% if post.data.draft %}[DRAFT]{% endif %}
-            <a href="{{ post.url }}"> {{ post.data.title }}</a>
-          </h2>
-          <h3 class="subtitle is-4">{{ post.date | longDate }}</h3>
-          <div class="is-size-4">{{ post.data.summary }}</div>
-        </article>
-        {% endfor %}
-      </div>
-    </section>
-  </div>
+<main class="homePage">
+  <center-layout max="55em"  gutters="s0">
+    <stack-layout space="s3">
+      {% for post in collections.posts | newestFirst %}
+      <article class="postSummary flow">
+        <h2 class="title is-2">
+          <a href="{{ post.url }}">
+            <icon-layout>
+              {% if post.data.draft %}[DRAFT]{% endif %}
+              {{ post.data.title }}
+              <svg>
+                <use xlink:href="/img/icons.svg#right"></use>
+              </svg>
+            </icon-layout>
+          </a>
+        </h2>
+        <time datetime="{{ post.date | isoDate }}">{{ post.date | longDate }}</time>
+        <p>{{ post.data.summary }}</p>
+      </article>
+      {% endfor %}
+    </stack-layout>
+  </center-layout>
+  
+  {% include 'footer.njk' %}
 </main>
 
-{% include 'footer.njk' %}

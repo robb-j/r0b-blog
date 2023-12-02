@@ -1,12 +1,21 @@
 require('dotenv/config')
 
+const { eleventyAlembic } = require('@openlab/alembic/11ty')
 const pluginRss = require('@11ty/eleventy-plugin-rss')
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight')
 
+const markdown = require('markdown-it')
+const markdownAnchor = require('markdown-it-anchor')
+
 const shortcodes = require('./11ty/shortcodes')
 const filters = require('./11ty/filters')
-const { PATH_PREFIX } = require('./11ty/env')
-const md = require('./11ty/markdown')
+
+const md = markdown({
+  html: true,
+  breaks: false,
+  linkify: false,
+})
+md.use(markdownAnchor)
 
 /** @param {import("@11ty/eleventy/src/UserConfig")} eleventyConfig */
 module.exports = function (eleventyConfig) {
@@ -15,7 +24,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.setLibrary('md', md)
 
   eleventyConfig.addPassthroughCopy({
-    'node_modules/@robb_j/r0b-design/dist': 'r0b',
+    'src/font': 'font',
     'src/img': 'img',
     'src/video': 'video',
   })
@@ -23,6 +32,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(filters)
   eleventyConfig.addPlugin(shortcodes)
 
+  eleventyConfig.addPlugin(eleventyAlembic)
   eleventyConfig.addPlugin(pluginRss)
   eleventyConfig.addPlugin(syntaxHighlight)
 
@@ -32,8 +42,6 @@ module.exports = function (eleventyConfig) {
       includes: '_includes',
       layouts: '_layouts',
     },
-    pathPrefix: PATH_PREFIX,
-    templateFormats: ['11ty.js', 'njk', 'md', 'html'],
     htmlTemplateEngine: 'njk',
     markdownTemplateEngine: 'njk',
   }
