@@ -1,0 +1,9 @@
+---
+layout: html.webc
+---
+
+<main>
+  <h1>Hello, there</h1>
+
+  <my-first-component></my-first-component>
+</main>

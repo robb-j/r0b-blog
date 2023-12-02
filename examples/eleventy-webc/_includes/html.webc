@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My first WebC</title>
+    <meta charset="utf8" />
+    <meta name="viewport" content="width=device-width" />
+    <style @raw="getBundle('css')" webc:keep></style>
+  </head>
+  <body>
+    <template @html="this.content" webc:nokeep></template>
+    <footer>My first WebC 2023</footer>
+    <script type="module" @raw="getBundle('js')" webc:keep></script>
+  </body>
+</html>
