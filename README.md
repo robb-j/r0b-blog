@@ -22,6 +22,9 @@ npm run lint
 
 # Manually format code
 npm run format
+
+# Setup git commit hooks
+npx husky install
 ```
 
 ## dev setup

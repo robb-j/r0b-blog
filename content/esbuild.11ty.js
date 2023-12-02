@@ -19,9 +19,7 @@ module.exports = class EsbuildTemplate {
       outdir: '_site',
       sourcemap: !isProduction,
       target: isProduction ? 'es6' : 'esnext',
-      loader: {
-        '.png': 'dataurl',
-      },
+      external: ['*.png'],
     })
   }
 }

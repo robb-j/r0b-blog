@@ -103,7 +103,7 @@ footer {
   font-size: 0.85em;
   text-align: center;
   color: #7a7a7a;
-  background-image: url(../img/paper.png);
+  background-image: url(/img/paper.png);
   background-repeat: repeat;
   border-bottom: var(--s-3) solid var(--color-primary);
   padding: var(--s4) 0 var(--s-1);
