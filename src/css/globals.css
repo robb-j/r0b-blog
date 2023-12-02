@@ -147,3 +147,24 @@ reel-layout.imageGrid {
   padding: 0.8rem 0;
   font-weight: 900;
 }
+
+/*
+  detail summary
+*/
+details {
+  padding: 1em;
+  border: 5px dashed #ddd;
+  border-radius: 15px;
+}
+details summary {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Hacks */
+code .title {
+  font-size: 1em !important;
+}
+code .content {
+  font-size: 1em !important;
+}
