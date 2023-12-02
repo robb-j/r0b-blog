@@ -1,7 +1,7 @@
 ---
 title: Eleventy WebC in a nutshell
 date: 2023-12-02
-draft: true
+draft: false
 summary: >
   Quickly get started with WebC in an Eleventy website.
 ---
@@ -105,7 +105,9 @@ This style is global so we're using a class to make it more specific. You can al
 
 By adding CSS (or JavaScript) it changes how WebC behaves a little. Without it, WebC will take the HTML content and straight replace it anywhere it is referenced. This is known as a [html-only component](https://www.11ty.dev/docs/languages/webc/#html-only-components). With scripts or styles, the component remains a web-component so the `<my-first-component>` remains in your HTML and it's contents becomes everything else in your in your `.webc` file.
 
-So let's add some JavaScript too, add this script tag to your existing file, as long as it is at the top-level of the html document in your component file.
+> You can configure how the content is inserted with a `<slot>` tag, [more info](https://www.11ty.dev/docs/languages/webc/#slots)
+
+So let's add some JavaScript too, add this script tag to the **existing** file, as long as it is at the top-level of the HTML document in your component file.
 
 **\_components/my-first-component.web**
 
@@ -131,16 +133,16 @@ So let's add some JavaScript too, add this script tag to your existing file, as 
 </script>
 ```
 
-Because WebC is not in html-only mode, it keeps the `<my-first-component>` element in your rendered HTML and you can attach code to that. We create our client-side custom element, `MyFirstComponent` by subclassing [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) and `define` it in the custom elements registry. When someone visits the page, the browser hook up our code to the HTML element and call `connectedCallback` when it has been set up.
+Because WebC is not in html-only mode, it keeps the `<my-first-component>` element in your rendered HTML and you can attach code to that. We create our client-side custom element, `MyFirstComponent` by subclassing [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement). Then we use `define` on the custom elements registry to get it hooked up. When someone visits the page, the browser attach our code onto the HTML element and call `connectedCallback` to let us know.
 
 As a demonstration, we add another styled message after waiting an extra 2 seconds.
 
 ## Layouts
 
-Ok so what happens to these scripts and styles, and how do they fit into a nice HTML document? It's completely up to you! We'll use a layout to add the styles and scripts into our rendered HTML, **\_includes/layout.webc**:
+Ok so what happens to these scripts and styles, and how do they fit into a nice HTML document? It's completely up to you! We'll use a layout to add the styles and scripts into our rendered HTML, create **\_includes/layout.webc**:
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <title>My first WebC</title>
