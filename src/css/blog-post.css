@@ -1,3 +1,4 @@
 .blogPost {
+  padding-block: var(--s3);
   font-size: 1.3em;
 }

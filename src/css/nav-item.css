@@ -4,13 +4,16 @@
 .navItem {
   font-family: var(--family-alt);
   font-size: 1.05em;
-  color: var(--white);
-  text-shadow: -1px 1px 0 var(--color-dark), 1px 1px 0 var(--color-dark),
-    1px -1px 0 var(--color-dark), -1px -1px 0 var(--color-dark);
+  color: var(--color-light);
+  text-shadow:
+    -1px 1px 0 var(--color-dark),
+    1px 1px 0 var(--color-dark),
+    1px -1px 0 var(--color-dark),
+    -1px -1px 0 var(--color-dark);
   text-decoration: none;
   font-weight: 800;
   letter-spacing: 0.05em;
 }
 .navItem:hover {
-  color: var(--color-yellow);
+  color: #ffdd57;
 }

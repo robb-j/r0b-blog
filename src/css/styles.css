@@ -4,11 +4,12 @@
 
 @import './a4-page.css';
 @import './back-button.css';
+@import './big-header.css';
 @import './blog-post.css';
 @import './circle-button.css';
 @import './globals.css';
+@import './home-page.css';
 @import './nav-item.css';
-@import './page-block.css';
 @import './post-summary.css';
 
 :root {
@@ -20,8 +21,9 @@
   --family-mono: ui-monospace, SFMono-Regular, Consolas, Liberation Mono, Menlo,
     Courier, monospace;
 
+  --color-primary: #377c85;
+
   /* https://github.com/robb-j/r0b-design/blob/master/src/styles/base/variables.sass */
-  --color-yellow: #ffdd57;
   --color-magenta: #92374d;
   --color-berry: #8c5483;
   --color-liberty: #4a5899;

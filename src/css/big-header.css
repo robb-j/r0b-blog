@@ -1,0 +1,27 @@
+/*
+  Big header
+  ~ based on https://github.com/robb-j/r0b-home/blob/main/src/css/page.css
+*/
+.bigHeader {
+  position: relative;
+  color: var(--color-light);
+  background-color: var(--color-primary);
+  margin-block-end: 7vw;
+}
+
+.bigHeader::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  bottom: -7vw;
+  border-left: 100vw solid var(--color-primary);
+  border-bottom: 7vw solid transparent;
+  border-top: 1px solid var(--color-primary);
+}
+
+html body {
+  background-image: url(../img/paper.png);
+  background-repeat: repeat;
+}

@@ -2,30 +2,32 @@
 layout: html.njk
 ---
 
-<header class="pageBlock" data-accent="magenta">
-  {% include 'nav.njk' %}
-  
-  <center-layout max="60ch" gutters="s0">
-    <section class="a4Page flow">
-      <p>
-        <a href="/" class="backButton">
-          <icon-layout space="0.25em">
-            <svg>
-              <use xlink:href="/img/icons.svg#left"></use>
-            </svg>
-            <span>All posts</span>
-          </icon-layout>
-        </a>
-      </p>
-      <h1>{{ title }}</h1>
-      <p>
-        <time datetime="{{ date | isoDate }}">{{ date | longDate }}</time>
-      </p>
-    </section>
-  </center-layout>
+<header class="bigHeader">
+  <cover-layout centered="center-layout" space="s0" minHeight="20vh">
+    {% include 'nav.njk' %}
+    
+    <center-layout max="60ch" gutters="s0">
+      <section class="a4Page flow">
+        <p>
+          <a href="/" class="backButton">
+            <icon-layout space="0.25em">
+              <svg>
+                <use xlink:href="/img/icons.svg#left"></use>
+              </svg>
+              <span>All posts</span>
+            </icon-layout>
+          </a>
+        </p>
+        <h1>{{ title }}</h1>
+        <p>
+          <time datetime="{{ date | isoDate }}">{{ date | longDate }}</time>
+        </p>
+      </section>
+    </center-layout>
+  </cover-layout>
 </header>
 
-<main class="pageBlock">
+<main class="mainContent">
   <center-layout max="50em"  gutters="s0">
     <article class="blogPost flow">
       {% if draft %}
