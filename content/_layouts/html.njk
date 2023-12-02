@@ -6,10 +6,8 @@
     <title>{{ title + ' |' if title }} {{ site.title }}</title>
     <link rel="stylesheet" href="{{ '/css/styles.css' | url }}" />
     <link rel="icon" href="{{ '/img/favicon.png' | url }}" />
-    <link
-      href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Patrick+Hand&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="stylesheet" href="/font/nunito/nunito.css" />
+    <link rel="stylesheet" href="/font/patrick-hand/patrick-hand.css" />
     <link
       rel="alternate"
       href="{{ '/feed.xml' | url }}"
@@ -30,10 +28,14 @@
     <meta name="twitter:site" content="@{{ site.twitter }}" />
     <meta property="og:description" content="{{ meta.summary or summary }}" />
     <meta name="generator" content="Eleventy" />
-    <script src="https://cdn.usefathom.com/script.js" data-site="QJMTTJDF" defer></script>
-    <script type="module" src="{{ '/js/app.js' | url }}" defer></script>
+    <!-- @openlab/alembic inject-css -->
   </head>
   <body>
-    {{ content | safe }}
+    <!-- a hack to keep pageBlock working -->
+    <div>
+      {{ content | safe }}
+    </div>
+    <script src="https://cdn.usefathom.com/script.js" data-site="QJMTTJDF" defer></script>
+    <script type="module" src="{{ '/js/app.js' | url }}" defer></script>
   </body>
 </html>

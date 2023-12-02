@@ -1,0 +1,12 @@
+/*
+  Back button
+*/
+
+.backButton {
+  color: #4a4a4a;
+  font-family: var(--family-main);
+}
+
+.backButton icon-layout span {
+  text-decoration: underline dashed;
+}

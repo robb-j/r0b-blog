@@ -1,48 +1,40 @@
 ---
-layout: html
+layout: html.njk
 ---
 
-{% include 'navbar.njk' %}
-
-<main class="post">
-  <div class="page-block is-magenta has-slope-after">
-    <section class="section">
-      <div class="container">
-        <div class="a4-page is-post-it">
-          <div class="buttons">
-            <a class="button is-text" href="{{ '/' | url }}">
-              <span class="icon">
-                {% include 'svg/left.svg' %}
-              </span>
-              <span>
-                Back
-              </span>
-            </a>
-          </div>
-
-          <h1 class="title is-2 is-size-3-mobile">{{ title }}</h1>
-
-          <div class="subtitle is-4 is-size-6-mobile post-info">
-            <p class="date">{{ date | longDate }}</p>
-          </div>
-        </div>
-      </div>
+<header class="pageBlock" data-accent="magenta">
+  {% include 'nav.njk' %}
+  
+  <center-layout max="60ch" gutters="s0">
+    <section class="a4Page flow">
+      <p>
+        <a href="/" class="backButton">
+          <icon-layout space="0.25em">
+            <svg>
+              <use xlink:href="/img/icons.svg#left"></use>
+            </svg>
+            <span>All posts</span>
+          </icon-layout>
+        </a>
+      </p>
+      <h1>{{ title }}</h1>
+      <p>
+        <time datetime="{{ date | isoDate }}">{{ date | longDate }}</time>
+      </p>
     </section>
-  </div>
+  </center-layout>
+</header>
 
-  <div class="page-block is-paper is-inbetween">
-    <section class="section blog-post">
-      <div class="container">
-        {% if draft %}
-        <h2 class="post-alert">Draft</h2>
-        {% endif%}
-
-        <article class="content">
-          {{ content | safe }}
-        </article>
-      </div>
-    </section>
-  </div>
+<main class="pageBlock">
+  <center-layout max="50em"  gutters="s0">
+    <article class="blogPost flow">
+      {% if draft %}
+      <h2 class="postAlert">Draft</h2>
+      {% endif%}
+      
+      {{ content | safe }}
+    </article>
+  </center-layout>
+  
+  {% include 'footer.njk' %}
 </main>
-
-{% include 'footer.njk' %}

@@ -1,0 +1,185 @@
+@import '@robb_j/r0b-design/dist/styles.css';
+@import 'prism-themes/themes/prism-dracula.css';
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+body > main {
+  flex: 1;
+}
+
+footer.page-footer {
+  border-bottom-color: #93374e;
+}
+
+.navbar {
+  background: #93374e;
+}
+
+.a4-page.is-post-it {
+  max-width: 680px;
+  margin: auto;
+}
+
+.a4-page .buttons {
+  margin-bottom: 0;
+}
+
+.post-section .container {
+  max-width: 880px;
+}
+
+.post-section .buttons {
+  position: absolute;
+  top: -3em;
+  right: 1.5rem;
+}
+
+.post-section .buttons .button {
+  font-size: 1em;
+}
+
+.post-summary {
+  margin-bottom: 5rem;
+}
+
+.post-summary a {
+  color: #4a4a4a;
+}
+
+.post-summary a::after {
+  font-weight: 600;
+  content: ' →';
+  color: #aaa;
+}
+
+.post-summary a:hover {
+  color: #392b58;
+  text-decoration: underline;
+  text-decoration-color: #aaa;
+}
+
+.button.is-rss {
+  background-color: #f89939;
+  border-color: transparent;
+  color: white;
+}
+
+.post-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.post-info p {
+  color: inherit;
+}
+
+.post-alert {
+  color: #4a4a4a;
+  font-size: 3rem;
+  text-align: center;
+  text-transform: uppercase;
+  border-top: 2px dashed #ccc;
+  border-bottom: 2px dashed #ccc;
+  margin-bottom: 3rem;
+  padding: 0.8rem 0;
+  font-weight: 900;
+}
+
+.breadcrumbs {
+  /* margin-bottom: 0.8em */
+}
+
+.blog-post .container {
+  max-width: 880px;
+}
+
+.content h1,
+.content h2,
+.content h3,
+.content h4,
+.content h5,
+.content h6 {
+  color: #4a4a4a;
+  font-weight: 900;
+}
+
+.content a,
+.content :not(pre) code {
+  word-break: break-word;
+}
+
+.content > * + * {
+  margin-top: var(--flow-space, 1em);
+}
+
+.token.tag {
+  color: #ff7dc7;
+  align-items: inherit;
+  background-color: inherit;
+  border-radius: inherit;
+  display: inherit;
+  font-size: inherit;
+  height: inherit;
+  justify-content: inherit;
+  line-height: inherit;
+  padding-left: inherit;
+  padding-right: inherit;
+  white-space: inherit;
+}
+
+.post .content {
+  font-size: 1.3em;
+}
+
+@media screen and (max-width: 768px) {
+  section.section {
+    padding: 3rem 1rem;
+  }
+  .content blockquote,
+  .content pre {
+    padding: 0.75rem 0.9rem;
+  }
+
+  .post .content {
+    font-size: 1.1em;
+  }
+}
+
+/*
+  Figures
+*/
+figure {
+  max-width: 640px;
+  margin: 2rem auto !important;
+  text-align: center;
+}
+figcaption {
+  font-style: italic;
+}
+
+pre {
+  font-size: 1rem;
+}
+
+/* Misc */
+details {
+  padding: 1em;
+  border: 5px dashed #ddd;
+  border-radius: 15px;
+}
+details summary {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Hacks */
+code .title {
+  font-size: 1em !important;
+}
+code .content {
+  font-size: 1em !important;
+}

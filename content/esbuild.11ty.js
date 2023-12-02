@@ -3,7 +3,7 @@ const { NODE_ENV } = require('../11ty/env')
 
 const isProduction = NODE_ENV === 'production'
 
-module.exports = class {
+module.exports = class EsbuildTemplate {
   data() {
     return {
       permalink: false,
@@ -20,7 +20,7 @@ module.exports = class {
       sourcemap: !isProduction,
       target: isProduction ? 'es6' : 'esnext',
       loader: {
-        '.png': 'file',
+        '.png': 'dataurl',
       },
     })
   }

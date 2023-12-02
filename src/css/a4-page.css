@@ -1,0 +1,24 @@
+/* 
+  A4 page
+*/
+.a4Page {
+  --flow: 1rem;
+  color: var(--color-bluePen);
+  font-family: var(--family-hand);
+  background-image: url(../img/paper.png);
+  background-repeat: repeat;
+  padding: calc(var(--s-3) + 2vw);
+  box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.3);
+  font-size: 1.3em;
+}
+.a4Page a:not([class]) {
+  font-weight: bold;
+  text-decoration: none;
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+}
+.a4Page h1 {
+  color: #4a4a4a;
+  font-size: 2.5rem;
+}
