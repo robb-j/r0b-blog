@@ -1,7 +1,7 @@
 const esbuild = require('esbuild')
-const { NODE_ENV } = require('../11ty/env')
+const process = require('node:process')
 
-const isProduction = NODE_ENV === 'production'
+const isProduction = process.env.NODE_ENV === 'production'
 
 module.exports = class EsbuildTemplate {
   data() {
@@ -13,7 +13,7 @@ module.exports = class EsbuildTemplate {
 
   async render() {
     await esbuild.build({
-      entryPoints: ['src/js/app.ts', 'src/css/styles.css'],
+      entryPoints: ['src/js/app.mjs', 'src/css/styles.css'],
       bundle: true,
       minify: isProduction,
       outdir: '_site',

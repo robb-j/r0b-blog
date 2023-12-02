@@ -2,18 +2,14 @@ const { DateTime } = require('luxon')
 
 /** @param {import("@11ty/eleventy/src/UserConfig")} eleventyConfig */
 module.exports = function (eleventyConfig) {
-  eleventyConfig.addFilter('date', (value, format) => {
-    return DateTime.fromJSDate(value).toFormat(format)
-  })
-
   eleventyConfig.addFilter('longDate', (value) =>
-    DateTime.fromJSDate(value).toFormat('cccc, d LLLL yyyy')
+    DateTime.fromJSDate(value).toFormat('cccc, d LLLL yyyy'),
   )
 
   eleventyConfig.addFilter('isPublished', (value) =>
     value.filter(
-      (v) => v.data.draft !== true || process.env.NODE_ENV === 'development'
-    )
+      (v) => v.data.draft !== true || process.env.NODE_ENV === 'development',
+    ),
   )
 
   eleventyConfig.addFilter('newestFirst', (collection) => {

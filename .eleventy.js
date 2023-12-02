@@ -4,9 +4,18 @@ const { eleventyAlembic } = require('@openlab/alembic/11ty')
 const pluginRss = require('@11ty/eleventy-plugin-rss')
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight')
 
+const markdown = require('markdown-it')
+const markdownAnchor = require('markdown-it-anchor')
+
 const shortcodes = require('./11ty/shortcodes')
 const filters = require('./11ty/filters')
-const md = require('./11ty/markdown')
+
+const md = markdown({
+  html: true,
+  breaks: false,
+  linkify: false,
+})
+md.use(markdownAnchor)
 
 /** @param {import("@11ty/eleventy/src/UserConfig")} eleventyConfig */
 module.exports = function (eleventyConfig) {
