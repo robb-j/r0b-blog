@@ -21,7 +21,7 @@ and you return a Response.
 I really like this API for two reasons:
 
 1. It's minimalistic, there is no `res` to mutate, no `next` to call or `ctx` to worry about.
-2. It's based on a feature-rich web standard; parse JSON, stream bytes, ready headers. It's all there.
+2. It's based on a feature-rich web standard; parse JSON, stream bytes, read headers. It's all there.
 
 Generally, that got me thinking about other standards but also the promise of them.
 Web standards don't come and go every night. 
@@ -47,18 +47,18 @@ The idea is to design a thing from the perspective of someone first using and le
 It really gets you to think about the APIs and contracts you're creating.
 How there could be modules and how those modules could work together.
 Then you also need to think about how you explain those concepts
-which really gets forces you understand what is important about those features and what isn't.
+which really forces you understand what is important and what isn't.
 
-It is also really freeing.
+It is also freeing.
 There is no burden of any code being written.
 If you want to change an API to be cleaner or simpler, you can.
 Straight away.
-You don't have to worry about how that effects your code base or how tests will need to change or be reorganised.
+You don't have to worry about how that effects your codebase, how tests will need to change or things be reorganised.
 
 You do still need to ground yourself and remember what is possible.
-That's why I think it works best when you have a good idea of what you want to make 
+That's why I think it works best when you have a strong idea of what you want to make 
 and a rough of idea of how it will work internally.
-I think if you went in completely blue sky, you would design something that it wasn't possible to actually make.
+I think if you went in completely blue sky, you would design something that wouldn't be possible to make.
 
 ## Gruber
 
@@ -66,6 +66,6 @@ So, the thing I was thinking about was a hypothetical server-side JavaScript lib
 Funnily enough, there is some interesting documentation to look at.
 Check it out at [robb-j/gruber](https://github.com/robb-j/gruber).
 
-I'd love to know what you think on Mastodon.
+I'd love to know what you think.
 
 → [Rob](https://hyem.tech/@rob)
