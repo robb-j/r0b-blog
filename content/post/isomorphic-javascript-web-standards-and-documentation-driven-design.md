@@ -1,6 +1,6 @@
 ---
 title: Isomorphic JavaScript, Web Standards and Documentation Driven Design
-date: 2024-01-08
+date: 2024-01-08 22:00:00
 draft: false
 summary: >
   Documenting a library I haven't even created, and probably won't.
