@@ -22,3 +22,4 @@ With application-specific shortcuts, they take precedence of the global ones so 
  - I’ve been trying Prompt 3 for a bit and currently have the Shortcut opening that while I trial it.
  - With my Keycron keyboards, I tried remapping the § button with [Via](https://usevia.app/) to actually just trigger the old CMD+ALT+C keyboard shortcut. That did work for a while but was annoying in laptop mode and where the shortcut wasn’t available.
  - I’m not sure if Terminal.app (or Prompt.app) support opening them at a certain folder, at least through Shortcuts. That would be really cool if it could capture my location in Finder and open the terminal there instead.
+ - After setting up the keyboard shortcut in Shortcuts.app, it doesn't seem to take effect in apps that are already open. e.g. If Mail was already open when the shortcut is set, it won't work until Mail has restart.
