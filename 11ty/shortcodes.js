@@ -31,6 +31,17 @@ module.exports = function (eleventyConfig) {
     },
   )
 
+  eleventyConfig.addAsyncShortcode(
+    'audio',
+    async (src, text, type = 'audio/mp4') => {
+      const source = `<source src="${src}" type="${type}">`
+
+      const vid = `<audio controls>${source}</audio>`
+      const caption = `<figcaption>${text}</figcaption>`
+      return `<figure class="figureAudio">${vid}${caption}</figure>`
+    },
+  )
+
   eleventyConfig.addAsyncShortcode('exampleCode', async (filename, lang) => {
     lang = lang ?? path.extname(filename).slice(1)
     const file = path.join(__dirname, '../examples', filename)
