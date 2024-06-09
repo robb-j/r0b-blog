@@ -13,7 +13,7 @@ I thought it was kind of interesting to hear the difference in progress,
 this is probably only interesting to me.
 But here it is.
 
-I was also curious about how I could incorporate audio on my blog.
+> I was also curious about how I could incorporate audio on my blog.
 
 ## First recording
 
@@ -32,7 +32,7 @@ I was also curious about how I could incorporate audio on my blog.
 
 ## Third recording
 
-{% audio 'https://media.r0b.io/audio/fur-elise/03.m4a', 'Recording number one' %}
+{% audio 'https://media.r0b.io/audio/fur-elise/03.m4a', 'Recording number three' %}
 
 - This is where I'm at at time of writing
 - I've started using the sustain pedal for the base bits
