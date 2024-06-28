@@ -38,6 +38,6 @@ But here it is.
 - I've started using the sustain pedal for the base bits
 - Its all flowing a lot better
 - I've also learnt I can plug my phone into my Piano's USB-C and get a perfect recording
-- I can't believe I messed up that note 😔
+- I can't believe I messed up that last note 😔
 
 Well that's that, hope you found it interesting! 🤷
