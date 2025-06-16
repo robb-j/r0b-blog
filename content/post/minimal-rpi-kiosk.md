@@ -90,3 +90,5 @@ And set `--window-size` to the size of your display (it's horizontal first and v
 
 Now whenever the pi boots up it'll go into the console then on into chromium.
 If you want to exit you can hit `Alt+F4`, then enter `startx` to start up the browser again.
+
+[A reader](https://github.com/BE-Code) created a script to automate the setup [here](https://github.com/BE-Code/eyeBot).
