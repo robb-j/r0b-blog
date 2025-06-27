@@ -202,4 +202,4 @@ Here are some places you could go next:
 - I haven't dived into it yet, but [webc:setup](https://www.11ty.dev/docs/languages/webc/#using-javascript-to-setup-your-component) looks really interesting
 - I'm working on a "year in review" type thing for a coffee club I'm in and it's using WebC, [robb-j/year-in-rebrew](https://github.com/robb-j/year-in-rebrew) if you're interested.
 
-Found this useful or spotted a mistake? Let me know on [Mastodon](https://hyem.tech/@rob)!.
+Found this useful or spotted a mistake? Let me know on [Mastodon]({{ site.mastodon }})!.

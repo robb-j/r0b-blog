@@ -44,4 +44,4 @@ Deconf is my active project at the moment, I’m feeling the burden of all that 
 
 I’ve been seeing a lot of negative sentiment for SPAs recently which has got me down a bit knowing what I’ve made and the experiences I’ve put out there. But at the same time, I don’t think I _could_ have done a lot of those things without them so I don’t know really. I’m endeavouring to find a better way forwards. 
 
-Wow that felt like a bit of a rollercoaster, thanks for getting this far! If you thought this was interesting or have a suggestion, [@ me on Mastodon](https://hyem.tech/@rob)!
+Wow that felt like a bit of a rollercoaster, thanks for getting this far! If you thought this was interesting or have a suggestion, [@ me on Mastodon]({{ site.mastodon }})!

@@ -54,4 +54,4 @@ The final step is to redirect the user to the "edit" page on GitHub, which is te
 
 I wasn't sure if it should open a new tab or redirect the current page. Because of [Arc's new Peek](https://www.youtube.com/watch?v=biPlFWl64ws) I decided to keep it on the same page and it all works very nicely.
 
-I hope this was interesting, let me know what you think on [Mastodon](https://hyem.tech/@rob)!
+I hope this was interesting, let me know what you think on [Mastodon]({{ site.mastodon }})!

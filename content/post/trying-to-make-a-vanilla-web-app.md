@@ -129,4 +129,4 @@ I think it’s safe to say you can make a web app without an _SPA_ framework lik
 
 This specific app is a bit of an outlier in the whole _SPA_ debate as it’s running on very precise hardware and software. In this case it might have actually made sense to use something like Vue.js to speed up development and avoid those event hang-ups. We have considered this a few times! But in writing this I think it has been useful to explore the space and question the norm.
 
-Thanks for reading, please [let me know](https://hyem.tech/@rob) what you think!
+Thanks for reading, please [let me know]({{ site.mastodon }}) what you think!

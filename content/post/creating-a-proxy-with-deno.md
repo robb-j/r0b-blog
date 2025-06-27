@@ -83,4 +83,4 @@ I hope you found this interesting. I've been quite liking Deno recently, I think
 
 ---
 
-Spotted a mistake or have some feedback, [let me know on Mastodon!](https://hyem.tech/@rob).
+Spotted a mistake or have some feedback, [let me know on Mastodon!]({{ site.mastodon }}).

@@ -144,4 +144,4 @@ My use case was just getting those JSDoc comments out of the code and into the w
 
 Props to [Zach](https://fosstodon.org/@eleventy/110300521096431755) for prompting me to do this.
 
-Hit me up on [Mastodon](https://hyem.tech/@rob) if you liked this, have feedback or just want to know more!
+Hit me up on [Mastodon]({{ site.mastodon }}) if you liked this, have feedback or just want to know more!

@@ -114,4 +114,4 @@ npx eleventy
 
 ---
 
-Hit me up on [Mastodon](https://hyem.tech/@rob) if you liked this, have feedback or just want to know more!
+Hit me up on [Mastodon]({{ site.mastodon }}) if you liked this, have feedback or just want to know more!

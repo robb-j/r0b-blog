@@ -68,4 +68,4 @@ Check it out at [robb-j/gruber](https://github.com/robb-j/gruber).
 
 I'd love to know what you think.
 
-→ [Rob](https://hyem.tech/@rob)
+→ [Rob]({{ site.mastodon }})
