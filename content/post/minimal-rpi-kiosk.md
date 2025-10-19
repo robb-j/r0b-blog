@@ -41,6 +41,8 @@ sudo apt-get install --no-install-recommends xserver-xorg-video-all \
 sudo raspi-config
 ```
 
+> **19/10/25** — On Debian 13+ `chromium-browser` seems to have been renamed to just `chromium`
+
 Next edit `/home/pi/.bash_profile` to automatically start the gui.
 There's a check for the bash context first,
 so you don't accidentally start chromium whenever you ssh in.
