@@ -1,6 +1,6 @@
 ---
 title: Notes on restoring my iPod Classic
-date: 2025-11-19 19:00
+date: 2025-11-19 19:00:00
 draft: false
 summary: >-
   I got my old iPod Classic working ... just ... here are some of my notes from it.
