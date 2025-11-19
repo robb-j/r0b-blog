@@ -17,9 +17,9 @@ After browsing the excellent iFixit guides, I found they have an [entire series]
 ### What I modified  
 I wanted to keep this as “pure” an iPod experience as possible, I avoided flashing [Rockbox](https://www.rockbox.org/). Instead opting to keep the original OS, often referred to as **Pixo**.  
   
-The iPod wouldn’t boot or stay charged so I set about changing the battery and it seemed relatively easy to swap the HDD for an SD card so I swapped that too. The device went from a 20GB HDD to a 64GB SD card! I’m also hoping that the SD will be more battery efficient. It’s a slightly convoluted 40 Pin to CF Adapter into a CF card to SD card adapter and finally an SD card to go in that.  
+The iPod wouldn’t boot or stay charged so I set about changing the battery and it seemed relatively easy to swap the HDD for an SD card so I swapped that too. The device went from a 20GB HDD to a 64GB SD card! I’m also hoping that the SD will be more battery efficient. It’s a slightly convoluted 50 Pin to CF Adapter into a CF card to SD card adapter and finally an SD card to go in that.  
   
-For the 40 pin adapter, I missed the iFixit step to trim down one of the nodules to make it fit and it wasn’t obvious that not all the pins are needed, it’s ok for it to overlap on one side. I also bent over a dual jumper header so it fit better inside the reassembled iPod case.  
+For the 50 pin adapter, I missed the iFixit step to trim down one of the nodules to make it fit and it wasn’t obvious that not all the pins are needed, it’s ok for it to overlap on one side. I also bent over a dual jumper header so it fit better inside the reassembled iPod case.  
   
 ### The boot menu  
 I spent a fair while exploring the BIOS-like debug menu to see what was going on with the iPod. I didn’t really learn much here. It was useful to understand how it works.  
@@ -36,7 +36,7 @@ The iPod seems fussy about what will charge it. Mine won’t charge on a PC, eve
   
   
 ### Replacing the HDD  
-I followed this [iFixit guide](https://www.ifixit.com/Guide/iPod+4th+generation+or+Photo+hard+drive+replacement+by+micro+SD+card/148097) and got this [Compact Flash adapter](https://www.amazon.co.uk/dp/B08JYXNW22) and this [50 pin adapter](https://www.amazon.co.uk/dp/B00S6AK592) from Amazon. It was weird that not all the pins are used, it needs to “overhang” on the left side. If you trace the lines on the circuit you can see that those pins aren’t connected to anything anyway. There is a surprisingly bright LED when the card is being red, but I guess you never really see that. I also bent/folded the jumper so it fit inside the iPod nicely. I do wonder if it affects the battery.  
+I followed this [iFixit guide](https://www.ifixit.com/Guide/iPod+4th+generation+or+Photo+hard+drive+replacement+by+micro+SD+card/148097) and got this [Compact Flash adapter](https://www.amazon.co.uk/dp/B08JYXNW22) and this [50 pin adapter](https://www.amazon.co.uk/dp/B00S6AK592) from Amazon. It was weird that not all the pins are used, it needs to “overhang” on the left side. If you trace the lines on the circuit you can see that those pins aren’t connected to anything anyway. There is a surprisingly bright LED when the card is being read, but I guess you never really see that. I also bent/folded the jumper so it fit inside the iPod nicely. I do wonder if it affects the battery.  
   
 Because the SD card setup is so much smaller, I stuck a bit of anti-static foam to the underside of the 50-pin adapter. This presses the adapters up against the case a bit and stops anything from rattling around. I had some lying around, it was probably 5mm thick and quite compressible.  
   
@@ -80,11 +80,10 @@ It all runs completely in the browser, there’s no server here! It runs ffmpeg 
   
   
 ### Apple USB SuperDrive  
-If you want to use the SuperDrive with Windows, you’ll need to install the driver for it. You can get them as part of the Bootcamp support package. [Download that](https://support.apple.com/en-us/106378) and install AppleODDInstaller64 and it should work and show up in iTunes.  
+If you want to use the SuperDrive with Windows, you’ll need to install the driver for it. You can get them as part of the Bootcamp support package. [Download that](https://support.apple.com/en-us/106378) and install AppleODDInstaller64 and it should work and show up in iTunes. It's here-ish:
   
 ```
 bootcamp{version}\BootCamp\Drivers\Apple\AppleODDInstaller64.exe
-
 ```
   
   
