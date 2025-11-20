@@ -55,7 +55,7 @@ There are a few options when you start synchronising an iPod, and I had no idea 
 ***convert bitrate***  
 It turns out the iPod will store whatever you throw at it, be it AAC, MP3 or Apple Lossless. You can use this option to transcode audio to AAC at a bitrate at the time of synchronising. I’ve had weird issues where this option would lose album artworks, it might be worth transcoding yourself with something like [ffmpeg](https://www.ffmpeg.org/).  
   
-I also started making a script to transcode an entire directory (recursively) of music files into a new directory formatted to AAC 256kbps while preserving metadata & artwork and removing Album Artists (which don’t work on iPods)  
+I also started making [a script](https://github.com/robb-j/m4b-editor/blob/main/scripts/itool.js) to transcode an entire directory (recursively) of music files into a new directory formatted to AAC 256kbps while preserving metadata & artwork and removing Album Artists (which don’t work on iPods)  
   
 ***manually manage this iPod***  
 This forgoes iTune’s synchronisation UI so you can just drag and drop music onto the device. This is very useful. You can also inspect the tracks on the iPod within iTunes so you can see if the artwork or metadata is set correctly. You don’t even need to have the music in iTunes to do this.  
